@@ -3,12 +3,12 @@ import { Container, Grid, Button } from "semantic-ui-react";
 
 import BackgroundVideo from "./components/presentation/unique/BackgroundVideo";
 
-import mp4Video from "./assets/video/house-clouds-time-lapse.mp4";
-import webmVideo from "./assets/video/house-clouds-time-lapse.webm";
-import bgImg from "./assets/image/thumb.png";
+import mp4VideoSrc from "./assets/video/Under-construction.mp4";
+import webmVideoSrc from "./assets/video/Under-construction.webm";
+import bgImgSrc from "./assets/image/Under-construction.jpg";
 
 const homestyle = {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#ff7b4f",
     // width: "500px",
     // height: "100px",
@@ -17,23 +17,29 @@ const homestyle = {
     color: "white",
 };
 
+const textStyle = {
+    // flex: 1,
+    // backgroundColor: "#ff7b4f",
+    // width: "500px",
+    // height: "100px",
+    // justifyContent: "center",
+    // alignItems: "center",
+    color: "white",
+    position: "absolute",
+};
+
 const HomePage = () => {
     return (
         <div className="" style={homestyle}>
             <BackgroundVideo
-                mp4Video={mp4Video}
-                webmVideo={webmVideo}
-                bgImg={bgImg}
-                coverColor="pink"
-            >
-                <div className="App" style={homestyle}>
-                    <h1>OBBERS</h1>
-                    <h4>Find the right job</h4>
-                    <h6>Testing Background Video</h6>
-                    <Button>Sign Up</Button>
-                    <Button>Sign In</Button>
-                </div>
-            </BackgroundVideo>
+                mp4VideoSrc={mp4VideoSrc}
+                webmVideoSrc={webmVideoSrc}
+                bgImgSrc={bgImgSrc}
+                coverColor="#ff7b4f"
+            />
+            <div className="" style={textStyle}>
+                <h1>OBBERS</h1>
+            </div>
         </div>
     );
 };

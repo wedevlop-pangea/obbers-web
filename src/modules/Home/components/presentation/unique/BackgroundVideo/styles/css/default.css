@@ -35,7 +35,7 @@
 
 .background-video-color-cover {
     background-color: blue;
-    opacity: 0.75;
+    /* opacity: 0.75; */
     /* z-index: 1; */
 }
 

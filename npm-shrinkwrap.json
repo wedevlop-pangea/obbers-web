@@ -5735,6 +5735,11 @@
       "resolved": "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz",
       "integrity": "sha1-2uRqnXj74lKSJYzB54CkHZXAN4I="
     },
+    "flow-bin": {
+      "version": "0.102.0-rc",
+      "resolved": "https://registry.npmjs.org/flow-bin/-/flow-bin-0.102.0-rc.tgz",
+      "integrity": "sha512-oJsI5mWz+eyajlDqjIGVW6dOIX/9U6G+3cQprAYBt6Jktxg3n9i+GAN5cYWB9lAbzGXgn8+l/rWgoEc8B96szQ=="
+    },
     "flush-write-stream": {
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/flush-write-stream/-/flush-write-stream-1.1.1.tgz",
