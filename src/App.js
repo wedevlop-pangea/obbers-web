@@ -4,19 +4,23 @@ import "./App.css";
 import { Container, Grid } from "semantic-ui-react";
 import { Route } from "react-router-dom";
 
-import HomePage from "./samples/test/simple_pages/HomePage";
-import ShopPage from "./samples/test/simple_pages/ShopPage";
-import AdminPage from "./samples/test/simple_pages/AdminPage";
-import EmployeePage from "./samples/test/simple_pages/EmployeePage";
-import EmployerPage from "./samples/test/simple_pages/EmployerPage";
+import HomePage from "./app/samples/test/simple_pages/HomePage";
+import ShopPage from "./app/samples/test/simple_pages/ShopPage";
+import AdminPage from "./app/samples/test/simple_pages/AdminPage";
+import EmployeePage from "./app/samples/test/simple_pages/EmployeePage";
+import EmployerPage from "./app/samples/test/simple_pages/EmployerPage";
 
+// Root Component - App's Starting Point
 import HomeModule from "./modules/Home";
+
+// Import Test Component(s)
+import TestComponent from "./modules/Home";
 
 class App extends Component {
     render() {
         return (
             <Fragment>
-                <Route exact path="/" component={HomeModule} />
+                <Route exact path="/" component={TestComponent} />
                 <Route
                     path="/(.+)"
                     render={() => (
