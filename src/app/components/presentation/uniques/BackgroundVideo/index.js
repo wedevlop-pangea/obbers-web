@@ -63,7 +63,7 @@ const BackgroundVideo = ({
     };
 
     const childDivStyle = {
-        backgroundColor: "black",
+        // backgroundColor: "black",
         opacity: 0.5,
         position: "absolute",
         top: 0,

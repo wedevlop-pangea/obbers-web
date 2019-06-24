@@ -42,8 +42,13 @@ const testStyle = {
     // flex: 1,
 };
 
-const textStyle = {
+const titleStyle = {
     fontSize: "100px",
+    margin: 0,
+    padding: 0,
+};
+const subtitleStyle = {
+    fontSize: "40px",
     margin: 0,
     padding: 0,
 };
@@ -66,28 +71,63 @@ const HomePage = () => {
                 webmVideoSrc={webmVideoSrc}
                 bgImgSrc={bgImgSrc}
                 coverColor="#ff7b4f"
+                coverOpacity="0.85"
             >
                 <div
                     style={{
-                        margin: 0,
-                        padding: 0,
+                        // margin: 0,
+                        // padding: 0,
                         display: "flex",
-                        textAlign: "center",
+                        // textAlign: "center",
                         flexDirection: "column",
                         justifyContent: "space-between",
-                        alignItems: "space-between",
-                        backgroundColor: "orange",
+                        // alignItems: "space-around",
+                        // backgroundColor: "green",
                         width: "100%",
                         height: "100%",
                     }}
                 >
-                    <h1 style={textStyle}>OBBERS</h1>
-                    <h4>Find the right job.</h4>
-                    <MyButton text="HIRE ME" />
-                    <MyButton text="HIRE" />
+                    <div
+                        style={
+                            {
+                                // backgroundColor: "black",
+                                // flex: 1,
+                                // display: "flex",
+                                // flex: 0.5,
+                                // height: "50%",
+                            }
+                        }
+                    >
+                        <h1 style={titleStyle}>OBBERS</h1>
+                        <h4 style={subtitleStyle}>Find the right job.</h4>
+                    </div>
+
+                    <div
+                        style={{
+                            // backgroundColor: "gray",
+                            // flex: 1,
+                            // display: "flex",
+                            // flex: 0.5,
+                            // height: "50%",
+                            marginBottom: 200,
+
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <MyButton text="HIRE ME" />
+                        <MyButton text="HIRE" />
+                    </div>
                 </div>
             </BackgroundVideo>
-            <div className="homeChildDiv" style={divPageSectionStyle} />
+            <div className="homeChildDiv" style={divPageSectionStyle}>
+                <DivAbsolute>
+                    <h1 style={titleStyle}>OBBERS</h1>
+                    <MyButton text="HIRE" />
+                </DivAbsolute>
+            </div>
             <div className="homeChildDiv" style={divPageSectionStyle} />
             <div className="homeChildDiv" style={divPageSectionStyle} />
         </div>
