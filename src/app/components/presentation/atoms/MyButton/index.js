@@ -1,25 +1,44 @@
 /**
- * Styles can be override
- * Receives props, but has default props
- * Can render child components
+ * Documentation
  */
 
 import React from "react";
 import { Button } from "semantic-ui-react";
-import cssStyles from "./styles/css.css";
+import cssModules from "./styles/cssModules.css";
 
-const styles = {
-    borderRadius: 0,
-    borderSize: 10,
-    borderWidth: 10,
-    borderColor: "black",
-    // backgroundColor: "white",
+const MyButton = props => {
+    const { text, overrideButtonStyle } = props;
+
+    const buttonStyle = {
+        width: "80%",
+        height: "80px",
+        // borderRadius: 10,
+        // borderSize: 10,
+        // borderWidth: 10,
+        // borderColor: "black",
+        // backgroundColor: rgba(255, 255, 255, 0),
+        // fontFamily
+        fontSize: 20,
+        color: "white",
+    };
+
+    return (
+        <Button
+            {...props}
+            style={{ ...buttonStyle, ...overrideButtonStyle }}
+            className={[cssModules.myButton]}
+            content={text}
+        />
+    );
 };
 
-const MyButton = ({ text }) => (
-    <Button style={styles} className="myButton" content="Click Here">
-        {text}
-    </Button>
-);
+MyButton.defaultProps = {
+    text: "MyButton",
+    buttonWidth: "80%",
+    buttonHeight: "80px",
+    fontSize: 20,
+    color: "white",
+    overrideButtonStyle: {},
+};
 
 export default MyButton;

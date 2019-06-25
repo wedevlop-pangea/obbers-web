@@ -48,15 +48,18 @@ import defaultMp4VideoSrc from "./assets/Modem-lights.mp4";
 import defaultWebmVideoSrc from "./assets/Modem-lights.webm";
 import defaultBgImgSrc from "./assets/Modem-lights.jpg";
 
-const BackgroundVideo = ({
-    coverColor,
-    coverOpacity,
-    bgImgSrc,
-    mp4VideoSrc,
-    webmVideoSrc,
-    customStyle,
-    children,
-}) => {
+const MyBackgroundVideo = props => {
+    const {
+        coverColor,
+        coverOpacity,
+        bgImgSrc,
+        mp4VideoSrc,
+        webmVideoSrc,
+        customStyle,
+        children,
+        childrenOpacity,
+    } = props;
+
     const styles = {
         backgroundColor: coverColor,
         opacity: coverOpacity,
@@ -64,7 +67,7 @@ const BackgroundVideo = ({
 
     const childDivStyle = {
         // backgroundColor: "black",
-        opacity: 0.5,
+        opacity: childrenOpacity,
         position: "absolute",
         top: 0,
         left: 0,
@@ -76,10 +79,11 @@ const BackgroundVideo = ({
         <div className="background-video-div-relative">
             <div className="background-video-container">
                 <img
-                    src={bgImgSrc}
                     className="background-video-component-items background-video-element"
+                    src={bgImgSrc}
                 />
                 <video
+                    className="background-video-component-items background-video-element"
                     // controls
                     width="100%"
                     height="100%"
@@ -88,7 +92,6 @@ const BackgroundVideo = ({
                     loop
                     muted
                     // poster={bgImgSrc}
-                    className="background-video-component-items background-video-element"
                 >
                     {/* type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' */}
                     {/* type='video/webm;codecs="vp8, vorbis"' */}
@@ -106,13 +109,14 @@ const BackgroundVideo = ({
     );
 };
 
-BackgroundVideo.defaultProps = {
+MyBackgroundVideo.defaultProps = {
     coverColor: "blue",
     coverOpacity: 0.75,
     bgImgSrc: defaultBgImgSrc,
     mp4VideoSrc: defaultMp4VideoSrc,
     webmVideoSrc: defaultWebmVideoSrc,
+    childrenOpacity: 0.9,
     customStyle: {},
 };
 
-export default BackgroundVideo;
+export default MyBackgroundVideo;

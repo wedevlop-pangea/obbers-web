@@ -1,0 +1,6 @@
+:local(.myButton) {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    /* color: rgba(255, 255, 255, 0.1) !important; */
+    border-color: white !important;
+    border-width: 10 !important;
+}

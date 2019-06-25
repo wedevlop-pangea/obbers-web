@@ -1,9 +1,0 @@
-.myButton {
-    background-color: gba(255, 255, 255, 0.1) !important;
-}
-
-.ui.inverted.segment,
-.ui.primary.inverted.segment {
-    background: #1b1c1d;
-    color: rgba(255, 255, 255, 0.9);
-}
