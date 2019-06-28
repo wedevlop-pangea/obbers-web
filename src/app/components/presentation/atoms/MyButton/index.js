@@ -1,5 +1,8 @@
+// @flow
+
 /**
  * Documentation
+ * This button should be totally configurable, select shape, borders, type, size, fontSize, etc
  */
 
 import React from "react";
@@ -7,7 +10,13 @@ import { Button } from "semantic-ui-react";
 import cssModules from "./styles/cssModules.css";
 
 const MyButton = props => {
-    const { text, overrideButtonStyle } = props;
+    const {
+        text,
+        buttonColor,
+        textColor,
+        overrideButtonStyle,
+        shape, // "rectangle" round corner, "square" round corner, "circle", "polygon" number of polygons, "parallelogram" direction left or right and round corner
+    } = props;
 
     const buttonStyle = {
         width: "80%",
@@ -16,10 +25,10 @@ const MyButton = props => {
         // borderSize: 10,
         // borderWidth: 10,
         // borderColor: "black",
-        // backgroundColor: rgba(255, 255, 255, 0),
+        backgroundColor: buttonColor,
         // fontFamily
         fontSize: 20,
-        color: "white",
+        color: textColor,
     };
 
     return (
@@ -37,7 +46,8 @@ MyButton.defaultProps = {
     buttonWidth: "80%",
     buttonHeight: "80px",
     fontSize: 20,
-    color: "white",
+    buttonColor: "rgba(255, 255, 255, 0.2)",
+    color: "rgba(255, 255, 255, 1)",
     overrideButtonStyle: {},
 };
 

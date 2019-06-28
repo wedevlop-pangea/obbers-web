@@ -38,7 +38,6 @@
 
 import React, { Component } from "react";
 
-// import cssModules from "./styles/css_modules/css_modules.css";
 import cssStyles from "./styles/css/default.css";
 import sassStyles from "./styles/sass/default.sass";
 import scssStyles from "./styles/scss/default.scss";
@@ -49,7 +48,7 @@ import defaultMp4VideoSrc from "./assets/Modem-lights.mp4";
 import defaultWebmVideoSrc from "./assets/Modem-lights.webm";
 import defaultBgImgSrc from "./assets/Modem-lights.jpg";
 
-const MyBackgroundVideo = props => {
+const BackgroundVideo = props => {
     const {
         coverColor,
         coverOpacity,
@@ -110,7 +109,7 @@ const MyBackgroundVideo = props => {
     );
 };
 
-MyBackgroundVideo.defaultProps = {
+BackgroundVideo.defaultProps = {
     coverColor: "blue",
     coverOpacity: 0.75,
     bgImgSrc: defaultBgImgSrc,
@@ -120,4 +119,4 @@ MyBackgroundVideo.defaultProps = {
     customStyle: {},
 };
 
-export default MyBackgroundVideo;
+export default BackgroundVideo;

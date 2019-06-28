@@ -13,16 +13,16 @@ import EmployerPage from "./app/samples/test/simple_pages/EmployerPage";
 import AuthPage from "./modules/Auth";
 
 // Root Component - App's Starting Point
-import HomeModule from "./modules/Home";
+// import HomeModule from "./modules/Home";
 
 // Import Test Component(s)
-import TestComponent from "./modules/Home";
+import HomeModule from "./modules/Home";
 
 class App extends Component {
     render() {
         return (
             <Fragment>
-                <Route exact path="/" component={TestComponent} />
+                <Route exact path="/" component={HomeModule} />
                 <Route
                     path="/(.+)"
                     render={() => (

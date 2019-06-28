@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Sections or Scenes or Pages or Screens
  * Module Content Inside This Component Div
@@ -45,7 +47,7 @@ const testStyle = {
 };
 
 const titleStyle = {
-    fontSize: "100px",
+    fontSize: "80px",
     margin: 0,
     padding: 0,
 };
@@ -53,6 +55,10 @@ const subtitleStyle = {
     fontSize: "40px",
     margin: 0,
     padding: 0,
+};
+const thirdTextStyle = {
+    fontSize: "15px",
+    color: "white",
 };
 const rightsReservedStyle = {
     fontSize: "15px",
@@ -111,7 +117,7 @@ const HomePage = () => {
 
                     <div
                         style={{
-                            // backgroundColor: "gray",
+                            backgroundColor: "gray",
                             // flex: 1,
                             // display: "flex",
                             // flex: 0.5,
@@ -124,11 +130,38 @@ const HomePage = () => {
                             alignItems: "center",
                         }}
                     >
-                        <MyButtonLink pathname="/auth" text="HIRE ME" />
+                        <Grid stackable columns={1}>
+                            <Grid.Row>
+                                <Grid.Column computer={8}>
+                                    <MyButtonLink
+                                        pathname="/auth"
+                                        text="HIRE ME"
+                                    />
+                                </Grid.Column>
+                                <Grid.Column computer={8}>
+                                    <MyButtonLink
+                                        pathname="/auth"
+                                        text="HIRE"
+                                    />
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                         <br />
-                        <MyButtonLink pathname="/auth" text="HIRE" />
+                        <br />
+                        <a href="" style={thirdTextStyle}>
+                            Already have an account
+                        </a>
+
+                        <a href="" style={thirdTextStyle}>
+                            Forgot my password
+                        </a>
                     </div>
-                    <h4 style={rightsReservedStyle}>All Rights Reserved.</h4>
+                    <div>
+                        <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
+                        <h4 style={rightsReservedStyle}>
+                            All Rights Reserved.
+                        </h4>
+                    </div>
                 </div>
             </MyBackgroundVideo>
             <div className="homeChildDiv" style={divPageSectionStyle}>

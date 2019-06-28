@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Documentation
  */
@@ -19,7 +21,7 @@ const MyButtonLink = props => {
     } = props;
 
     const linkStyle = {
-        width: "80%",
+        width: "400px",
         height: "80px",
         // borderRadius: 10,
         // borderSize: 10,
@@ -29,16 +31,21 @@ const MyButtonLink = props => {
         // fontFamily
         // fontSize: 20,
         // color: "white",
+        backgroundColor: "rgba(255, 255, 205, 0.20)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
     };
 
     const buttonStyle = {
-        width: "80%",
-        height: "80px",
+        width: "100%",
+        height: "100%",
         // borderRadius: 10,
         // borderSize: 10,
         // borderWidth: 10,
         // borderColor: "black",
-        backgroundColor: "rgba(255, 255, 255, 0.20)",
+        backgroundColor: "rgba(255, 255, 255, 0.0)",
         // fontFamily
         fontSize: 20,
         color: "white",
@@ -57,7 +64,6 @@ const MyButtonLink = props => {
             <Button
                 {...props}
                 style={{ ...buttonStyle, ...overrideButtonStyle }}
-                className={[cssModules.myButtonLink]}
                 content={text}
                 // as={Link}
                 // to={pathname}
