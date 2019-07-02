@@ -111,7 +111,7 @@ const MyBackgroundVideo = props => {
 };
 
 MyBackgroundVideo.defaultProps = {
-    coverColor: "blue",
+    coverColor: "black",
     coverOpacity: 0.75,
     bgImgSrc: defaultBgImgSrc,
     mp4VideoSrc: defaultMp4VideoSrc,

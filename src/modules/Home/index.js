@@ -10,11 +10,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Container, Grid, Button } from "semantic-ui-react";
+import { Container, Grid, Button, Image, Segment } from "semantic-ui-react";
 
 import MyBackgroundVideo from "../../app/components/presentation/uniques/MyBackgroundVideo";
 import MyButtonLink from "../../app/components/presentation/atoms/MyButtonLink";
 import MyDivAbsolute from "../../app/components/presentation/atoms/MyDivAbsolute";
+// import MyDivContainer from "../../app/components/presentation/atoms/MyDivContainer";
 
 import mp4VideoSrc from "./assets/video/Under-construction.mp4";
 import webmVideoSrc from "./assets/video/Under-construction.webm";
@@ -25,7 +26,8 @@ const homeContainerStyle = {
     margin: 0,
     padding: 0,
     textAlign: "center",
-    backgroundColor: "#ff7b4f",
+    // backgroundColor: "#ff7b4f",
+    backgroundColor: "#gray",
     width: "100%",
     height: "100vh",
     // justifyContent: "center",
@@ -94,7 +96,7 @@ const HomePage = () => {
                         // textAlign: "center",
                         flexDirection: "column",
                         justifyContent: "space-around",
-                        // alignItems: "space-around",
+                        // alignItems: "flex-end",
                         // backgroundColor: "green",
                         width: "100%",
                         height: "100%",
@@ -117,7 +119,7 @@ const HomePage = () => {
 
                     <div
                         style={{
-                            backgroundColor: "gray",
+                            // backgroundColor: "gray",
                             // flex: 1,
                             // display: "flex",
                             // flex: 0.5,
@@ -130,30 +132,73 @@ const HomePage = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Grid stackable columns={1}>
-                            <Grid.Row>
-                                <Grid.Column computer={8}>
-                                    <MyButtonLink
-                                        pathname="/auth"
-                                        text="HIRE ME"
-                                    />
-                                </Grid.Column>
-                                <Grid.Column computer={8}>
-                                    <MyButtonLink
-                                        pathname="/auth"
-                                        text="HIRE"
-                                    />
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
+                        <div
+                            style={{
+                                // backgroundColor: "gray",
+                                // flex: 1,
+                                // display: "flex",
+                                // flex: 0.5,
+                                // height: "50%",
+                                // marginBottom: 200,
+
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Container
+                                style={{
+                                    // backgroundColor: "red",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Grid stackable>
+                                    <Grid.Row>
+                                        <Grid.Column
+                                            width={8}
+                                            style={{
+                                                // backgroundColor: "gray",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <MyButtonLink
+                                                pathname="/auth"
+                                                text="HIRE"
+                                            />
+                                        </Grid.Column>
+                                        <Grid.Column
+                                            width={8}
+                                            style={{
+                                                // backgroundColor: "black",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <MyButtonLink
+                                                pathname="/auth"
+                                                text="HIRE ME"
+                                            />
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Container>
+                        </div>
                         <br />
                         <br />
                         <a href="" style={thirdTextStyle}>
-                            Already have an account
+                            <strong>
+                                Have an account? <u>Sign in</u>
+                            </strong>
                         </a>
 
                         <a href="" style={thirdTextStyle}>
-                            Forgot my password
+                            <strong>Forgot my password</strong>
                         </a>
                     </div>
                     <div>
