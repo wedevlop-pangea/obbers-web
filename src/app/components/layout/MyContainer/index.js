@@ -3,14 +3,12 @@
 /**
  * -----------------------------------------------------------------------------
  *
- * Documentation
+ * Size:
  *
- * dimensions:
  * - fitParent: 100% width, 100% height.
- * - fitBrowserWindow: 100% width, 100vh height.
- * - fitChildren: width and height is set depending on children content size. Expands.
- * - pixelFixed: pass fixed Width and height values. Pixels.
- * - percentFixed: pass fixed Width and height values. Percent.
+ * - fitScreen: 100% width, 100vh height.
+ * - fitContent: width and height is set depending on children content size. Expands.
+ * - fixed: pass fixed Width and height values, wether they are Pixels or Percent.
  * Defaults to width 100% and height 100%
  *
  * -----------------------------------------------------------------------------
@@ -28,10 +26,15 @@
  * margin: Defaults to 0.
  * padding: Defaults to 0.
  *
+ * By default it has margin and padding 0.
+ * If want to change that, it is recommended to pass those values in the
+ * overrideStyle object.
+ *
  * -----------------------------------------------------------------------------
  *
  * Position
  * Layout
+ *
  * Absolute?
  * Defaults to FALSE
  * Defaults to "relative"
@@ -44,12 +47,51 @@
  * justifyContent
  * alignItems
  *
+ * - justifyContent
+ *
+ * It defines the alignment along the main axis. It helps distribute extra free space leftover when either all the flex items on a line are inflexible, or are flexible but have reached their maximum size. It also exerts some control over the alignment of items when they overflow the line.
+ *
+ * The justify-content property accepts five different values:
+ *
+ * flex-start (default): items are packed toward the start line
+ * flex-end: items are packed toward to end line
+ * center: items are centered along the line
+ * space-between: items are evenly distributed in the line; first item is on the start line, last item on the end line
+ * space-around: items are evenly distributed in the line with equal space around them
+ * space-evenly: items are distributed so that the spacing between any two adjacent alignment subjects, before the first alignment subject, and after the last alignment subject is the same
+ *
+ * - akignItems
+ *
+ * The align-items property is a sub-property of the Flexible Box Layout module.
+ *
+ * It defines the default behaviour for how flex items are laid out along the cross axis on the current line. You can think of it as the justify-content version for the cross-axis (perpendicular to the main-axis).
+ *
+ * The align-items property accepts 5 different values:
+ *
+ * flex-start: cross-start margin edge of the items is placed on the cross-start line
+ * flex-end: cross-end margin edge of the items is placed on the cross-end line
+ * center: items are centered in the cross-axis
+ * baseline: items are aligned such as their baselines align
+ * stretch (default): stretch to fill the container (still respect min-width/max-width)
+ *
  * -----------------------------------------------------------------------------
  *
- * responsive
+ * Responsive
+ *
  * Defaults to TRUE
  * it resizes and fixes its size
  * if set to false, it will always keep its width and height no matter the device
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * Overflow
+ *
+ * visible: content is not clipped when it proceeds outside its box. This is the default value of the property
+ * hidden: overflowing content will be hidden.
+ * scroll: similar to hidden except users will be able to scroll through the hidden content
+ * auto: if the content proceeds outside its box then that content will be hidden whilst a scroll bar should be visible for users to read the rest of the content.
+ * initial: uses the default value which is visible
+ * inherit: sets the overflow to the value of its parent element.
  *
  * -----------------------------------------------------------------------------
  */
@@ -58,39 +100,216 @@ import React, { Component, Fragment } from "react";
 
 import { Container } from "semantic-ui-react";
 
+import cssStyles from "./styles/css/default.css";
+import cssModules from "./styles/css_modules/default.css";
+import sassStyles from "./styles/sass/default.sass";
+import scssStyles from "./styles/scss/default.scss";
+import stylable from "./styles/stylable/default.st.css";
+import styleObjects from "./styles/style_objects/index.js";
+import styledComponents from "./styles/styled_components/index.js";
+
+// internal config values
+
+let setTestBorders = false;
+let setTestBorderColor = "red";
+
 const MyContainer = props => {
     const {
-        dimensions,
-        children,
-        overrideComponentStyle,
+        size, // fixed, fitParent, fitScreen, fitContent, ...,
+        fitScreens, // if size="fitScreen", set here the num of screens to fit ...,
+        fixedWidth,
+        fixedHeight,
+        minWidth,
+        minHeight,
+        maxWidth,
+        maxHeight,
+        position, // HTML div positions: static, relative, fixed, absolute, sticky ...,
+        display, // defaults to "display: flex" ...,
+        flexDirection,
+        justifyContent,
+        alignItems,
+        textAlign,
+        responsive,
+        overflow, // visible, hidden, scroll, auto, initial, inherit ...,
         backgroundColor,
+        opacity,
+        testBorder,
+        testBorderWidth,
+        testBorderColor,
+        testBorderStyle,
+        overrideStyle,
+        children,
     } = props;
 
-    let style = {};
+    // Default Style -----------------------------------------------------------
 
-    if (dimensions === "fitParent") {
-    }
-    if (dimensions === "fitBrowserWindow") {
-    }
-    if (dimensions === "fitChildren") {
-    }
-    if (dimensions === "fitBrowserWindow") {
-    }
-
-    const containerStyle = {
+    let containerStyle = {
         margin: 0,
         padding: 0,
-        textAlign: "center",
+        position,
+        display,
+        flexDirection,
+        justifyContent,
+        alignItems,
+        textAlign,
+        responsive,
+        overflow,
         backgroundColor,
-        width: "100%",
-        height: "100vh",
+        opacity,
     };
+
+    // Container Size ----------------------------------------------------------
+
+    if (size === "mainContainer") {
+        let addStyle = {
+            margin: 0,
+            padding: 0,
+            textAlign: "center",
+            overflowX: "auto",
+            width: "100%",
+            height: "100vh",
+            color: "white",
+        };
+
+        return (
+            <div
+                {...props}
+                style={{
+                    // ...containerStyle,
+                    ...addStyle,
+                    ...overrideStyle,
+                }}
+            >
+                {children}
+            </div>
+        );
+    }
+
+    // Fixed Width and Height
+
+    if (fixedWidth !== false) {
+        let addStyle = { width: fixedWidth };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (fixedHeight !== false) {
+        let addStyle = { height: fixedHeight };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+
+    //
+
+    if (size === "fixed") {
+        let addStyle = {
+            width: fixedWidth ? fixedWidth : "1px",
+            height: fixedHeight ? fixedHeight : "1px",
+        };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+
+    if (size === "fitParent") {
+        let addStyle = {
+            width: "100%",
+            height: "100%",
+        };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (size === "fitScreen") {
+        let xxx = fitScreens * 100;
+        let yyy = `${xxx.toString()}vh`;
+        let addStyle = {
+            width: "100%",
+            height: yyy, // 100vh
+        };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (size === "fitContent") {
+        let addStyle = {};
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+
+    // Min and Max values for Width and Height ---------------------------------
+
+    if (minWidth !== false) {
+        let addStyle = { minWidth };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (minHeight !== false) {
+        let addStyle = { minHeight };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (maxWidth !== false) {
+        let addStyle = { maxWidth };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (maxHeight !== false) {
+        let addStyle = { maxHeight };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+
+    // Test Border -------------------------------------------------------------
+    // Comment the if statement and leave contents uncommented to see test border
+
+    if (setTestBorders === true || testBorder === true) {
+        let addStyle = {
+            borderWidth: testBorderWidth,
+            borderColor: testBorderColor,
+            borderStyle: testBorderStyle,
+        };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+
+    // Container Position ------------------------------------------------------
+
+    const relativeDivStyle = {
+        position: "relative",
+    };
+
+    const absoluteDivStyle = {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
+
+    if (position === "relativeAbsolute") {
+        return (
+            <div style={relativeDivStyle}>
+                <div
+                    {...props}
+                    style={{
+                        ...containerStyle,
+                        ...absoluteDivStyle,
+                        ...overrideStyle,
+                    }}
+                >
+                    {children}
+                </div>
+            </div>
+        );
+    }
+
+    if (position === "absolute") {
+        return (
+            <div
+                {...props}
+                style={{
+                    ...containerStyle,
+                    ...absoluteDivStyle,
+                    ...overrideStyle,
+                }}
+            >
+                {children}
+            </div>
+        );
+    }
+
+    // Container Content -------------------------------------------------------
 
     return (
         <div
             {...props}
-            style={{ ...containerStyle, ...overrideComponentStyle }}
-            //
+            style={{ ...containerStyle, ...overrideStyle }}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -105,9 +324,29 @@ const MyContainer = props => {
 };
 
 MyContainer.defaultProps = {
-    dimensions: "fitParent",
-    overrideComponentStyle: {},
-    backgroundColor: "rgba(255, 255, 255, 0)",
+    size: "fitParent",
+    fitScreens: 1,
+    fixedWidth: false,
+    fixedHeight: false,
+    minWidth: false,
+    minHeight: false,
+    maxWidth: false,
+    maxHeight: false,
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    responsive: true,
+    overflow: "visible", // visible, hidden, scroll, auto, initial, inherit ...,
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
+    opacity: 1,
+    testBorder: setTestBorders,
+    testBorderWidth: 3,
+    testBorderColor: setTestBorderColor,
+    testBorderStyle: "solid", // dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden
+    overrideStyle: {},
 };
 
 export default MyContainer;

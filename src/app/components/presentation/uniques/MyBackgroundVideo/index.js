@@ -38,12 +38,13 @@
 
 import React, { Component } from "react";
 
-// import cssModules from "./styles/css_modules/css_modules.css";
 import cssStyles from "./styles/css/default.css";
+import cssModules from "./styles/css_modules/default.css";
 import sassStyles from "./styles/sass/default.sass";
 import scssStyles from "./styles/scss/default.scss";
-import inlineStyles from "./styles/inline/index.js";
-import styledComponents from "./styles/styled/index.js";
+import stylable from "./styles/stylable/default.st.css";
+import styleObjects from "./styles/style_objects/index.js";
+import styledComponents from "./styles/styled_components/index.js";
 
 import defaultMp4VideoSrc from "./assets/Modem-lights.mp4";
 import defaultWebmVideoSrc from "./assets/Modem-lights.webm";
@@ -112,11 +113,11 @@ const MyBackgroundVideo = props => {
 
 MyBackgroundVideo.defaultProps = {
     coverColor: "black",
-    coverOpacity: 0.75,
+    coverOpacity: 1,
     bgImgSrc: defaultBgImgSrc,
     mp4VideoSrc: defaultMp4VideoSrc,
     webmVideoSrc: defaultWebmVideoSrc,
-    childrenOpacity: 0.9,
+    childrenOpacity: 1,
     customStyle: {},
 };
 

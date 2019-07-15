@@ -17,6 +17,10 @@ import EmployerPage from "./app/samples/test/simple_pages/EmployerPage";
 import HomeModule from "./modules/Home";
 import AuthModule from "./modules/Auth";
 
+import SignIn from "./modules/Auth/SignIn";
+import SignUpEmployer from "./modules/Auth/SignUpEmployer";
+import SignUpEmployee from "./modules/Auth/SignUpEmployee";
+
 class App extends Component {
     render() {
         return (
@@ -26,21 +30,46 @@ class App extends Component {
                     path="/(.+)"
                     render={() => (
                         <Fragment>
-                            <Container className="main">
-                                <Route path="/shop" component={ShopPage} />
-                                <Route path="/admin" component={AdminPage} />
-                                <Route
-                                    path="/employee"
-                                    component={EmployeePage}
-                                />
-                                <Route
-                                    path="/employer"
-                                    component={EmployerPage}
-                                />
-                                <Route path="/auth" component={AuthModule} />
-                                <Route path="/signin" component={AuthModule} />
-                                <Route path="/signup" component={AuthModule} />
-                            </Container>
+                            <Route path="/shop" component={ShopPage} />
+                            <Route path="/admin" component={AdminPage} />
+
+                            <Route path="/auth" component={AuthModule} />
+                            <Route path="/signin" component={SignIn} />
+                            <Route path="/signup" component={AuthModule} />
+                            <Route
+                                exact
+                                path="/employer"
+                                component={AuthModule}
+                            />
+                            <Route
+                                path="/(.+)"
+                                render={() => (
+                                    <Fragment>
+                                        <Route
+                                            exact
+                                            path="/employer/signup"
+                                            component={SignUpEmployer}
+                                        />
+                                    </Fragment>
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/employee"
+                                component={AuthModule}
+                            />
+                            <Route
+                                path="/(.+)"
+                                render={() => (
+                                    <Fragment>
+                                        <Route
+                                            exact
+                                            path="/employee/signup"
+                                            component={SignUpEmployee}
+                                        />
+                                    </Fragment>
+                                )}
+                            />
                         </Fragment>
                     )}
                 />

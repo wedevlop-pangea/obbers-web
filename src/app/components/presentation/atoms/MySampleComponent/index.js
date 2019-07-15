@@ -2,12 +2,17 @@
 
 /**
  * Documentation
+ * MySampleFunctionalComponent
  *
  * Default Props
  * Has default props, so it works if no props are passed.
  *
  * Dimensions
  * Fixed width and height, but can be set to 100% width and height to fit its parent.
+ *
+ * MIN and MAX width & height
+ * Defaults to none, not any min or max values set for width and height, but
+ * they can accept that values if passed.
  *
  * Children
  * It accepts and renders children, if passed.
@@ -48,10 +53,16 @@ import { Link } from "react-router-dom";
 
 import { Container, Grid } from "semantic-ui-react";
 
-import cssModules from "./styles/css_modules.css";
+import cssStyles from "./styles/css/default.css";
+import cssModules from "./styles/css_modules/default.css";
+import sassStyles from "./styles/sass/default.sass";
+import scssStyles from "./styles/scss/default.scss";
+import stylable from "./styles/stylable/default.st.css";
+import styleObjects from "./styles/style_objects/index.js";
+import styledComponents from "./styles/styled_components/index.js";
 
 const MySampleFunctionalComponent = props => {
-    const { children, overrideComponentStyle, backgroundColor } = props;
+    const { backgroundColor, overrideStyle, children } = props;
 
     const buttonStyle = {
         backgroundColor: backgroundColor,
@@ -60,7 +71,7 @@ const MySampleFunctionalComponent = props => {
     return (
         <Container
             {...props}
-            style={{ ...buttonStyle, ...overrideComponentStyle }}
+            style={{ ...buttonStyle, ...overrideStyle }}
             //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -76,8 +87,8 @@ const MySampleFunctionalComponent = props => {
 };
 
 MySampleFunctionalComponent.defaultProps = {
-    overrideComponentStyle: {},
-    backgroundColor: "rgba(255, 255, 255, 0.50)",
+    backgroundColor: "rgba(255, 255, 255, 1.0)",
+    overrideStyle: {},
 };
 
 export default MySampleFunctionalComponent;

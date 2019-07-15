@@ -8,45 +8,20 @@
  */
 
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { Container, Grid, Button, Image, Segment } from "semantic-ui-react";
-
-import MyBackgroundVideo from "../../app/components/presentation/uniques/MyBackgroundVideo";
-import MyButtonLink from "../../app/components/presentation/atoms/MyButtonLink";
-import MyDivAbsolute from "../../app/components/presentation/atoms/MyDivAbsolute";
-// import MyDivContainer from "../../app/components/presentation/atoms/MyDivContainer";
+import {
+    MyContainer,
+    MyGrid,
+    MyRow,
+    MyColumn,
+    MyLink,
+    MyButton,
+    MyBackgroundVideo,
+} from "./components";
 
 import mp4VideoSrc from "./assets/video/Under-construction.mp4";
 import webmVideoSrc from "./assets/video/Under-construction.webm";
 import bgImgSrc from "./assets/image/Under-construction.jpg";
-
-const homeContainerStyle = {
-    // flex: 1,
-    margin: 0,
-    padding: 0,
-    textAlign: "center",
-    // backgroundColor: "#ff7b4f",
-    backgroundColor: "#gray",
-    width: "100%",
-    height: "100vh",
-    // justifyContent: "center",
-    // alignItems: "center",
-    color: "white",
-};
-
-const testStyle = {
-    // flex: 1,
-    backgroundColor: "blue",
-    // width: "100vh",
-    // height: "100vh",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // color: "white",
-    // width: "100%",
-    // height: "100%",
-    // flex: 1,
-};
 
 const titleStyle = {
     fontSize: "80px",
@@ -63,181 +38,77 @@ const thirdTextStyle = {
     color: "white",
 };
 const rightsReservedStyle = {
-    fontSize: "15px",
+    // fontSize: "15px",
     margin: 0,
     padding: 0,
 };
 
-const divPageSectionStyle = {
-    // margin: "auto",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#ff7b4f",
-    // width: "100px",
-    // height: "100px",
-    // borderRadius: 50,
-};
-
 const HomePage = () => {
     return (
-        <div className="" style={homeContainerStyle}>
-            <MyBackgroundVideo
-                mp4VideoSrc={mp4VideoSrc}
-                webmVideoSrc={webmVideoSrc}
-                bgImgSrc={bgImgSrc}
-                coverColor="#ff7b4f"
-                coverOpacity="0.85"
-            >
-                <div
-                    style={{
-                        // margin: 0,
-                        // padding: 0,
-                        display: "flex",
-                        // textAlign: "center",
-                        flexDirection: "column",
-                        justifyContent: "space-around",
-                        // alignItems: "flex-end",
-                        // backgroundColor: "green",
-                        width: "100%",
-                        height: "100%",
-                    }}
+        <MyContainer size="mainContainer">
+            <MyContainer justifyContent="space-around" minHeight="500px">
+                <MyBackgroundVideo
+                    mp4VideoSrc={mp4VideoSrc}
+                    webmVideoSrc={webmVideoSrc}
+                    bgImgSrc={bgImgSrc}
+                    coverColor="#ff7b4f"
+                    coverOpacity="0.9"
                 >
-                    <div
-                        style={
-                            {
-                                // backgroundColor: "black",
-                                // flex: 1,
-                                // display: "flex",
-                                // flex: 0.5,
-                                // height: "50%",
-                            }
-                        }
-                    >
-                        <h1 style={titleStyle}>OBBERS</h1>
-                        <h4 style={subtitleStyle}>Find the right job.</h4>
-                    </div>
+                    <MyContainer position="absolute">
+                        <MyContainer>
+                            <h1 style={titleStyle}>OBBERS</h1>
+                            <h4 style={subtitleStyle}>Find the right job.</h4>
+                        </MyContainer>
 
-                    <div
-                        style={{
-                            // backgroundColor: "gray",
-                            // flex: 1,
-                            // display: "flex",
-                            // flex: 0.5,
-                            // height: "50%",
-                            // marginBottom: 200,
-
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div
-                            style={{
-                                // backgroundColor: "gray",
-                                // flex: 1,
-                                // display: "flex",
-                                // flex: 0.5,
-                                // height: "50%",
-                                // marginBottom: 200,
-
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Container
-                                style={{
-                                    // backgroundColor: "red",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Grid stackable>
-                                    <Grid.Row>
-                                        <Grid.Column
-                                            width={8}
-                                            style={{
-                                                // backgroundColor: "gray",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <MyButtonLink
-                                                pathname="/auth"
-                                                text="HIRE"
-                                            />
-                                        </Grid.Column>
-                                        <Grid.Column
-                                            width={8}
-                                            style={{
-                                                // backgroundColor: "black",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <MyButtonLink
-                                                pathname="/auth"
-                                                text="HIRE ME"
-                                            />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Container>
-                        </div>
-                        <br />
-                        <br />
-                        <a href="" style={thirdTextStyle}>
-                            <strong>
-                                Have an account? <u>Sign in</u>
-                            </strong>
-                        </a>
-
-                        <a href="" style={thirdTextStyle}>
-                            <strong>Forgot my password</strong>
-                        </a>
-                    </div>
-                    <div>
-                        <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
-                        <h4 style={rightsReservedStyle}>
-                            All Rights Reserved.
-                        </h4>
-                    </div>
-                </div>
-            </MyBackgroundVideo>
-            <div className="homeChildDiv" style={divPageSectionStyle}>
-                <MyDivAbsolute>
-                    <h1 style={titleStyle}>OUR MISSION</h1>
-                </MyDivAbsolute>
-            </div>
-            <div className="homeChildDiv" style={divPageSectionStyle}>
-                <h1 style={titleStyle}>FEEDBACK</h1>
-            </div>
-            <div className="homeChildDiv" style={divPageSectionStyle}>
-                <h1 style={titleStyle}>CONTACT US</h1>
-            </div>
-        </div>
+                        <MyContainer justifyContent="space-evenly">
+                            <MyGrid>
+                                <MyRow>
+                                    <MyColumn columnWidth={8}>
+                                        <MyButton
+                                            asLink
+                                            pathname="/employer/signup"
+                                            text="HIRE"
+                                        />
+                                    </MyColumn>
+                                    <MyColumn columnWidth={8}>
+                                        <MyButton
+                                            asLink
+                                            pathname="/employee/signup"
+                                            text="HIRE ME"
+                                        />
+                                    </MyColumn>
+                                </MyRow>
+                            </MyGrid>
+                            <MyContainer size="fitContent">
+                                <a href="" style={thirdTextStyle}>
+                                    <strong>
+                                        Have an account? <u>Sign in</u>
+                                    </strong>
+                                </a>
+                                <a href="" style={thirdTextStyle}>
+                                    <strong>Forgot my password</strong>
+                                </a>
+                            </MyContainer>
+                        </MyContainer>
+                    </MyContainer>
+                </MyBackgroundVideo>
+            </MyContainer>
+            <MyContainer size="fitScreen" backgroundColor="gray">
+                <h1 style={rightsReservedStyle}>OBBERS © 2019</h1>
+            </MyContainer>
+            <MyContainer size="fitContent" backgroundColor="black">
+                <br />
+                <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
+                <h4 style={rightsReservedStyle}>All Rights Reserved.</h4>
+                <br />
+            </MyContainer>
+        </MyContainer>
     );
 };
 
 /*
-<M
-    BackgroundVideo
-    mp4VideoSrc={mp4VideoSrc}
-    webmVideoSrc={webmVideoSrc}
-    bgImgSrc={bgImgSrc}
-    coverColor="#ff7b4f"
->y
-    <h1>OBBERS</h1>
-    <h4>Find the right job.</h4>
-    <MyButton text="HIRE ME" />
-    <MyButton text="HIRE" />
-</M
-    BackgroundVideo>
+<MyLink bold>{"Have an account?"}</MyLink>
+<MyLink italic>Sign In</MyLink>
 */
 
 export default HomePage;
