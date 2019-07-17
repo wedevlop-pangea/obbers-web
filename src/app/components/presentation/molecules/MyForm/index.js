@@ -65,16 +65,17 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyForm = props => {
-    const { backgroundColor, overrideStyle, children } = props;
+    const { textColor, backgroundColor, overrideStyle, children } = props;
 
-    const buttonStyle = {
+    const formStyle = {
+        color: textColor,
         backgroundColor: backgroundColor,
     };
 
     return (
         <Container
             {...props}
-            style={{ ...buttonStyle, ...overrideStyle }}
+            style={{ ...formStyle, ...overrideStyle }}
             //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -90,6 +91,7 @@ const MyForm = props => {
 };
 
 MyForm.defaultProps = {
+    textColor: "gray",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideStyle: {},
 };

@@ -16,7 +16,11 @@ import {
     MyColumn,
     MyLink,
     MyButton,
+    MyImage,
     MyBackgroundVideo,
+    CompanyLogo,
+    CompanyAppIcon,
+    OSIcon,
 } from "./components";
 
 import mp4VideoSrc from "./assets/video/Under-construction.mp4";
@@ -29,7 +33,7 @@ const titleStyle = {
     padding: 0,
 };
 const subtitleStyle = {
-    fontSize: "40px",
+    // fontSize: "40px",
     margin: 0,
     padding: 0,
 };
@@ -46,7 +50,7 @@ const rightsReservedStyle = {
 const HomePage = () => {
     return (
         <MyContainer size="mainContainer">
-            <MyContainer justifyContent="space-around" minHeight="500px">
+            <MyContainer justifyContent="space-around" minHeight="550px">
                 <MyBackgroundVideo
                     mp4VideoSrc={mp4VideoSrc}
                     webmVideoSrc={webmVideoSrc}
@@ -56,8 +60,12 @@ const HomePage = () => {
                 >
                     <MyContainer position="absolute">
                         <MyContainer>
-                            <h1 style={titleStyle}>OBBERS</h1>
-                            <h4 style={subtitleStyle}>Find the right job.</h4>
+                            <CompanyLogo
+                                theme="white"
+                                size="large"
+                                backgroundColor="rgba(255, 255, 255, 0.0)"
+                            />
+                            <h1 style={subtitleStyle}>Find the right job.</h1>
                         </MyContainer>
 
                         <MyContainer justifyContent="space-evenly">
@@ -93,14 +101,55 @@ const HomePage = () => {
                     </MyContainer>
                 </MyBackgroundVideo>
             </MyContainer>
-            <MyContainer size="fitScreen" backgroundColor="gray">
-                <h1 style={rightsReservedStyle}>OBBERS © 2019</h1>
+            <MyContainer
+                size="fitScreen"
+                backgroundColor="white"
+                minHeight="550px"
+                justifyContent="space-around"
+            >
+                <MyContainer justifyContent="flex-end">
+                    <CompanyAppIcon size="small" />
+                    <CompanyLogo
+                        theme="light"
+                        size="medium"
+                        backgroundColor="rgba(255, 255, 255, 0.0)"
+                    />
+                </MyContainer>
+                <MyContainer justifyContent="space-around">
+                    <MyContainer>
+                        <h1 style={{ fontSize: "20px", color: "#ff7b4f" }}>
+                            Use our mobile app
+                            <br />
+                            to keep the right people in your pocket
+                            <br />
+                            or find the right job from the palm of your hand.
+                        </h1>
+                    </MyContainer>
+                    <MyContainer>
+                        <MyContainer size="" flexDirection="row">
+                            <OSIcon osName="apple" size="mini" />
+                            <div style={{ width: "20px" }} />
+                            <OSIcon osName="android" size="mini" />
+                        </MyContainer>
+                        <h2 style={{ color: "#252525" }}>
+                            Coming soon to iOS and Android
+                        </h2>
+                    </MyContainer>
+                </MyContainer>
             </MyContainer>
-            <MyContainer size="fitContent" backgroundColor="black">
+            <MyContainer size="fitContent" backgroundColor="#252525">
+                <div style={{ height: "50px" }} />
                 <br />
+                <CompanyLogo
+                    theme="dark"
+                    size="small"
+                    backgroundColor="rgba(255, 255, 255, 0.0)"
+                />
                 <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
                 <h4 style={rightsReservedStyle}>All Rights Reserved.</h4>
                 <br />
+                <br />
+                <div style={{ height: "50px" }} />
             </MyContainer>
         </MyContainer>
     );

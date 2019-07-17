@@ -41,11 +41,7 @@ const rightsReservedStyle = {
 const SignIn = () => {
     return (
         <MyContainer size="mainContainer">
-            <MyContainer
-                justifyContent="space-around"
-                minWidth="480px"
-                minHeight="580px"
-            >
+            <MyContainer justifyContent="space-around">
                 <MyContainer position="absolute">
                     <MyContainer>
                         <h1 style={titleStyle}>Welcome back!</h1>

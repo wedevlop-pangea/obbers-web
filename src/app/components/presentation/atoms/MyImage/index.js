@@ -17,7 +17,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyImage = props => {
-    const { backgroundColor, overrideStyle, children } = props;
+    const { src, size, backgroundColor, overrideStyle, children } = props;
 
     const imageStyle = {
         backgroundColor: backgroundColor,
@@ -27,7 +27,8 @@ const MyImage = props => {
         <Image
             {...props}
             style={{ ...imageStyle, ...overrideStyle }}
-            //
+            src={src}
+            size={size}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -42,7 +43,9 @@ const MyImage = props => {
 };
 
 MyImage.defaultProps = {
-    backgroundColor: "rgba(255, 255, 255, 0.50)",
+    src: "",
+    size: "medium", // mini tiny small medium large big huge massive - from semantic ui react
+    backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideStyle: {},
 };
 

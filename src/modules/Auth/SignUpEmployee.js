@@ -16,6 +16,7 @@ import {
     MyColumn,
     MyLink,
     MyButton,
+    CompanyLogo,
 } from "./components";
 
 const titleStyle = {
@@ -43,36 +44,20 @@ const rightsReservedStyle = {
 const SignUpEmployee = () => {
     return (
         <MyContainer size="mainContainer">
-            <MyContainer
-                justifyContent="space-around"
-                minWidth="480px"
-                minHeight="580px"
-            >
+            <MyContainer justifyContent="space-around">
                 <MyContainer position="absolute" backgroundColor="white">
                     <MyContainer>
                         <h1 style={titleStyle}>Hire Me!</h1>
                         <h4 style={subtitleStyle}>Find the right job.</h4>
                     </MyContainer>
-
                     <MyContainer justifyContent="space-evenly">
-                        <MyGrid>
-                            <MyRow>
-                                <MyColumn columnWidth={8}>
-                                    <MyButton
-                                        asLink
-                                        pathname="/auth"
-                                        text="HIRE"
-                                    />
-                                </MyColumn>
-                                <MyColumn columnWidth={8}>
-                                    <MyButton
-                                        asLink
-                                        pathname="/auth"
-                                        text="HIRE ME"
-                                    />
-                                </MyColumn>
-                            </MyRow>
-                        </MyGrid>
+                        <MyContainer justifyContent="space-evenly">
+                            <CompanyLogo
+                                theme="light"
+                                size="medium"
+                                backgroundColor="rgba(255, 255, 255, 0.0)"
+                            />
+                        </MyContainer>
                     </MyContainer>
                 </MyContainer>
             </MyContainer>

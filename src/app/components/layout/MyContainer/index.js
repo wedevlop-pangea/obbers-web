@@ -131,6 +131,9 @@ const MyContainer = props => {
         textAlign,
         responsive,
         overflow, // visible, hidden, scroll, auto, initial, inherit ...,
+        overflowY,
+        showHorizontalScrollBar,
+        showVerticalScrollBar,
         backgroundColor,
         opacity,
         testBorder,
@@ -154,6 +157,7 @@ const MyContainer = props => {
         textAlign,
         responsive,
         overflow,
+        overflowY,
         backgroundColor,
         opacity,
     };
@@ -205,7 +209,6 @@ const MyContainer = props => {
         };
         containerStyle = { ...containerStyle, ...addStyle };
     }
-
     if (size === "fitParent") {
         let addStyle = {
             width: "100%",
@@ -329,7 +332,7 @@ MyContainer.defaultProps = {
     fixedWidth: false,
     fixedHeight: false,
     minWidth: false,
-    minHeight: false,
+    minHeight: false, // 550px by default if container is set to size: "fitScreen"
     maxWidth: false,
     maxHeight: false,
     position: "relative",
@@ -340,6 +343,9 @@ MyContainer.defaultProps = {
     textAlign: "center",
     responsive: true,
     overflow: "visible", // visible, hidden, scroll, auto, initial, inherit ...,
+    overflowY: "",
+    showHorizontalScrollBar: false,
+    showVerticalScrollBar: false,
     backgroundColor: "rgba(255, 255, 255, 0.0)",
     opacity: 1,
     testBorder: setTestBorders,

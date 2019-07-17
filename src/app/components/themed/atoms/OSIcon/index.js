@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * MySampleFunctionalComponent
+ * OSIcon
  *
  * Default Props
  * Has default props, so it works if no props are passed.
@@ -49,9 +49,6 @@
  */
 
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-
-import { Container, Grid } from "semantic-ui-react";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -61,18 +58,32 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-const MySampleFunctionalComponent = props => {
-    const { backgroundColor, overrideStyle, children } = props;
+import MyImage from "../../../presentation/atoms/MyImage";
 
-    const buttonStyle = {
+import appleIcon from "../../../../assets/image/app_stores/apple-1.png";
+import androidIcon from "../../../../assets/image/app_stores/android-1.png";
+
+const OSIcon = props => {
+    const { osName, size, backgroundColor, overrideStyle, children } = props;
+
+    const style = {
         backgroundColor: backgroundColor,
     };
 
+    let src;
+    if (osName === "apple") {
+        src = appleIcon;
+    }
+    if (osName === "android") {
+        src = androidIcon;
+    }
+
     return (
-        <Container
+        <MyImage
             {...props}
-            style={{ ...buttonStyle, ...overrideStyle }}
-            //
+            style={{ ...style, ...overrideStyle }}
+            src={src}
+            size={size}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -82,13 +93,15 @@ const MySampleFunctionalComponent = props => {
             // className="container classA classB"
         >
             {children}
-        </Container>
+        </MyImage>
     );
 };
 
-MySampleFunctionalComponent.defaultProps = {
+OSIcon.defaultProps = {
+    osName: "apple",
+    size: "size",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideStyle: {},
 };
 
-export default MySampleFunctionalComponent;
+export default OSIcon;
