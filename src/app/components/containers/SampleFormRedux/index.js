@@ -74,8 +74,9 @@ import { reduxForm, Field } from "redux-form";
 
 import { Segment, Header, Form, Button } from "semantic-ui-react";
 
-import MyTextInput from "../../presentation/atoms/MyTextInput";
-import MyTextArea from "../../presentation/atoms/MyTextArea";
+import TextInput from "./components/TextInput";
+import TextArea from "./components/TextArea";
+import SelectInput from "./components/SelectInput";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -91,6 +92,14 @@ class SampleFormRedux extends Component {
         this.state = {
             name: "",
             lastName: "",
+            testCategories: [
+                { key: "drinks", text: "Drinks", value: "drinks" },
+                { key: "culture", text: "Culture", value: "culture" },
+                { key: "film", text: "Film", value: "film" },
+                { key: "food", text: "Food", value: "food" },
+                { key: "music", text: "Music", value: "music" },
+                { key: "travel", text: "Travel", value: "travel" },
+            ],
         };
     }
 
@@ -149,8 +158,17 @@ class SampleFormRedux extends Component {
     // }
     // -------------------------------------------------------------------------
 
-    handleOnFormSubmit = e => {
-        e.preventDefault();
+    handleOnSubmit = values => {
+        console.log(values);
+        // this.props.initialValues
+        // this.props.callSomeActionFunctionThatTalksToServerOrSmthing(arg);
+        // this.props.history.push(`/someroute/${someparam}`);
+        // this.props.history.goBack;
+
+        // decision based on some value
+        // initialValues.id
+        // ? () => history.push(`/someroute/${initialValues.id}`)
+        // : () => history.push("/someroute")
     };
 
     // evenet (e) not destructured
@@ -160,10 +178,10 @@ class SampleFormRedux extends Component {
     //     });
     // };
 
-    // evenet (e) destructured
-    handleOnInputChange = ({ target: { name, value } }) => {
-        this.setState({ [name]: value });
-    };
+    // // evenet (e) destructured
+    // handleOnInputChange = ({ target: { name, value } }) => {
+    //     this.setState({ [name]: value });
+    // };
 
     render() {
         const {
@@ -191,73 +209,115 @@ class SampleFormRedux extends Component {
                 // className="container classA classB"
             >
                 <Segment>
-                    <Header color="teal" content="title" />
-                    <Header sub color="teal" content="details" />
+                    <Header sub color="teal" content="Register" />
+                    <Header
+                        color="teal"
+                        content="Complete registration and start hiring the right people today!"
+                    />
                 </Segment>
                 <Form
-                    onSubmit={this.handleOnFormSubmit}
+                    onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
                     <Field
+                        name="name"
+                        type="text"
+                        component={TextInput}
+                        placeholder="Name"
+                    />
+                    <Field
+                        name="lastName"
+                        type="text"
+                        component={TextInput}
+                        placeholder="Last Name"
+                    />
+                    <Field
                         name="email"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Email"
                     />
                     <Field
                         name="confirmEmail"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Confirm Email"
                     />
                     <Field
                         name="password"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Password"
                     />
                     <Field
                         name="confirmPassword"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Confirm Password"
                     />
                     <Field
                         name="companyName"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Company Name"
                     />
                     <Field
                         name="city"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="City"
                     />
                     <Field
                         name="addressLine1"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Address Line 1"
                     />
                     <Field
                         name="addressLine2"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Address Line 2"
                     />
                     <Field
                         name="state"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="State"
                     />
                     <Field
                         name="zipCode"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Zip Code"
                     />
                     <Field
                         name="phone"
-                        component={MyTextInput}
+                        type="text"
+                        component={TextInput}
                         placeholder="Phone"
                     />
                     <Field
                         name="notes"
-                        component={MyTextArea}
+                        type="text"
                         rows={3}
+                        component={TextArea}
                         placeholder="Notes"
+                    />
+                    <Field
+                        name="category"
+                        type="text"
+                        component={SelectInput}
+                        options={this.state.testCategories}
+                        placeholder="Select Option"
+                    />
+                    <Field
+                        name="category"
+                        type="text"
+                        component={SelectInput}
+                        options={this.state.testCategories}
+                        multiple
+                        placeholder="Select Option"
                     />
                     <Button
                         positive
@@ -282,9 +342,13 @@ SampleFormRedux.defaultProps = {
     overrideStyle: {},
 };
 
-const mapStateToProps = state => {
+// const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         // testProp: state.testProp
+        initialValues: {
+            name: "test name",
+        },
     };
 };
 

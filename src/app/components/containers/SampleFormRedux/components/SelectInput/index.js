@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * MyTextArea
+ * SelectInput
  *
  * Render Label ? BOOL
  * Label Position, top, right, bottom, left
@@ -14,7 +14,7 @@
  */
 
 import React, { Component, Fragment } from "react";
-import { Form, Label } from "semantic-ui-react";
+import { Form, Label, Select } from "semantic-ui-react";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -24,13 +24,13 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-const MyTextArea = props => {
+const SelectInput = props => {
     const {
         input,
-        rows,
-        width,
         type,
         placeholder,
+        multiple,
+        options,
         meta: { touched, error },
         backgroundColor,
         overrideContainerStyle,
@@ -40,19 +40,9 @@ const MyTextArea = props => {
 
     const containerStyle = {
         backgroundColor: backgroundColor,
-        //
-        width: "100%",
-        borderStyle: "none",
-        border: "20px",
     };
     const inputStyle = {
         backgroundColor: backgroundColor,
-        //
-        borderStyle: "solid",
-        borderTop: "2px",
-        borderRight: "2px",
-        borderLeft: "2px",
-        height: "20px !important",
     };
 
     return (
@@ -68,12 +58,13 @@ const MyTextArea = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
-            <textarea
-                {...input}
+            <Select
                 style={{ ...inputStyle, ...overrideInputStyle }}
+                value={input.value || null}
+                onChange={(e, data) => input.onChange(data.value)}
                 placeholder={placeholder}
-                type={type}
-                rows={rows}
+                options={options}
+                multiple={multiple}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -83,7 +74,7 @@ const MyTextArea = props => {
                 // className="container classA classB"
             >
                 {children}
-            </textarea>
+            </Select>
             {touched && error && (
                 <Label basic color="red">
                     {error}
@@ -93,11 +84,11 @@ const MyTextArea = props => {
     );
 };
 
-MyTextArea.defaultProps = {
+SelectInput.defaultProps = {
     placeholder: "Enter Text",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideContainerStyle: {},
     overrideInputStyle: {},
 };
 
-export default MyTextArea;
+export default SelectInput;

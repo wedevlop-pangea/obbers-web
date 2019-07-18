@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * MyTextInput
+ * TextArea
  *
  * Render Label ? BOOL
  * Label Position, top, right, bottom, left
@@ -24,9 +24,10 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-const MyTextInput = props => {
+const TextArea = props => {
     const {
         input,
+        rows,
         width,
         type,
         placeholder,
@@ -67,11 +68,12 @@ const MyTextInput = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
-            <input
+            <textarea
                 {...input}
                 style={{ ...inputStyle, ...overrideInputStyle }}
                 placeholder={placeholder}
                 type={type}
+                rows={rows}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -81,7 +83,7 @@ const MyTextInput = props => {
                 // className="container classA classB"
             >
                 {children}
-            </input>
+            </textarea>
             {touched && error && (
                 <Label basic color="red">
                     {error}
@@ -91,11 +93,11 @@ const MyTextInput = props => {
     );
 };
 
-MyTextInput.defaultProps = {
+TextArea.defaultProps = {
     placeholder: "Enter Text",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideContainerStyle: {},
     overrideInputStyle: {},
 };
 
-export default MyTextInput;
+export default TextArea;
