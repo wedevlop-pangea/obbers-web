@@ -50,9 +50,21 @@
  * Lifecycle Methods:
  * https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
  *
- * UPDATE:
+ * REDUX FORM - READ MORE:
+ * https://redux-form.com/7.4.2/docs/api/reduxform.md/
  *
+ * UPDATE:
  * It should contain all types of inputs, date pickers, image, file, phone, langauge.
+ *
+ * Should ask for how many rows you want, and columns, but it should be able
+ * to stack all of them
+ *
+ * OPTIONS:
+ * Add Grid with Columns
+ * Add Header Title and Subtitle
+ * Add Body (Grid and Columns)
+ * Add two set of inputs all of them under a TAB
+ * Add Footer, notes and buttons (submit) or (cancel) or 3rd button...
  *
  */
 
@@ -60,7 +72,10 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 
-import { Segment, Form, Button } from "semantic-ui-react";
+import { Segment, Header, Form, Button } from "semantic-ui-react";
+
+import MyTextInput from "../../presentation/atoms/MyTextInput";
+import MyTextArea from "../../presentation/atoms/MyTextArea";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -175,40 +190,85 @@ class SampleFormRedux extends Component {
                 // Vanilla CSS, join 2 classes
                 // className="container classA classB"
             >
+                <Segment>
+                    <Header color="teal" content="title" />
+                    <Header sub color="teal" content="details" />
+                </Segment>
                 <Form
                     onSubmit={this.handleOnFormSubmit}
                     autoComplete={autoComplete}
                 >
-                    <Form
-                        name="name"
-                        component="input"
-                        placeholder="name placeholder"
+                    <Field
+                        name="email"
+                        component={MyTextInput}
+                        placeholder="Email"
                     />
-                    <Form.Field>
-                        <label>Name:</label>
-                        <input
-                            type=""
-                            name="name"
-                            value={name}
-                            placeholder="Enter name"
-                            onChange={this.handleOnInputChange}
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Last Name:</label>
-                        <input
-                            type=""
-                            name="lastName"
-                            value={lastName}
-                            placeholder="Enter last name"
-                            onChange={this.handleOnInputChange}
-                        />
-                    </Form.Field>
-                    <Button positive type="submit">
+                    <Field
+                        name="confirmEmail"
+                        component={MyTextInput}
+                        placeholder="Confirm Email"
+                    />
+                    <Field
+                        name="password"
+                        component={MyTextInput}
+                        placeholder="Password"
+                    />
+                    <Field
+                        name="confirmPassword"
+                        component={MyTextInput}
+                        placeholder="Confirm Password"
+                    />
+                    <Field
+                        name="companyName"
+                        component={MyTextInput}
+                        placeholder="Company Name"
+                    />
+                    <Field
+                        name="city"
+                        component={MyTextInput}
+                        placeholder="City"
+                    />
+                    <Field
+                        name="addressLine1"
+                        component={MyTextInput}
+                        placeholder="Address Line 1"
+                    />
+                    <Field
+                        name="addressLine2"
+                        component={MyTextInput}
+                        placeholder="Address Line 2"
+                    />
+                    <Field
+                        name="state"
+                        component={MyTextInput}
+                        placeholder="State"
+                    />
+                    <Field
+                        name="zipCode"
+                        component={MyTextInput}
+                        placeholder="Zip Code"
+                    />
+                    <Field
+                        name="phone"
+                        component={MyTextInput}
+                        placeholder="Phone"
+                    />
+                    <Field
+                        name="notes"
+                        component={MyTextArea}
+                        rows={3}
+                        placeholder="Notes"
+                    />
+                    <Button
+                        positive
+                        type="submit"
+                        style={{
+                            width: "100%",
+                            height: "30px",
+                            borderRadius: "20px",
+                        }}
+                    >
                         Submit
-                    </Button>
-                    <Button positive type="button">
-                        Cancel
                     </Button>
                 </Form>
             </Segment>
@@ -237,6 +297,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps, // mapState
+    mapDispatchToProps // actions
 )(reduxForm({ form: "employerSignUpForm" })(SampleFormRedux));

@@ -118,7 +118,7 @@ const HomePage = () => {
                 <MyContainer justifyContent="space-around">
                     <MyContainer>
                         <h1 style={{ fontSize: "20px", color: "#ff7b4f" }}>
-                            Use our mobile app
+                            With our mobile app you will be able
                             <br />
                             to keep the right people in your pocket
                             <br />
@@ -127,9 +127,9 @@ const HomePage = () => {
                     </MyContainer>
                     <MyContainer>
                         <MyContainer size="" flexDirection="row">
-                            <OSIcon osName="apple" size="mini" />
+                            <OSIcon name="apple" size="mini" />
                             <div style={{ width: "20px" }} />
-                            <OSIcon osName="android" size="mini" />
+                            <OSIcon name="android" size="mini" />
                         </MyContainer>
                         <h2 style={{ color: "#252525" }}>
                             Coming soon to iOS and Android

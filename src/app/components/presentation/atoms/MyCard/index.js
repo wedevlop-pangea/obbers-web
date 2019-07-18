@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * OSIcon
+ * MyCard
  *
  * Default Props
  * Has default props, so it works if no props are passed.
@@ -50,6 +50,8 @@
 
 import React, { Component, Fragment } from "react";
 
+import { Segment } from "semantic-ui-react";
+
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
 import sassStyles from "./styles/sass/default.sass";
@@ -58,33 +60,18 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-// import MyImage from "../../../presentation/atoms/MyImage";
-import { MyImage } from "../../../index.js";
+const MyCard = props => {
+    const { backgroundColor, overrideStyle, children } = props;
 
-import appleIcon from "../../../../assets/image/app_stores/apple-1.png";
-import androidIcon from "../../../../assets/image/app_stores/android-1.png";
-
-const OSIcon = props => {
-    const { name, size, backgroundColor, overrideStyle, children } = props;
-
-    const style = {
+    const cardStyle = {
         backgroundColor: backgroundColor,
     };
 
-    let src;
-    if (name === "apple") {
-        src = appleIcon;
-    }
-    if (name === "android") {
-        src = androidIcon;
-    }
-
     return (
-        <MyImage
+        <Segment
             {...props}
-            style={{ ...style, ...overrideStyle }}
-            src={src}
-            size={size}
+            style={{ ...cardStyle, ...overrideStyle }}
+            //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -94,16 +81,13 @@ const OSIcon = props => {
             // className="container classA classB"
         >
             {children}
-        </MyImage>
+        </Segment>
     );
 };
 
-OSIcon.defaultProps = {
-    name: "apple",
-    size: "size",
+MyCard.defaultProps = {
     backgroundColor: "rgba(255, 255, 255, 1.0)",
     overrideStyle: {},
 };
 
-export default OSIcon;
-// export default MyImage(OSIcon);
+export default MyCard;

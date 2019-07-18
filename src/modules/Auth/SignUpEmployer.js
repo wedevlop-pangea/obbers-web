@@ -47,30 +47,25 @@ const rightsReservedStyle = {
 const SignUpEmployer = () => {
     return (
         <MyContainer size="mainContainer">
-            <MyContainer justifyContent="space-around">
+            <MyContainer justifyContent="space-between">
                 <MyContainer
                     position="absolute"
                     backgroundColor="white"
                     justifyContent="space-between"
                 >
                     <MyContainer size="fitContent">
-                        <h1 style={titleStyle}>Hire!</h1>
-                        <h4 style={subtitleStyle}>Find the right people.</h4>
-                    </MyContainer>
-                    <MyContainer size="fitContent">
-                        <MyForm>MyForm</MyForm>
-                        <SampleForm />
-                        <MyForm>SampleForm</MyForm>
-                        <SampleForm />
-                        <MyForm>SampleFormRedux</MyForm>
-                        <SampleForm />
-                    </MyContainer>
-                    <MyContainer size="fitContent">
                         <CompanyLogo
                             theme="light"
                             size="medium"
                             backgroundColor="rgba(255, 255, 255, 0.0)"
                         />
+                    </MyContainer>
+                    <MyContainer size="fitContent">
+                        <h1 style={titleStyle}>Hire!</h1>
+                        <h4 style={subtitleStyle}>Find the right people.</h4>
+                    </MyContainer>
+                    <MyContainer size="fitContent">
+                        <SampleFormRedux />
                     </MyContainer>
                 </MyContainer>
             </MyContainer>

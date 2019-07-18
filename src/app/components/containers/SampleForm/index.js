@@ -54,6 +54,8 @@
  *
  * It should contain all types of inputs, date pickers, image, file, phone, langauge.
  *
+ * Should ask for how many rows you want, and columns, but it should be able
+ * to stack all of them
  */
 
 import React, { Component, Fragment } from "react";
