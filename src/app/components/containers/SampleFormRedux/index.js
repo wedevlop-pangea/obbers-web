@@ -208,13 +208,6 @@ class SampleFormRedux extends Component {
                 // Vanilla CSS, join 2 classes
                 // className="container classA classB"
             >
-                <Segment>
-                    <Header sub color="teal" content="Register" />
-                    <Header
-                        color="teal"
-                        content="Complete registration and start hiring the right people today!"
-                    />
-                </Segment>
                 <Form
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}

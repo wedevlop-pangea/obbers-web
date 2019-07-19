@@ -23,13 +23,13 @@ import {
 } from "./components";
 
 const titleStyle = {
-    fontSize: "80px",
+    fontSize: "60px",
     margin: 0,
     padding: 0,
     color: "#ff7b4f",
 };
 const subtitleStyle = {
-    fontSize: "40px",
+    fontSize: "20px",
     margin: 0,
     padding: 0,
     color: "#ff7b4f",
