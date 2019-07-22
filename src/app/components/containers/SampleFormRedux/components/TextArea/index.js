@@ -95,7 +95,7 @@ const TextArea = props => {
 
 TextArea.defaultProps = {
     placeholder: "Enter Text",
-    backgroundColor: "rgba(255, 255, 255, 1.0)",
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
     overrideContainerStyle: {},
     overrideInputStyle: {},
 };

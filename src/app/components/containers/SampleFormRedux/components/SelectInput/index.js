@@ -43,6 +43,7 @@ const SelectInput = props => {
     };
     const inputStyle = {
         backgroundColor: backgroundColor,
+        borderColor: "white",
     };
 
     return (
@@ -86,7 +87,7 @@ const SelectInput = props => {
 
 SelectInput.defaultProps = {
     placeholder: "Enter Text",
-    backgroundColor: "rgba(255, 255, 255, 1.0)",
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
     overrideContainerStyle: {},
     overrideInputStyle: {},
 };

@@ -2,19 +2,18 @@
 
 /**
  * Documentation
- * TextInput
+ * DateInput
  *
- * Render Label ? BOOL
- * Label Position, top, right, bottom, left
- * Label Text Align, left center right
- *
- * placeholder Text Align, left, center, right
- * placeholder Text css customize, color, font, size, etc.
+ * See more about DatePicker configuration here.
+ * You can set more properties like Date and Time Picker.
+ * https://reactdatepicker.com/
  *
  */
 
 import React, { Component, Fragment } from "react";
 import { Form, Label } from "semantic-ui-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // custom styles for datepicker
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -24,31 +23,30 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-const TextInput = props => {
+const DateInput = props => {
     const {
         input,
         width,
-        type,
         placeholder,
         meta: { touched, error },
+        timePicker, // timePicker? if true, show a time picker as well ...,
         backgroundColor,
         overrideContainerStyle,
         overrideInputStyle,
         children,
+        ...rest
     } = props;
 
     const containerStyle = {
         backgroundColor: backgroundColor,
         //
-        width: "200%",
+        width: "100%",
         borderStyle: "none",
         border: "20px",
     };
     const inputStyle = {
         backgroundColor: backgroundColor,
         //
-        color: "white",
-        borderColor: "white",
         borderStyle: "solid",
         borderTop: "2px",
         borderRight: "2px",
@@ -69,11 +67,22 @@ const TextInput = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
-            <input
-                {...input}
+            <DatePicker
+                {...rest}
                 style={{ ...inputStyle, ...overrideInputStyle }}
-                placeholder={placeholder}
-                type={type}
+                placeholderText={placeholder}
+                selected={input.value ? new Date(input.value) : null}
+                onChange={input.onChange}
+                onBlur={input.onBlur}
+                //
+                // Pass below properties for adding TimePicker to the DatePicker`
+                //
+                // showTimeSelect
+                // timeFormat="HH:mm"
+                // timeIntervals={15}
+                // dateFormat="MMMM d, yyyy h:mm aa"
+                // timeCaption="time"
+                //
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -83,7 +92,7 @@ const TextInput = props => {
                 // className="container classA classB"
             >
                 {children}
-            </input>
+            </DatePicker>
             {touched && error && (
                 <Label basic color="red">
                     {error}
@@ -93,11 +102,12 @@ const TextInput = props => {
     );
 };
 
-TextInput.defaultProps = {
+DateInput.defaultProps = {
     placeholder: "Enter Text",
+    timePicker: false,
     backgroundColor: "rgba(255, 255, 255, 0.0)",
     overrideContainerStyle: {},
     overrideInputStyle: {},
 };
 
-export default TextInput;
+export default DateInput;

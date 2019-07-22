@@ -66,17 +66,41 @@
  * Add two set of inputs all of them under a TAB
  * Add Footer, notes and buttons (submit) or (cancel) or 3rd button...
  *
+ * Validation Library: Revalidate
+ * https://github.com/jfairbank/revalidate
+ * https://github.com/jfairbank/revalidate/tree/master/docs
+ *
  */
 
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
+import {
+    createValidator,
+    composeValidators,
+    combineValidators,
+    isRequired,
+    isRequiredIf,
+    isAlphabetic,
+    isAlphaNumeric,
+    isNumeric,
+    hasLengthBetween,
+    hasLengthGreaterThan,
+    hasLengthLessThan,
+    isOneOf,
+    matchesPattern,
+    matchesField,
+    hasError,
+    hasErrorAt,
+    hasErrorOnlyAt,
+} from "revalidate";
 
 import { Segment, Header, Form, Button } from "semantic-ui-react";
 
 import TextInput from "./components/TextInput";
 import TextArea from "./components/TextArea";
 import SelectInput from "./components/SelectInput";
+import DateInput from "./components/DateInput";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -85,6 +109,27 @@ import scssStyles from "./styles/scss/default.scss";
 import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
+
+const validate = combineValidators({
+    name: isRequired({ message: "Name is required." }),
+    // lastName: isRequired({ message: "Last Name is required." }),
+    lastName: composeValidators(
+        isRequired({ message: "Last Name is required." }),
+        hasLengthGreaterThan(1)({
+            message: "Must contain more than 1 characters.",
+        })
+    ),
+    // date: isRequired("date"),
+    date: isRequired({ message: "Date is required." }),
+    // phone: isRequired("phone"),
+    phone: composeValidators(
+        isRequired("phone"),
+        hasLengthGreaterThan(10)({
+            message: "Must contain more than 10 numbers",
+        })
+        // isNumeric({ message: "Numeric only." })
+    ),
+});
 
 class SampleFormRedux extends Component {
     constructor(props) {
@@ -182,6 +227,8 @@ class SampleFormRedux extends Component {
     // handleOnInputChange = ({ target: { name, value } }) => {
     //     this.setState({ [name]: value });
     // };
+    //
+    //
 
     render() {
         const {
@@ -190,7 +237,16 @@ class SampleFormRedux extends Component {
             overrideStyle,
             children,
         } = this.props;
-        const { name, lastName } = this.state;
+
+        const {
+            history,
+            initialValues,
+            invalid, // we wont be able to submit, if we've got any validation errors ...,
+            submitting, // we wont be able to submit, once we hit submit and form is submitting...,
+            pristine, // we wont be able to submit, if we dont touch the inputs or update their initial values ...,
+        } = this.props;
+
+        const { name, lastName, phone } = this.state;
 
         const containerStyle = {
             backgroundColor: backgroundColor,
@@ -209,10 +265,12 @@ class SampleFormRedux extends Component {
                 // className="container classA classB"
             >
                 <Form
+                    style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
                     <Field
+                        style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
                         name="name"
                         type="text"
                         component={TextInput}
@@ -312,7 +370,14 @@ class SampleFormRedux extends Component {
                         multiple
                         placeholder="Select Option"
                     />
+                    <Field
+                        name="date"
+                        type="text"
+                        component={DateInput}
+                        placeholder="Select Date"
+                    />
                     <Button
+                        disabled={invalid || submitting || pristine}
                         positive
                         type="submit"
                         style={{
@@ -331,7 +396,7 @@ class SampleFormRedux extends Component {
 
 SampleFormRedux.defaultProps = {
     autoComplete: "off", // or use "on"
-    backgroundColor: "rgba(255, 255, 255, 1.0)",
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
     overrideStyle: {},
 };
 
@@ -340,7 +405,10 @@ const mapStateToProps = (state, ownProps) => {
     return {
         // testProp: state.testProp
         initialValues: {
-            name: "test name",
+            name: "",
+            lastName: "",
+            phone: "",
+            date: "",
         },
     };
 };
@@ -356,4 +424,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps, // mapState
     mapDispatchToProps // actions
-)(reduxForm({ form: "employerSignUpForm" })(SampleFormRedux));
+)(reduxForm({ form: "employerSignUpForm", validate })(SampleFormRedux));
