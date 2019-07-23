@@ -40,9 +40,10 @@ const TextInput = props => {
     const containerStyle = {
         backgroundColor: backgroundColor,
         //
-        width: "200%",
+        // width: "200%",
         borderStyle: "none",
-        border: "20px",
+        // border: "20px",
+        justifyContent: "center",
     };
     const inputStyle = {
         backgroundColor: backgroundColor,
@@ -54,6 +55,27 @@ const TextInput = props => {
         borderRight: "2px",
         borderLeft: "2px",
         height: "20px !important",
+        width: "250px",
+    };
+    const labelStyle = {
+        marginTop: "3px",
+        width: "100%",
+        height: "25px",
+        borderBottomLeftRadius: "50px",
+        borderBottomRightRadius: "100px",
+        backgroundColor: "#e74c3c", // #1 red opaque
+        // backgroundColor: "#F44336", // #1 red bright minimal
+        // backgroundColor: "#FF5722", // #2
+        // backgroundColor: "#B71C1C", // #1 red dark strong
+        // backgroundColor: "#F57F17",
+        // backgroundColor: "#BF360C",
+        // backgroundColor: "#EF5350",
+        // backgroundColor: "#FF7043",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
     };
 
     return (
@@ -85,7 +107,7 @@ const TextInput = props => {
                 {children}
             </input>
             {touched && error && (
-                <Label basic color="red">
+                <Label style={labelStyle} color="#e74c3c">
                     {error}
                 </Label>
             )}

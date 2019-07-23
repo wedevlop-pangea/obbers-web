@@ -112,21 +112,21 @@ import styledComponents from "./styles/styled_components/index.js";
 
 const validate = combineValidators({
     name: isRequired({ message: "Name is required." }),
-    // lastName: isRequired({ message: "Last Name is required." }),
-    lastName: composeValidators(
-        isRequired({ message: "Last Name is required." }),
-        hasLengthGreaterThan(1)({
-            message: "Must contain more than 1 characters.",
-        })
-    ),
+    lastname: isRequired({ message: "Last Name is required." }),
+    // lastname: composeValidators(
+    //     isRequired({ message: "Last Name is required." }),
+    //     hasLengthGreaterThan(1)({
+    //         message: "Must contain more than 1 characters.",
+    //     })
+    // ),
     // date: isRequired("date"),
     date: isRequired({ message: "Date is required." }),
     // phone: isRequired("phone"),
     phone: composeValidators(
-        isRequired("phone"),
-        hasLengthGreaterThan(10)({
-            message: "Must contain more than 10 numbers",
-        })
+        isRequired({ message: "Phone is required." })
+        // hasLengthGreaterThan(10)({
+        //     message: "Must contain more than 10 numbers.",
+        // })
         // isNumeric({ message: "Numeric only." })
     ),
 });
@@ -136,14 +136,14 @@ class SampleFormRedux extends Component {
         super(props);
         this.state = {
             name: "",
-            lastName: "",
+            lastname: "",
             testCategories: [
-                { key: "drinks", text: "Drinks", value: "drinks" },
-                { key: "culture", text: "Culture", value: "culture" },
-                { key: "film", text: "Film", value: "film" },
-                { key: "food", text: "Food", value: "food" },
-                { key: "music", text: "Music", value: "music" },
-                { key: "travel", text: "Travel", value: "travel" },
+                { key: "category1", text: "Category 1", value: "category1" },
+                { key: "category2", text: "Category 2", value: "category2" },
+                { key: "category3", text: "Category 3", value: "category3" },
+                { key: "category4", text: "Category 4", value: "category4" },
+                { key: "category5", text: "Category 5", value: "category5" },
+                { key: "category6", text: "Category 6", value: "category6" },
             ],
         };
     }
@@ -205,16 +205,28 @@ class SampleFormRedux extends Component {
 
     handleOnSubmit = values => {
         console.log(values);
+        // evt.preventDefault();
         // this.props.initialValues
         // this.props.callSomeActionFunctionThatTalksToServerOrSmthing(arg);
         // this.props.history.push(`/someroute/${someparam}`);
         // this.props.history.goBack;
 
+        // conditional action making and conditional route history push
+        // if some value was found in the initialValues
+        // if (this.props.initialValues.someVal) {
+        // }
+        // and inside the above if statement, push history conditionallly
         // decision based on some value
         // initialValues.id
         // ? () => history.push(`/someroute/${initialValues.id}`)
         // : () => history.push("/someroute")
+        //
+        // We can as well dispatch an action inside here or inside any condition
+        // this.props.doSomeAction(actionArgument);
     };
+
+    // Here in a ReduxForm we dont really care much about handling onInputChange
+    // because now our input values are being handled by redux
 
     // evenet (e) not destructured
     // handleOnInputChange = e => {
@@ -234,7 +246,8 @@ class SampleFormRedux extends Component {
         const {
             autoComplete,
             backgroundColor,
-            overrideStyle,
+            overrideContainerStyle,
+            overrideFormStyle,
             children,
         } = this.props;
 
@@ -250,12 +263,34 @@ class SampleFormRedux extends Component {
 
         const containerStyle = {
             backgroundColor: backgroundColor,
+            // borderStyle: "dotted",
+            borderWidth: "0px",
+            borderSize: "0px",
+            border: 0,
+            display: "flex",
+            flowDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "300px",
+        };
+
+        const formStyle = {
+            backgroundColor: backgroundColor,
+            // borderStyle: "dotted",
+            borderWidth: "0px",
+            borderSize: "0px",
+            border: 0,
+            // display: "flex",
+            // flowDirection: "column",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // width: "300px",
         };
 
         return (
             <Segment
                 // {...this.props}
-                style={{ ...containerStyle, ...overrideStyle }}
+                style={{ ...containerStyle, ...overrideContainerStyle }}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -265,7 +300,7 @@ class SampleFormRedux extends Component {
                 // className="container classA classB"
             >
                 <Form
-                    style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
+                    style={{ ...formStyle, ...overrideFormStyle }}
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
@@ -277,7 +312,8 @@ class SampleFormRedux extends Component {
                         placeholder="Name"
                     />
                     <Field
-                        name="lastName"
+                        style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
+                        name="lastname"
                         type="text"
                         component={TextInput}
                         placeholder="Last Name"
@@ -376,6 +412,31 @@ class SampleFormRedux extends Component {
                         component={DateInput}
                         placeholder="Select Date"
                     />
+                    <br />
+                    <br />
+                    <Button
+                        onClick={
+                            this.props.initialValues.name
+                                ? () =>
+                                      this.props.history.push(
+                                          `/somepath/${
+                                              this.props.initialValues.name
+                                          }`
+                                      )
+                                : () => this.props.history.push("/somePath")
+                        }
+                        type="button"
+                        style={{
+                            width: "100%",
+                            height: "30px",
+                            borderRadius: "20px",
+                            backgroundColor: "red",
+                        }}
+                    >
+                        Cancel
+                    </Button>
+                    <br />
+                    <br />
                     <Button
                         disabled={invalid || submitting || pristine}
                         positive
@@ -406,8 +467,21 @@ const mapStateToProps = (state, ownProps) => {
         // testProp: state.testProp
         initialValues: {
             name: "",
-            lastName: "",
+            lastname: "",
+            email: "",
+            confirmemail: "",
+            password: "",
+            confirmpassword: "",
+            companyname: "",
+            city: "",
+            addressline1: "",
+            addressline2: "",
+            state: "",
+            zipcode: "",
             phone: "",
+            notes: "",
+            option: "",
+            options: "",
             date: "",
         },
     };
@@ -422,6 +496,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    mapStateToProps, // mapState
-    mapDispatchToProps // actions
+    mapStateToProps, // or mapState
+    mapDispatchToProps // or actions
 )(reduxForm({ form: "employerSignUpForm", validate })(SampleFormRedux));
