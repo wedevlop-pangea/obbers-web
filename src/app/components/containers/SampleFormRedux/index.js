@@ -4,6 +4,16 @@
  * Documentation
  * SampleFormRedux
  *
+ * This is a hard coded component, which means that it works specifically for
+ * one specific form in our app. Making it smart means that it would now be
+ * reusable all around our app, and would receive a configuration object as prop.
+ * This config object would receive form settings like columns and rows, decide
+ * if it should show a header and a footer, and options to decide if it should
+ * only render a submit button, a cancel button, or other button, it should also
+ * receive the callback functions or routes needed for this buttons to work.
+ * The config object should also inclide a body where you find list of inputs and
+ * per each input we should include validation rules, placeholder text, etc.
+ *
  * Default Props
  * Has default props, so it works if no props are passed.
  *
@@ -97,6 +107,10 @@ import {
 
 import { Segment, Header, Form, Button } from "semantic-ui-react";
 
+import MyGrid from "../../layout/MyGrid";
+import MyRow from "../../layout/MyRow";
+import MyColumn from "../../layout/MyColumn";
+
 import TextInput from "./components/TextInput";
 import TextArea from "./components/TextArea";
 import SelectInput from "./components/SelectInput";
@@ -111,24 +125,81 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const validate = combineValidators({
-    name: isRequired({ message: "Name is required." }),
-    lastname: isRequired({ message: "Last Name is required." }),
-    // lastname: composeValidators(
-    //     isRequired({ message: "Last Name is required." }),
-    //     hasLengthGreaterThan(1)({
-    //         message: "Must contain more than 1 characters.",
-    //     })
-    // ),
-    // date: isRequired("date"),
-    date: isRequired({ message: "Date is required." }),
+    name: isRequired({ message: "Name is required" }),
+    lastName: isRequired({ message: "Last Name is required" }),
+    email: composeValidators(isRequired({ message: "Email is required" }))(),
+    confirmEmail: composeValidators(
+        isRequired({ message: "Confirm Email is required" }),
+        matchesField("email")({
+            message: "Emails do not match",
+        })
+    )(),
+    password: composeValidators(
+        isRequired({ message: "Password is required" }),
+        hasLengthGreaterThan(7)({
+            message: "Password must contain at least 8 characters",
+        })
+    )(),
+    confirmPassword: composeValidators(
+        isRequired({ message: "Confirm Password is required" }),
+        matchesField("password")({
+            message: "Passwords do not match",
+        })
+    )(),
+    companyName: composeValidators(
+        isRequired({ message: "Company Name is required" })
+    )(),
+    country: composeValidators(
+        isRequired({ message: "Country is required" })
+        // isOneOf(['foo', 'bar'])('My Field')('baz');
+        // // 'My Field must be one of ["foo","bar"]'
+    )(),
+    city: composeValidators(
+        isRequired({ message: "City is required" })
+        // isOneOf(['foo', 'bar'])('My Field')('baz');
+        // // 'My Field must be one of ["foo","bar"]'
+    )(),
+    addressLine1: composeValidators(
+        isRequired({ message: "Address Line 1 is required" })
+    )(),
+    // addressLine2: composeValidators(
+    //     isRequired({ message: "Address Line 2 is required" }),
+    // )(),
+    state: composeValidators(
+        isRequired({ message: "State is required" })
+        // isOneOf(['foo', 'bar'])('My Field')('baz');
+        // // 'My Field must be one of ["foo","bar"]'
+    )(),
+    zipCode: composeValidators(
+        isRequired({ message: "Zip Code is required" })
+        // isNumeric({ message: "Must only contain numeric values" }),
+    )(),
     // phone: isRequired("phone"),
     phone: composeValidators(
-        isRequired({ message: "Phone is required." })
-        // hasLengthGreaterThan(10)({
-        //     message: "Must contain more than 10 numbers.",
-        // })
-        // isNumeric({ message: "Numeric only." })
-    ),
+        isRequired({ message: "Phone is required" }),
+        isNumeric({ message: "Must only contain numeric values" }),
+        hasLengthGreaterThan(10)({
+            message: "Phone must contain more than 10 numbers",
+        })
+    )(),
+    notes: composeValidators(
+        hasLengthLessThan(150)({
+            message: "Note must contain less than 150 characters",
+        })
+    )(),
+    // category: composeValidators(
+    //     isRequired({ message: "Category is required" }),
+    // )(),
+    // // // isOneOf(['foo', 'bar'])('My Field')('baz');
+    // // // 'My Field must be one of ["foo","bar"]'
+    // categories: composeValidators(
+    //     isRequired({ message: "Categories is required" }),
+    // )(),
+    // // date: isRequired("date"),
+    // // date: isRequired({ message: "Date is required" }),
+    // date: composeValidators(
+    //     isRequired({ message: "Date is required" }),
+    // )(),
 });
 
 class SampleFormRedux extends Component {
@@ -136,7 +207,7 @@ class SampleFormRedux extends Component {
         super(props);
         this.state = {
             name: "",
-            lastname: "",
+            lastName: "",
             testCategories: [
                 { key: "category1", text: "Category 1", value: "category1" },
                 { key: "category2", text: "Category 2", value: "category2" },
@@ -263,23 +334,30 @@ class SampleFormRedux extends Component {
 
         const containerStyle = {
             backgroundColor: backgroundColor,
-            // borderStyle: "dotted",
-            borderWidth: "0px",
-            borderSize: "0px",
-            border: 0,
+            borderColor: "rgba(255, 255, 255, 0.50)",
+            borderStyle: "solid",
+            borderWidth: "5px",
+            borderTopLeftRadius: "0px",
+            borderTopRighRadius: "0px",
+            borderBottomRightRadius: "50px",
+            borderBottomLeftRadius: "0px",
             display: "flex",
             flowDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            width: "300px",
+            // width: "300px",
+            // BORDER
+            // borderLeftColor: "#26de81",
+            // borderLeftColor: "#32ff7e",
+            borderLeftColor: "#33d9b2",
         };
 
         const formStyle = {
             backgroundColor: backgroundColor,
             // borderStyle: "dotted",
-            borderWidth: "0px",
-            borderSize: "0px",
-            border: 0,
+            // borderWidth: "0px",
+            // borderSize: "0px",
+            // border: 0,
             // display: "flex",
             // flowDirection: "column",
             // justifyContent: "center",
@@ -304,161 +382,221 @@ class SampleFormRedux extends Component {
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
-                    <Field
-                        style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
-                        name="name"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Name"
-                    />
-                    <Field
-                        style={{ backgroundColor: "rgba(255, 255, 255, 0.0)" }}
-                        name="lastname"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Last Name"
-                    />
-                    <Field
-                        name="email"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Email"
-                    />
-                    <Field
-                        name="confirmEmail"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Confirm Email"
-                    />
-                    <Field
-                        name="password"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Password"
-                    />
-                    <Field
-                        name="confirmPassword"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Confirm Password"
-                    />
-                    <Field
-                        name="companyName"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Company Name"
-                    />
-                    <Field
-                        name="city"
-                        type="text"
-                        component={TextInput}
-                        placeholder="City"
-                    />
-                    <Field
-                        name="addressLine1"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Address Line 1"
-                    />
-                    <Field
-                        name="addressLine2"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Address Line 2"
-                    />
-                    <Field
-                        name="state"
-                        type="text"
-                        component={TextInput}
-                        placeholder="State"
-                    />
-                    <Field
-                        name="zipCode"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Zip Code"
-                    />
-                    <Field
-                        name="phone"
-                        type="text"
-                        component={TextInput}
-                        placeholder="Phone"
-                    />
-                    <Field
-                        name="notes"
-                        type="text"
-                        rows={3}
-                        component={TextArea}
-                        placeholder="Notes"
-                    />
-                    <Field
-                        name="category"
-                        type="text"
-                        component={SelectInput}
-                        options={this.state.testCategories}
-                        placeholder="Select Option"
-                    />
-                    <Field
-                        name="category"
-                        type="text"
-                        component={SelectInput}
-                        options={this.state.testCategories}
-                        multiple
-                        placeholder="Select Option"
-                    />
-                    <Field
-                        name="date"
-                        type="text"
-                        component={DateInput}
-                        placeholder="Select Date"
-                    />
-                    <br />
-                    <br />
-                    <Button
-                        onClick={
-                            this.props.initialValues.name
-                                ? () =>
-                                      this.props.history.push(
-                                          `/somepath/${
-                                              this.props.initialValues.name
-                                          }`
-                                      )
-                                : () => this.props.history.push("/somePath")
-                        }
-                        type="button"
-                        style={{
-                            width: "100%",
-                            height: "30px",
-                            borderRadius: "20px",
-                            backgroundColor: "red",
-                        }}
-                    >
-                        Cancel
-                    </Button>
-                    <br />
-                    <br />
-                    <Button
-                        disabled={invalid || submitting || pristine}
-                        positive
-                        type="submit"
-                        style={{
-                            width: "100%",
-                            height: "30px",
-                            borderRadius: "20px",
-                        }}
-                    >
-                        Submit
-                    </Button>
+                    <MyGrid>
+                        <MyRow
+                            justifyContent="space-between"
+                            alignItems="flex-start"
+                        >
+                            <MyColumn
+                                columnWidth={8}
+                                // justifyContent="flex-start"
+                                // alignItems="flex-start"
+                            >
+                                <Field
+                                    style={{
+                                        backgroundColor:
+                                            "rgba(255, 255, 255, 0.0)",
+                                    }}
+                                    name="name"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Name"
+                                />
+                                <Field
+                                    style={{
+                                        backgroundColor:
+                                            "rgba(255, 255, 255, 0.0)",
+                                    }}
+                                    name="lastName"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Last Name"
+                                />
+                                <Field
+                                    name="email"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Email"
+                                />
+                                <Field
+                                    name="confirmEmail"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Confirm Email"
+                                />
+                                <Field
+                                    name="password"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Password"
+                                />
+                                <Field
+                                    name="confirmPassword"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Confirm Password"
+                                />
+                                <Field
+                                    name="companyName"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Company Name"
+                                />
+                                <Field
+                                    name="country"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Country"
+                                />
+                            </MyColumn>
+                            <MyColumn
+                                columnWidth={8}
+                                // justifyContent="flex-start"
+                                // alignItems="flex-start"
+                            >
+                                <Field
+                                    name="city"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="City"
+                                />
+                                <Field
+                                    name="addressLine1"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Address Line 1"
+                                />
+                                <Field
+                                    name="addressLine2"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Address Line 2"
+                                />
+                                <Field
+                                    name="state"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="State"
+                                />
+                                <Field
+                                    name="zipCode"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Zip Code"
+                                />
+                                <Field
+                                    name="phone"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="Phone"
+                                />
+                            </MyColumn>
+                        </MyRow>
+                        <MyRow>
+                            <MyColumn columnWidth={16}>
+                                <br />
+                                <Button
+                                    disabled={invalid || submitting || pristine}
+                                    positive
+                                    type="submit"
+                                    style={{
+                                        width: "100%",
+                                        height: "60px",
+                                        borderRadius: "50px",
+                                        // backgroundColor: "red",
+                                        fontSize: "20px",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    SIGN UP
+                                </Button>
+                                <br />
+                            </MyColumn>
+                        </MyRow>
+                    </MyGrid>
                 </Form>
             </Segment>
         );
     }
 }
 
+/*
+
+<Field
+    name="notes"
+    type="text"
+    rows={3}
+    component={TextArea}
+    placeholder="Notes"
+/>
+<Field
+    name="date"
+    type="text"
+    component={DateInput}
+    placeholder="Select Date"
+/>
+<Field
+    name="category"
+    type="text"
+    component={SelectInput}
+    options={this.state.testCategories}
+    placeholder="Select Option"
+/>
+<Field
+    name="categories"
+    type="text"
+    component={SelectInput}
+    options={this.state.testCategories}
+    multiple
+    placeholder="Select Option"
+/>
+<Field
+    name="date"
+    type="text"
+    component={DateInput}
+    placeholder="Select Date"
+/>
+<br />
+
+
+
+<br />
+<br />
+<Button
+    onClick={
+        this.props.initialValues.name
+            ? () =>
+                  this.props.history.push(
+                      `/somepath/${
+                          this.props
+                              .initialValues
+                              .name
+                      }`
+                  )
+            : () =>
+                  this.props.history.push(
+                      "/somePath"
+                  )
+    }
+    type="button"
+    style={{
+        width: "100%",
+        height: "60px",
+        borderRadius: "50px",
+        backgroundColor: "red",
+        fontSize: "20px",
+        fontWeight: "bold",
+    }}
+>
+    CANCEL
+</Button>
+*/
+
 SampleFormRedux.defaultProps = {
     autoComplete: "off", // or use "on"
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    overrideContainerStyle: {},
+    overrideFormStyle: {},
 };
 
 // const mapStateToProps = state => {
@@ -467,12 +605,13 @@ const mapStateToProps = (state, ownProps) => {
         // testProp: state.testProp
         initialValues: {
             name: "",
-            lastname: "",
+            lastName: "",
             email: "",
             confirmemail: "",
             password: "",
             confirmpassword: "",
             companyname: "",
+            country: "",
             city: "",
             addressline1: "",
             addressline2: "",
@@ -480,8 +619,8 @@ const mapStateToProps = (state, ownProps) => {
             zipcode: "",
             phone: "",
             notes: "",
-            option: "",
-            options: "",
+            category: "",
+            categories: "",
             date: "",
         },
     };

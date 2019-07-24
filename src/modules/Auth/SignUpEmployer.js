@@ -46,7 +46,7 @@ const rightsReservedStyle = {
 
 const SignUpEmployer = () => {
     return (
-        <MyContainer size="mainContainer">
+        <MyContainer size="mainContainer" backgroundColor="#ff7b4f">
             <MyContainer size="fitContent">
                 <br />
                 <CompanyLogo
