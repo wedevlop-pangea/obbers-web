@@ -48,7 +48,7 @@ const TextInput = props => {
     const inputStyle = {
         backgroundColor: backgroundColor,
         //
-        color: "#3A4040",
+        color: "white",
         placeholderTextColor: "red",
         borderColor: "rgba(255, 255, 255, 0.750)",
         // borderTopColor: "rgba(255, 255, 255, 0.0)",
@@ -72,10 +72,8 @@ const TextInput = props => {
         marginTop: "3px",
         width: "100%",
         height: "25px",
-        // borderBottomLeftRadius: "50px",
+        borderBottomLeftRadius: "50px",
         borderBottomRightRadius: "50px",
-        // borderTopLeftRadius: "50px",
-        // borderTopRightRadius: "50px",
         backgroundColor: "#e74c3c", // #1 red opaque
         // backgroundColor: "#F44336", // #1 red bright minimal
         // backgroundColor: "#FF5722", // #2

@@ -378,19 +378,13 @@ class SampleFormRedux extends Component {
         // Form has been touched and has invalid input values
         if (anyTouched === true && invalid) {
             // let addStyle = { borderLeftColor: "#ff3f34" };
-            let addStyle = {
-                borderColor: "#ff5e57", // #ff6b6b
-                borderLeftColor: "#ff3f34", // #ee5253
-            };
+            let addStyle = { borderColor: "#ff3f34" };
             containerStyle = { ...containerStyle, ...addStyle };
         }
         // Form has been touched and has valid input values
         if (anyTouched === true && valid) {
             // let addStyle = { borderLeftColor: "#26de81" };
-            let addStyle = {
-                borderColor: "#26de81", // #0be881 #26de81
-                borderLeftColor: "#05c46b", // #05c46b
-            };
+            let addStyle = { borderColor: "#26de81" };
             containerStyle = { ...containerStyle, ...addStyle };
         }
         // Form is being sumbitted
@@ -646,7 +640,7 @@ class SampleFormRedux extends Component {
 
 SampleFormRedux.defaultProps = {
     autoComplete: "off", // or use "on"
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "rgba(255, 255, 255, 0.30)",
     overrideContainerStyle: {},
     overrideFormStyle: {},
 };
