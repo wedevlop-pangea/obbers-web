@@ -33,8 +33,8 @@ const SelectInput = props => {
         options,
         meta: { touched, error },
         backgroundColor,
-        overrideContainerStyle,
-        overrideInputStyle,
+        addContainerStyle,
+        addInputStyle,
         children,
     } = props;
 
@@ -49,7 +49,7 @@ const SelectInput = props => {
     return (
         <Form.Field
             {...props}
-            style={{ ...containerStyle, ...overrideContainerStyle }}
+            style={{ ...containerStyle, ...addContainerStyle }}
             error={touched && !!error}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -60,7 +60,7 @@ const SelectInput = props => {
             // className="container classA classB"
         >
             <Select
-                style={{ ...inputStyle, ...overrideInputStyle }}
+                style={{ ...inputStyle, ...addInputStyle }}
                 value={input.value || null}
                 onChange={(e, data) => input.onChange(data.value)}
                 placeholder={placeholder}
@@ -88,8 +88,8 @@ const SelectInput = props => {
 SelectInput.defaultProps = {
     placeholder: "Enter Text",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideContainerStyle: {},
-    overrideInputStyle: {},
+    addContainerStyle: {},
+    addInputStyle: {},
 };
 
 export default SelectInput;

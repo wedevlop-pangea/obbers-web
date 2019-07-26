@@ -42,8 +42,8 @@ const MyButton = props => {
         //, link style
 
         //, style objects
-        overrideLinkStyle,
-        overrideButtonStyle,
+        addLinkStyle,
+        addButtonStyle,
         children,
         // shape, // "rectangle" round corner, "square" round corner, "circle", "polygon" number of polygons, "parallelogram" direction left or right and round corner
     } = props;
@@ -95,7 +95,7 @@ const MyButton = props => {
     if (asLink) {
         return (
             <Link
-                style={{ ...linkStyle, ...overrideLinkStyle }}
+                style={{ ...linkStyle, ...addLinkStyle }}
                 to={{
                     pathname: pathname,
                     search: search, // search: "?sort=name",
@@ -105,7 +105,7 @@ const MyButton = props => {
             >
                 <Button
                     {...props}
-                    style={{ ...buttonStyle, ...overrideButtonStyle }}
+                    style={{ ...buttonStyle, ...addButtonStyle }}
                     content={text}
                     // as={Link}
                     // to={pathname}
@@ -119,7 +119,7 @@ const MyButton = props => {
     return (
         <Button
             {...props}
-            style={{ ...buttonStyle, ...overrideButtonStyle }}
+            style={{ ...buttonStyle, ...addButtonStyle }}
             content={text}
             // as={Link}
             // to={pathname}
@@ -152,8 +152,8 @@ MyButton.defaultProps = {
     bgImagePos: "center",
     bgRepeat: "no-repeat",
     //
-    overrideLinkStyles: {},
-    overrideButtonStyle: {},
+    addLinkStyles: {},
+    addButtonStyle: {},
 };
 
 export default MyButton;

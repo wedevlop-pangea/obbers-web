@@ -28,7 +28,7 @@
  *
  * By default it has margin and padding 0.
  * If want to change that, it is recommended to pass those values in the
- * overrideStyle object.
+ * addStyle object.
  *
  * -----------------------------------------------------------------------------
  *
@@ -140,7 +140,7 @@ const MyContainer = props => {
         testBorderWidth,
         testBorderColor,
         testBorderStyle,
-        overrideStyle,
+        addStyle,
         children,
     } = props;
 
@@ -181,7 +181,7 @@ const MyContainer = props => {
                 style={{
                     // ...containerStyle,
                     ...addStyle,
-                    ...overrideStyle,
+                    ...addStyle,
                 }}
             >
                 {children}
@@ -283,7 +283,7 @@ const MyContainer = props => {
                     style={{
                         ...containerStyle,
                         ...absoluteDivStyle,
-                        ...overrideStyle,
+                        ...addStyle,
                     }}
                 >
                     {children}
@@ -299,7 +299,7 @@ const MyContainer = props => {
                 style={{
                     ...containerStyle,
                     ...absoluteDivStyle,
-                    ...overrideStyle,
+                    ...addStyle,
                 }}
             >
                 {children}
@@ -312,7 +312,7 @@ const MyContainer = props => {
     return (
         <div
             {...props}
-            style={{ ...containerStyle, ...overrideStyle }}
+            style={{ ...containerStyle, ...addStyle }}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -352,7 +352,7 @@ MyContainer.defaultProps = {
     testBorderWidth: 3,
     testBorderColor: setTestBorderColor,
     testBorderStyle: "solid", // dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyContainer;

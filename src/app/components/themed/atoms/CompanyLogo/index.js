@@ -24,8 +24,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -65,7 +65,7 @@ import company_logo_dark from "../../../../assets/image/logo/logo-dark.png";
 import company_logo_white from "../../../../assets/image/logo/logo-white.png";
 
 const CompanyLogo = props => {
-    const { bordered, theme, backgroundColor, overrideStyle, children } = props;
+    const { bordered, theme, backgroundColor, addStyle, children } = props;
 
     const style = {
         backgroundColor: backgroundColor,
@@ -85,7 +85,7 @@ const CompanyLogo = props => {
     return (
         <MyImage
             {...props}
-            style={{ ...style, ...overrideStyle }}
+            style={{ ...style, ...addStyle }}
             src={src}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -104,7 +104,7 @@ CompanyLogo.defaultProps = {
     // bordered: "round", // false, semi, round
     theme: "light",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default CompanyLogo;

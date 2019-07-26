@@ -19,6 +19,7 @@ import {
     MyForm,
     SampleForm,
     SampleFormRedux,
+    MyModal,
     CompanyLogo,
 } from "./components";
 
@@ -63,7 +64,7 @@ const SignUpEmployer = () => {
                     <h4 style={subtitleStyle}>Find the right people.</h4>
                 </MyContainer>
                 <br />
-                <MyContainer overrideStyle={{ width: "80%" }}>
+                <MyContainer addStyle={{ width: "80%" }}>
                     <SampleFormRedux />
                 </MyContainer>
                 <br />

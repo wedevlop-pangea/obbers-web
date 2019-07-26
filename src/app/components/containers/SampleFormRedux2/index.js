@@ -34,8 +34,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -326,8 +326,8 @@ class SampleFormRedux extends Component {
         const {
             autoComplete,
             backgroundColor,
-            overrideContainerStyle,
-            overrideFormStyle,
+            addContainerStyle,
+            addFormStyle,
             children,
         } = this.props;
 
@@ -414,7 +414,7 @@ class SampleFormRedux extends Component {
         return (
             <Segment
                 // {...this.props}
-                style={{ ...containerStyle, ...overrideContainerStyle }}
+                style={{ ...containerStyle, ...addContainerStyle }}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -424,7 +424,7 @@ class SampleFormRedux extends Component {
                 // className="container classA classB"
             >
                 <Form
-                    style={{ ...formStyle, ...overrideFormStyle }}
+                    style={{ ...formStyle, ...addFormStyle }}
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
@@ -641,8 +641,8 @@ class SampleFormRedux extends Component {
 SampleFormRedux.defaultProps = {
     autoComplete: "off", // or use "on"
     backgroundColor: "rgba(255, 255, 255, 0.30)",
-    overrideContainerStyle: {},
-    overrideFormStyle: {},
+    addContainerStyle: {},
+    addFormStyle: {},
 };
 
 // const mapStateToProps = state => {

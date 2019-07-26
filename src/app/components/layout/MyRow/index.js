@@ -17,7 +17,7 @@ const MyRow = props => {
         justifyContent,
         alignItems,
         backgroundColor,
-        overrideStyle,
+        addStyle,
         children,
     } = props;
 
@@ -30,7 +30,7 @@ const MyRow = props => {
     };
 
     return (
-        <Grid.Row {...props} style={{ ...rowStyle, ...overrideStyle }}>
+        <Grid.Row {...props} style={{ ...rowStyle, ...addStyle }}>
             {children}
         </Grid.Row>
     );
@@ -42,7 +42,7 @@ MyRow.defaultProps = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyRow;

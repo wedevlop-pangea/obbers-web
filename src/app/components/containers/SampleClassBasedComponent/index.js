@@ -24,8 +24,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -105,7 +105,7 @@ class SampleClassBasedComponent extends Component {
     // Can call setState: No.
 
     render() {
-        const { backgroundColor, overrideStyle, children } = this.props;
+        const { backgroundColor, addStyle, children } = this.props;
         const { someValue } = this.state;
 
         const containerStyle = {
@@ -115,7 +115,7 @@ class SampleClassBasedComponent extends Component {
         return (
             <Container
                 {...props}
-                style={{ ...containerStyle, ...overrideStyle }}
+                style={{ ...containerStyle, ...addStyle }}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -132,7 +132,7 @@ class SampleClassBasedComponent extends Component {
 
 SampleClassBasedComponent.defaultProps = {
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default SampleClassBasedComponent;

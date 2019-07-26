@@ -28,6 +28,7 @@ import MyLabel from "./presentation/atoms/MyLabel";
 // Presentation - Molecules
 
 import MyForm from "./presentation/molecules/MyForm";
+import MyModal from "./presentation/molecules/MyModal";
 
 // Presentation - Organisms
 
@@ -59,6 +60,7 @@ export {
     // MyCard
     // Presentation - Molecules ------------------------------------------------
     MyForm,
+    MyModal,
     // Presentation - Organisms ------------------------------------------------
 
     // Presentation - Uniques --------------------------------------------------

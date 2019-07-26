@@ -24,8 +24,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -61,7 +61,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const SampleFunctionalComponent = props => {
-    const { backgroundColor, overrideStyle, children } = props;
+    const { backgroundColor, addStyle, children } = props;
 
     const buttonStyle = {
         backgroundColor: backgroundColor,
@@ -70,7 +70,7 @@ const SampleFunctionalComponent = props => {
     return (
         <Container
             {...props}
-            style={{ ...buttonStyle, ...overrideStyle }}
+            style={{ ...buttonStyle, ...addStyle }}
             //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -87,7 +87,7 @@ const SampleFunctionalComponent = props => {
 
 SampleFunctionalComponent.defaultProps = {
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default SampleFunctionalComponent;

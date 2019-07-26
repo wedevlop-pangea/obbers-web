@@ -22,7 +22,7 @@ const MyColumn = props => {
         justifyContent,
         alignItems,
         backgroundColor,
-        overrideStyle,
+        addStyle,
         children,
     } = props;
 
@@ -37,7 +37,7 @@ const MyColumn = props => {
     return (
         <Grid.Column
             {...props}
-            style={{ ...columnStyle, ...overrideStyle }}
+            style={{ ...columnStyle, ...addStyle }}
             width={columnWidth}
         >
             {children}
@@ -52,7 +52,7 @@ MyColumn.defaultProps = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyColumn;

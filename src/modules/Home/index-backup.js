@@ -234,15 +234,15 @@ const HomePage = () => {
                 <MyContainer backgroundColor="white" fkexDirection="row">
                     <MyContainer
                         backgroundColor="red"
-                        overrideStyle={{ borderWidth: 10, borderColor: "blue" }}
+                        addStyle={{ borderWidth: 10, borderColor: "blue" }}
                     />
                     <MyContainer
                         backgroundColor="blue"
-                        overrideStyle={{ borderWidth: 10, borderColor: "blue" }}
+                        addStyle={{ borderWidth: 10, borderColor: "blue" }}
                     />
                     <MyContainer
                         backgroundColor="green"
-                        overrideStyle={{ borderWidth: 10, borderColor: "blue" }}
+                        addStyle={{ borderWidth: 10, borderColor: "blue" }}
                     />
                     <MyContainer backgroundColor="orange" opacity=".75">
                         <MyContainer

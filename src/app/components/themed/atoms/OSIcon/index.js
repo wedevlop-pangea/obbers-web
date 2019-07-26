@@ -24,8 +24,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -65,7 +65,7 @@ import appleIcon from "../../../../assets/image/app_stores/apple-1.png";
 import androidIcon from "../../../../assets/image/app_stores/android-1.png";
 
 const OSIcon = props => {
-    const { name, size, backgroundColor, overrideStyle, children } = props;
+    const { name, size, backgroundColor, addStyle, children } = props;
 
     const style = {
         backgroundColor: backgroundColor,
@@ -82,7 +82,7 @@ const OSIcon = props => {
     return (
         <MyImage
             {...props}
-            style={{ ...style, ...overrideStyle }}
+            style={{ ...style, ...addStyle }}
             src={src}
             size={size}
             // className={[cssModules.container]}
@@ -102,7 +102,7 @@ OSIcon.defaultProps = {
     name: "apple",
     size: "size",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default OSIcon;

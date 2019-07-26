@@ -32,8 +32,8 @@ const TextInput = props => {
         placeholder,
         meta: { touched, error },
         backgroundColor,
-        overrideContainerStyle,
-        overrideInputStyle,
+        addContainerStyle,
+        addInputStyle,
         children,
     } = props;
 
@@ -93,7 +93,7 @@ const TextInput = props => {
     return (
         <Form.Field
             {...props}
-            style={{ ...containerStyle, ...overrideContainerStyle }}
+            style={{ ...containerStyle, ...addContainerStyle }}
             error={touched && !!error}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -105,7 +105,7 @@ const TextInput = props => {
         >
             <input
                 {...input}
-                style={{ ...inputStyle, ...overrideInputStyle }}
+                style={{ ...inputStyle, ...addInputStyle }}
                 placeholder={placeholder}
                 type={type}
                 // className={[cssModules.container]}
@@ -130,8 +130,8 @@ const TextInput = props => {
 TextInput.defaultProps = {
     placeholder: "Enter Text",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideContainerStyle: {},
-    overrideInputStyle: {},
+    addContainerStyle: {},
+    addInputStyle: {},
 };
 
 export default TextInput;

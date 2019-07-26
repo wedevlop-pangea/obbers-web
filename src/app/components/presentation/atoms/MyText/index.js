@@ -11,7 +11,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyText = props => {
-    const { responsive, color, overrideStyle, children } = props;
+    const { responsive, color, addStyle, children } = props;
 
     const textStyle = {
         color: color,
@@ -20,7 +20,7 @@ const MyText = props => {
     return (
         <div
             {...props}
-            style={{ ...textStyle, ...overrideStyle }}
+            style={{ ...textStyle, ...addStyle }}
             //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -38,7 +38,7 @@ const MyText = props => {
 MyText.defaultProps = {
     responsive: true,
     color: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyText;

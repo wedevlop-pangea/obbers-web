@@ -27,8 +27,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -65,7 +65,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyForm = props => {
-    const { textColor, backgroundColor, overrideStyle, children } = props;
+    const { textColor, backgroundColor, addStyle, children } = props;
 
     const formStyle = {
         color: textColor,
@@ -75,7 +75,7 @@ const MyForm = props => {
     return (
         <Container
             {...props}
-            style={{ ...formStyle, ...overrideStyle }}
+            style={{ ...formStyle, ...addStyle }}
             //
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -93,7 +93,7 @@ const MyForm = props => {
 MyForm.defaultProps = {
     textColor: "gray",
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyForm;

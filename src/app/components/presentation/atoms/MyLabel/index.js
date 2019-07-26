@@ -10,7 +10,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyLabel = props => {
-    const { children, overrideStyle, backgroundColor } = props;
+    const { children, addStyle, backgroundColor } = props;
 
     const labelStyle = {
         backgroundColor: backgroundColor,
@@ -19,7 +19,7 @@ const MyLabel = props => {
     return (
         <Label
             {...props}
-            style={{ ...labelStyle, ...overrideStyle }}
+            style={{ ...labelStyle, ...addStyle }}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -34,7 +34,7 @@ const MyLabel = props => {
 };
 
 MyLabel.defaultProps = {
-    overrideStyle: {},
+    addStyle: {},
     backgroundColor: "rgba(255, 255, 255, 0.50)",
 };
 

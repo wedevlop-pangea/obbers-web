@@ -24,8 +24,8 @@
  * We add the styles object inside the function, in case we need to make use
  * props as style values.
  *
- * Override Styles
- * Component can accept a styles object and override the ones it has by default.
+ * add Styles
+ * Component can accept a styles object and add the ones it has by default.
  *
  * Component Receives Parent Attrbutes {...props}
  * Parent can pass html or component attributes and this functional component
@@ -153,7 +153,7 @@ class SampleForm extends Component {
         const {
             autoComplete,
             backgroundColor,
-            overrideStyle,
+            addStyle,
             children,
         } = this.props;
         const { name, lastName } = this.state;
@@ -165,7 +165,7 @@ class SampleForm extends Component {
         return (
             <Segment
                 // {...this.props}
-                style={{ ...containerStyle, ...overrideStyle }}
+                style={{ ...containerStyle, ...addStyle }}
                 // className={[cssModules.container]}
                 // CSS Modules, join 2 classes
                 // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -213,7 +213,7 @@ class SampleForm extends Component {
 SampleForm.defaultProps = {
     autoComplete: "off", // or use "on"
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default SampleForm;

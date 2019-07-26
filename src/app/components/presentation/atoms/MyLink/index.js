@@ -33,7 +33,7 @@ const MyLink = props => {
         state,
         //,
         backgroundColor,
-        overrideStyle,
+        addStyle,
         //
         children,
     } = props;
@@ -85,7 +85,7 @@ const MyLink = props => {
     return (
         <Link
             {...props}
-            style={{ ...linkStyle, ...overrideStyle }}
+            style={{ ...linkStyle, ...addStyle }}
             to={{
                 pathname: pathname,
                 search: search, // search: "?sort=name",
@@ -114,7 +114,7 @@ MyLink.defaultProps = {
     state: "", // state: { fromDashboard: true },
     //
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyLink;

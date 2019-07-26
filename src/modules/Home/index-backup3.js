@@ -153,11 +153,11 @@ const HomePage = () => {
             <MyContainer backgroundColor="white" flexDirection="row">
                 <MyContainer
                     backgroundColor="red"
-                    overrideStyle={{ borderWidth: 10, borderRadius: 20 }}
+                    addStyle={{ borderWidth: 10, borderRadius: 20 }}
                 />
                 <MyContainer
                     backgroundColor="blue"
-                    overrideStyle={{ borderWidth: 10, borderColor: "blue" }}
+                    addStyle={{ borderWidth: 10, borderColor: "blue" }}
                 />
                 <MyContainer backgroundColor="green" />
                 <MyContainer backgroundColor="orange" opacity=".75">

@@ -31,8 +31,8 @@ const DateInput = props => {
         meta: { touched, error },
         timePicker, // timePicker? if true, show a time picker as well ...,
         backgroundColor,
-        overrideContainerStyle,
-        overrideInputStyle,
+        addContainerStyle,
+        addInputStyle,
         children,
         ...rest
     } = props;
@@ -57,7 +57,7 @@ const DateInput = props => {
     return (
         <Form.Field
             {...props}
-            style={{ ...containerStyle, ...overrideContainerStyle }}
+            style={{ ...containerStyle, ...addContainerStyle }}
             error={touched && !!error}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
@@ -69,7 +69,7 @@ const DateInput = props => {
         >
             <DatePicker
                 {...rest}
-                style={{ ...inputStyle, ...overrideInputStyle }}
+                style={{ ...inputStyle, ...addInputStyle }}
                 placeholderText={placeholder}
                 selected={input.value ? new Date(input.value) : null}
                 onChange={input.onChange}
@@ -106,8 +106,8 @@ DateInput.defaultProps = {
     placeholder: "Enter Text",
     timePicker: false,
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideContainerStyle: {},
-    overrideInputStyle: {},
+    addContainerStyle: {},
+    addInputStyle: {},
 };
 
 export default DateInput;

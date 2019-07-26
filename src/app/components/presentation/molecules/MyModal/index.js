@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * MyCard
+ * MyModal
  *
  * Default Props
  * Has default props, so it works if no props are passed.
@@ -50,7 +50,7 @@
 
 import React, { Component, Fragment } from "react";
 
-import { Segment } from "semantic-ui-react";
+import { Modal, Container, Grid } from "semantic-ui-react";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -60,18 +60,35 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
-const MyCard = props => {
-    const { backgroundColor, addStyle, children } = props;
+const MyModal = props => {
+    const {
+        backgroundColor,
+        addModalStyle,
+        addHeaderStyle,
+        addContentStyle,
+        addDescriptionStyle,
+        children,
+    } = props;
 
-    const cardStyle = {
+    const modalStyle = {
+        backgroundColor: backgroundColor,
+    };
+    const headerStyle = {
+        backgroundColor: backgroundColor,
+    };
+    const contentStyle = {
+        backgroundColor: backgroundColor,
+    };
+    const descriptionStyle = {
         backgroundColor: backgroundColor,
     };
 
     return (
-        <Segment
+        <Modal
             {...props}
-            style={{ ...cardStyle, ...addStyle }}
-            //
+            style={{ ...modalStyle, ...addModalStyle }}
+            closeIcon="close"
+            open={true}
             // className={[cssModules.container]}
             // CSS Modules, join 2 classes
             // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -80,14 +97,23 @@ const MyCard = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
-            {children}
-        </Segment>
+            <Modal.Header style={{ ...headerStyle, ...addHeaderStyle }}>
+                Modal Header
+            </Modal.Header>
+            <Modal.Content style={{ ...contentStyle, ...addContentStyle }}>
+                <Modal.Description
+                    style={{ ...descriptionStyle, ...addDescriptionStyle }}
+                >
+                    {children ? children : <p>Modal Description Here</p>}
+                </Modal.Description>
+            </Modal.Content>
+        </Modal>
     );
 };
 
-MyCard.defaultProps = {
-    backgroundColor: "rgba(255, 255, 255, 1.0)",
+MyModal.defaultProps = {
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
     addStyle: {},
 };
 
-export default MyCard;
+export default MyModal;

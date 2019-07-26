@@ -27,7 +27,7 @@ const MyIcon = props => {
         size,
         color,
         backgroundColor,
-        overrideStyle,
+        addStyle,
         children,
     } = props;
 
@@ -38,7 +38,7 @@ const MyIcon = props => {
     return (
         <Icon
             {...props}
-            style={{ ...iconStyle, ...overrideStyle }}
+            style={{ ...iconStyle, ...addStyle }}
             name={name}
             size={size}
             color={color}
@@ -60,7 +60,7 @@ MyIcon.defaultProps = {
     size: "mini", // mini, tiny, small, large, big, huge, massive
     color: "rgba(255, 255, 255, 0.0)", // red orange yellow olive green teal blue violet purple pink brown grey black
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyIcon;

@@ -23,7 +23,7 @@ const MyGrid = props => {
         justifyContent,
         alignItems,
         backgroundColor,
-        overrideStyle,
+        addStyle,
         children,
     } = props;
 
@@ -36,7 +36,7 @@ const MyGrid = props => {
     };
 
     return (
-        <Grid {...props} style={{ ...gridStyle, ...overrideStyle }} stackable>
+        <Grid {...props} style={{ ...gridStyle, ...addStyle }} stackable>
             {children}
         </Grid>
     );
@@ -48,7 +48,7 @@ MyGrid.defaultProps = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyGrid;

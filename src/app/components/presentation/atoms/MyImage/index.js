@@ -17,7 +17,7 @@
 // import styledComponents from "./styles/styled_components/index.js";
 //
 // const MyImage = props => {
-//     const { src, size, backgroundColor, overrideStyle, children } = props;
+//     const { src, size, backgroundColor, addStyle, children } = props;
 //
 //     const imageStyle = {
 //         backgroundColor: backgroundColor,
@@ -26,7 +26,7 @@
 //     return (
 //         <Image
 //             {...props}
-//             style={{ ...imageStyle, ...overrideStyle }}
+//             style={{ ...imageStyle, ...addStyle }}
 //             src={src}
 //             size={size}
 //             // className={[cssModules.container]}
@@ -46,7 +46,7 @@
 //     src: "",
 //     size: "medium", // mini tiny small medium large big huge massive - from semantic ui react
 //     backgroundColor: "rgba(255, 255, 255, 1.0)",
-//     overrideStyle: {},
+//     addStyle: {},
 // };
 //
 // export default MyImage;
@@ -65,7 +65,7 @@ import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
 const MyImage = props => {
-    const { src, size, backgroundColor, overrideStyle, children } = props;
+    const { src, size, backgroundColor, addStyle, children } = props;
 
     const imageStyle = {
         backgroundColor: backgroundColor,
@@ -74,7 +74,7 @@ const MyImage = props => {
     return (
         <Image
             {...props}
-            style={{ ...imageStyle, ...overrideStyle }}
+            style={{ ...imageStyle, ...addStyle }}
             src={src}
             size={size}
             // className={[cssModules.container]}
@@ -94,7 +94,7 @@ MyImage.defaultProps = {
     src: "",
     size: "medium", // mini tiny small medium large big huge massive - from semantic ui react
     backgroundColor: "rgba(255, 255, 255, 1.0)",
-    overrideStyle: {},
+    addStyle: {},
 };
 
 export default MyImage;
