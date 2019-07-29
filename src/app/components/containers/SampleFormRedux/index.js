@@ -133,10 +133,31 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
+const isValidEmail = createValidator(
+    message => value => {
+        if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+            return message;
+        }
+    },
+    "Invalid email address"
+);
+
 const validate = combineValidators({
-    name: isRequired({ message: "Name is required" }),
-    lastName: isRequired({ message: "Last Name is required" }),
-    email: composeValidators(isRequired({ message: "Email is required" }))(),
+    // name: isRequired({ message: "Name is required" }),
+
+    name: composeValidators(
+        isRequired({ message: "Name is required" }),
+        isAlphabetic({ message: "Must not contain numeric values" })
+    )(),
+
+    lastName: composeValidators(
+        isRequired({ message: "Last Name is required" }),
+        isAlphabetic({ message: "Must not contain numeric values" })
+    )(),
+    email: composeValidators(
+        isRequired({ message: "Email is required" }),
+        isValidEmail
+    )(),
     confirmEmail: composeValidators(
         isRequired({ message: "Confirm Email is required" }),
         matchesField("email")({
@@ -263,11 +284,13 @@ class SampleFormRedux extends Component {
     //     formDescription,
     //   },
     //   formBody: [
+    //     // Each Object Here is an Input
     //     {
     //       useLabel: true, // true/false
     //       labelText: "Name",
-    //       inputName: "name",
-    //       placeholder: "Enter Name"
+    //       inputName: "name", // State
+    //       placeholder: "Enter Name",
+    //       conditionalValue: zipInputName && zipInputName === "77063" ? "Houston" : "",
     //     },
     //   ],
     //   formFooter: {
@@ -325,6 +348,8 @@ class SampleFormRedux extends Component {
     render() {
         const {
             autoComplete,
+            disabledColor,
+            enabledColor,
             backgroundColor,
             addContainerStyle,
             addFormStyle,
@@ -345,7 +370,7 @@ class SampleFormRedux extends Component {
 
         let containerStyle = {
             backgroundColor: backgroundColor,
-            borderColor: "rgba(255, 255, 255, 0.85)",
+            borderColor: "rgba(255, 255, 255, 1.0)",
             borderStyle: "solid",
             borderWidth: "5px",
             borderLeftWidth: "10px",
@@ -379,7 +404,7 @@ class SampleFormRedux extends Component {
         if (anyTouched === true && invalid) {
             // let addStyle = { borderLeftColor: "#ff3f34" };
             let addStyle = {
-                borderColor: "#ff5e57", // #ff6b6b
+                // borderColor: "#ff5e57", // #ff6b6b
                 borderLeftColor: "#ff3f34", // #ee5253
             };
             containerStyle = { ...containerStyle, ...addStyle };
@@ -388,7 +413,7 @@ class SampleFormRedux extends Component {
         if (anyTouched === true && valid) {
             // let addStyle = { borderLeftColor: "#26de81" };
             let addStyle = {
-                borderColor: "#26de81", // #0be881 #26de81
+                // borderColor: "#26de81", // #0be881 #26de81
                 borderLeftColor: "#05c46b", // #05c46b
             };
             containerStyle = { ...containerStyle, ...addStyle };
@@ -396,7 +421,7 @@ class SampleFormRedux extends Component {
         // Form is being sumbitted
         if (submitting) {
             // let addStyle = { borderLeftColor: "#55E6C1" };
-            let addStyle = { borderColor: "#55E6C1" };
+            let addStyle = { borderLeftColor: "#55E6C1" };
             containerStyle = { ...containerStyle, ...addStyle };
         }
         // if (invalid || submitting || pristine) {
@@ -519,6 +544,12 @@ class SampleFormRedux extends Component {
                                     placeholder="City"
                                 />
                                 <Field
+                                    name="state"
+                                    type="text"
+                                    component={TextInput}
+                                    placeholder="State"
+                                />
+                                <Field
                                     name="addressLine1"
                                     type="text"
                                     component={TextInput}
@@ -529,12 +560,6 @@ class SampleFormRedux extends Component {
                                     type="text"
                                     component={TextInput}
                                     placeholder="Address Line 2"
-                                />
-                                <Field
-                                    name="state"
-                                    type="text"
-                                    component={TextInput}
-                                    placeholder="State"
                                 />
                                 <Field
                                     name="phone"
@@ -558,6 +583,9 @@ class SampleFormRedux extends Component {
                                         // backgroundColor: "red",
                                         fontSize: "20px",
                                         fontWeight: "bold",
+                                        backgroundColor: invalid
+                                            ? disabledColor
+                                            : enabledColor,
                                     }}
                                 >
                                     SIGN UP
@@ -646,6 +674,8 @@ class SampleFormRedux extends Component {
 
 SampleFormRedux.defaultProps = {
     autoComplete: "off", // or use "on"
+    disabledColor: "rgba(76, 76, 76, 1.0) !important",
+    enabledColor: "rgba(6, 212, 64, 1.0)",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     addContainerStyle: {},
     addFormStyle: {},

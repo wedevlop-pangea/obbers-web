@@ -17,6 +17,9 @@ import EmployerPage from "./app/samples/test/simple_pages/EmployerPage";
 import HomeModule from "./modules/Home";
 import AuthModule from "./modules/Auth";
 
+import EmployeeModule from "./modules/Employee";
+import EmployerModule from "./modules/Employer";
+
 import SignIn from "./modules/Auth/SignIn";
 import SignUpEmployer from "./modules/Auth/SignUpEmployer";
 import SignUpEmployee from "./modules/Auth/SignUpEmployee";
@@ -39,7 +42,7 @@ class App extends Component {
                             <Route
                                 exact
                                 path="/employer"
-                                component={AuthModule}
+                                component={EmployerModule}
                             />
                             <Route
                                 path="/(.+)"
@@ -56,7 +59,7 @@ class App extends Component {
                             <Route
                                 exact
                                 path="/employee"
-                                component={AuthModule}
+                                component={EmployeeModule}
                             />
                             <Route
                                 path="/(.+)"

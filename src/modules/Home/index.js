@@ -21,6 +21,7 @@ import {
     CompanyLogo,
     CompanyAppIcon,
     OSIcon,
+    MyModal,
 } from "./components";
 
 import mp4VideoSrc from "./assets/video/Under-construction.mp4";

@@ -93,6 +93,13 @@
  * initial: uses the default value which is visible
  * inherit: sets the overflow to the value of its parent element.
  *
+ * Visible: this will display the overflowing content beyond the parents boundaries
+ * Hidden: will hide the overflowing content without re-sizing it
+ * Scroll: will apply scrollbars to the element – overflowing or not
+ * Auto: which will apply horizontal, vertical or both scrollbars is necessary
+ *
+ * Sources:
+ * http://www.sudo-juice.com/remove-scrollbars-from-any-div-web-page/
  * -----------------------------------------------------------------------------
  */
 
@@ -129,7 +136,7 @@ const MyContainer = props => {
         justifyContent,
         alignItems,
         textAlign,
-        responsive,
+        // responsive,
         overflow, // visible, hidden, scroll, auto, initial, inherit ...,
         overflowY,
         showHorizontalScrollBar,
@@ -155,9 +162,9 @@ const MyContainer = props => {
         justifyContent,
         alignItems,
         textAlign,
-        responsive,
-        overflow,
-        overflowY,
+        // responsive,
+        // overflow,
+        // overflowY,
         backgroundColor,
         opacity,
     };
@@ -169,7 +176,7 @@ const MyContainer = props => {
             margin: 0,
             padding: 0,
             textAlign: "center",
-            overflowX: "auto",
+            // overflowX: "auto",
             width: "100%",
             height: "100vh",
             color: "white",
@@ -341,9 +348,9 @@ MyContainer.defaultProps = {
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    responsive: true,
-    overflow: "visible", // visible, hidden, scroll, auto, initial, inherit ...,
-    overflowY: "",
+    // responsive: true,
+    overflow: "auto", // visible, hidden, scroll, auto, initial, inherit ...,
+    overflowY: "auto",
     showHorizontalScrollBar: false,
     showVerticalScrollBar: false,
     backgroundColor: "rgba(255, 255, 255, 0.0)",
