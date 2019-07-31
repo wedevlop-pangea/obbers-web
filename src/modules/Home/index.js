@@ -89,12 +89,15 @@ const HomePage = () => {
                                 </MyRow>
                             </MyGrid>
                             <MyContainer size="fitContent">
-                                <a href="" style={thirdTextStyle}>
+                                <a href="/signin" style={thirdTextStyle}>
                                     <strong>
                                         Have an account? <u>Sign in</u>
                                     </strong>
                                 </a>
-                                <a href="" style={thirdTextStyle}>
+                                <a
+                                    href="/accounts/password/reset/"
+                                    style={thirdTextStyle}
+                                >
                                     <strong>Forgot my password</strong>
                                 </a>
                             </MyContainer>

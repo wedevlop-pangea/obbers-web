@@ -23,6 +23,7 @@ import EmployerModule from "./modules/Employer";
 import SignIn from "./modules/Auth/SignIn";
 import SignUpEmployer from "./modules/Auth/SignUpEmployer";
 import SignUpEmployee from "./modules/Auth/SignUpEmployee";
+import PasswordReset from "./modules/Auth/PasswordReset";
 
 class App extends Component {
     render() {
@@ -35,10 +36,11 @@ class App extends Component {
                         <Fragment>
                             <Route path="/shop" component={ShopPage} />
                             <Route path="/admin" component={AdminPage} />
-
-                            <Route path="/auth" component={AuthModule} />
+                            <Route
+                                path="/accounts/password/reset/"
+                                component={PasswordReset}
+                            />
                             <Route path="/signin" component={SignIn} />
-                            <Route path="/signup" component={AuthModule} />
                             <Route
                                 exact
                                 path="/employer"

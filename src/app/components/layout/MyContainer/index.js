@@ -236,6 +236,18 @@ const MyContainer = props => {
         let addStyle = {};
         containerStyle = { ...containerStyle, ...addStyle };
     }
+    if (size === "fitContentFullWidth") {
+        let addStyle = { width: "100%" };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (size === "fitContentFullHeight") {
+        let addStyle = { height: "100%" };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
+    if (size === "fitContentFullWidthHeight") {
+        let addStyle = { width: "100%", height: "100%" };
+        containerStyle = { ...containerStyle, ...addStyle };
+    }
 
     // Min and Max values for Width and Height ---------------------------------
 

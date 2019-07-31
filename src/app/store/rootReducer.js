@@ -35,20 +35,21 @@
 // UNCOMMENT THIS IF YOU WANT REDUX FORM SETUP
 
 import { combineReducers } from "redux";
-import { reducer as FormReducer } from "redux-form";
 
 // reducers
-import testReducer from "./reducers/testReducer";
+import { reducer as FormReducer } from "redux-form";
 import { firebaseReducer } from "react-redux-firebase";
 import { firestoreReducer } from "redux-firestore";
 
+import testReducer from "./reducers/testReducer";
+import authReducer from "../../modules/Auth/store/reducers";
+
 const rootReducer = combineReducers({
-    test: testReducer,
-
     form: FormReducer,
-
     firebase: firebaseReducer,
     firestore: firestoreReducer,
+    testReducer: testReducer,
+    auth: authReducer,
 });
 
 export default rootReducer;

@@ -2,6 +2,13 @@
  * App Components
  */
 
+// App
+
+import FormEmployeeSignUp from "./app/FormEmployeeSignUp";
+import FormEmployerSignUp from "./app/FormEmployerSignUp";
+import FormSignIn from "./app/FormSignIn";
+import FormForgotPassword from "./app/FormForgotPassword";
+
 // Layout
 
 import MyContainer from "./layout/MyContainer";
@@ -43,6 +50,11 @@ import CompanyAppIcon from "./themed/atoms/CompanyAppIcon";
 import OSIcon from "./themed/atoms/OSIcon";
 
 export {
+    // App ---------------------------------------------------------------------
+    FormEmployeeSignUp,
+    FormEmployerSignUp,
+    FormSignIn,
+    FormForgotPassword,
     // Containers --------------------------------------------------------------
     SampleForm,
     SampleFormRedux,

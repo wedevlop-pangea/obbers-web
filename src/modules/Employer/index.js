@@ -52,7 +52,7 @@ const Employer = () => {
     return (
         <MyContainer backgroundColor="#252525" size="mainContainer">
             <MyContainer backgroundColor="#252525" size="fitScreen">
-                <h1>Employee Screen</h1>
+                <h1>Employer Screen</h1>
             </MyContainer>
         </MyContainer>
     );

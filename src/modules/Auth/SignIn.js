@@ -1,36 +1,48 @@
 // @flow
 
-/**
- * Sections or Scenes or Pages or Screens
- * Module Content Inside This Component Div
- * Proly, create section/scene/page/screen on another page (section, screen)
- * Proly, this module could be the scene or page (scene, page) who integrates sections/screens
- */
+// To Reuse for Other Components Replace this Text:
+// FormSignIn - ReduxForm Component, Form Name
+// firebaseSignIn - Redux Action
+// SignIn - Component Name
 
-import React from "react";
+import React, { Component } from "react";
 
 import {
+    // Layout
     MyContainer,
     MyGrid,
     MyRow,
     MyColumn,
+    // Common
     MyLink,
     MyButton,
+    MyForm,
+    SampleForm,
+    SampleFormRedux,
+    MyModal,
+    // Organisms Crucial Components
+    CompanyLogo,
+    FormSignIn,
 } from "./components";
 
+import { connect } from "react-redux";
+import { firebaseSignIn } from "./store/actions";
+
 const titleStyle = {
-    fontSize: "80px",
-    margin: 0,
-    padding: 0,
-};
-const subtitleStyle = {
     fontSize: "40px",
     margin: 0,
     padding: 0,
+    color: "white", // #ff7b4f
+};
+const subtitleStyle = {
+    fontSize: "20px",
+    margin: 0,
+    padding: 0,
+    color: "white", // #ff7b4f
 };
 const thirdTextStyle = {
     fontSize: "15px",
-    color: "white",
+    color: "white", // #ff7b4f
 };
 const rightsReservedStyle = {
     // fontSize: "15px",
@@ -38,64 +50,110 @@ const rightsReservedStyle = {
     padding: 0,
 };
 
-const SignIn = () => {
-    return (
-        <MyContainer size="mainContainer">
-            <MyContainer justifyContent="space-around">
-                <MyContainer position="absolute">
-                    <MyContainer>
-                        <h1 style={titleStyle}>Welcome back!</h1>
-                        <h4 style={subtitleStyle}>Find people or work.</h4>
-                    </MyContainer>
+class SignIn extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-                    <MyContainer justifyContent="space-evenly">
-                        <MyGrid>
-                            <MyRow>
-                                <MyColumn columnWidth={8}>
-                                    <MyButton
-                                        asLink
-                                        pathname="/auth"
-                                        text="HIRE"
-                                    />
-                                </MyColumn>
-                                <MyColumn columnWidth={8}>
-                                    <MyButton
-                                        asLink
-                                        pathname="/auth"
-                                        text="HIRE ME"
-                                    />
-                                </MyColumn>
-                            </MyRow>
-                        </MyGrid>
-                        <MyContainer size="fitContent">
-                            <a href="" style={thirdTextStyle}>
-                                <strong>
-                                    Have an account? <u>Sign in</u>
-                                </strong>
-                            </a>
-                            <a href="" style={thirdTextStyle}>
-                                <strong>Forgot my password</strong>
+    handleOnSubmit = credentials => {
+        console.log("SignIn container handleOnSubmit called!");
+        console.log(credentials);
+
+        // this.props.history.push(`/someroute/${someparam}`);
+        // this.props.history.goBack;
+        this.props.history.push(`/employee`);
+
+        // CALL ACTION FUNCTION
+        // this.props.someActionFunctionHere(args);
+        // this.props.firebaseSignIn(credentials);
+
+        // DO SOMETHING WITH THE LOCAL STATE
+        // this.setState(prevState => {
+        //   return {
+        //     ...prevState,
+        //     modals: {
+        //       ...prevState.modals,
+        //       place: { visible: true }
+        //     }
+        //   };
+        // });
+    };
+
+    render() {
+        return (
+            <MyContainer size="mainContainer">
+                <MyContainer
+                    size="fitScreen"
+                    backgroundColor="white"
+                    flexDirection="column"
+                    justifyContent="flex-start"
+                >
+                    <MyContainer
+                        size="fitContentFullWidth"
+                        backgroundColor="white"
+                    >
+                        <br />
+                        <a href="/">
+                            <CompanyLogo
+                                theme="light"
+                                size="medium"
+                                backgroundColor="rgba(255, 255, 255, 0.0)"
+                            />
+                        </a>
+                        <br />
+                    </MyContainer>
+                    <MyContainer
+                        size="fitContentFullWidthHeight"
+                        flexDirection="column"
+                        justifyContent="center"
+                        backgroundColor="#ff7b4f"
+                        addStyle={{
+                            borderTopLeftRadius: "50px",
+                            borderTopRightRadius: "50px",
+                        }}
+                    >
+                        <MyContainer size="fitContentFullWidth">
+                            <h1 style={titleStyle}>Welcome back!</h1>
+                            <br />
+                            <h4 style={subtitleStyle}>We've missed you.</h4>
+                            <br />
+                            <MyContainer addStyle={{ width: "80%" }}>
+                                <FormSignIn onSubmit={this.handleOnSubmit} />
+                            </MyContainer>
+                            <br />
+                            <a
+                                href="/accounts/password/reset/"
+                                style={thirdTextStyle}
+                            >
+                                <strong>Damn! forgot my password</strong>
                             </a>
                         </MyContainer>
                     </MyContainer>
                 </MyContainer>
             </MyContainer>
-            <MyContainer size="fitScreen" backgroundColor="gray">
-                <h1 style={rightsReservedStyle}>OBBERS © 2019</h1>
-            </MyContainer>
-            <MyContainer size="fitContent" backgroundColor="black">
-                <br />
-                <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
-                <h4 style={rightsReservedStyle}>All Rights Reserved.</h4>
-                <br />
-            </MyContainer>
-        </MyContainer>
-    );
+        );
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        // testProp: state.testProp
+    };
 };
 
-/*
-<MyLink bold>{"Have an account?"}</MyLink>
-<MyLink italic>Sign In</MyLink>
-*/
+const mapDispatchToProps = dispatch => {
+    return {
+        // someAction: () => {
+        //   dispatch(actionsFile.someAction());
+        // },
+        firebaseSignIn: credentials => {
+            dispatch(firebaseSignIn(credentials));
+        },
+    };
+};
 
-export default SignIn;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignIn);
