@@ -39,7 +39,8 @@ const subtitleStyle = {
     padding: 0,
 };
 const thirdTextStyle = {
-    fontSize: "15px",
+    fontSize: "16px",
+    fontWeight: "bold",
     color: "white",
 };
 const rightsReservedStyle = {
@@ -91,14 +92,10 @@ const HomePage = () => {
                             <MyContainer size="fitContent">
                                 <a href="/signin" style={thirdTextStyle}>
                                     <strong>
-                                        Have an account? <u>Sign in</u>
+                                        Have an account?
+                                        <br />
+                                        <u>Sign in</u>
                                     </strong>
-                                </a>
-                                <a
-                                    href="/accounts/password/reset/"
-                                    style={thirdTextStyle}
-                                >
-                                    <strong>Forgot my password</strong>
                                 </a>
                             </MyContainer>
                         </MyContainer>
@@ -109,7 +106,7 @@ const HomePage = () => {
                 size="fitScreen"
                 backgroundColor="white"
                 minHeight="550px"
-                justifyContent="space-around"
+                justifyContent="space-evenly"
             >
                 <MyContainer justifyContent="flex-end">
                     <CompanyAppIcon size="small" />
@@ -141,19 +138,20 @@ const HomePage = () => {
                     </MyContainer>
                 </MyContainer>
             </MyContainer>
-            <MyContainer size="fitContent" backgroundColor="#252525">
-                <div style={{ height: "50px" }} />
+
+            <MyContainer size="fitContentFullWidth" backgroundColor="#2f3542">
+                <br />
                 <br />
                 <CompanyLogo
                     theme="dark"
                     size="small"
                     backgroundColor="rgba(255, 255, 255, 0.0)"
                 />
-                <h4 style={rightsReservedStyle}>OBBERS © 2019</h4>
-                <h4 style={rightsReservedStyle}>All Rights Reserved.</h4>
+                <h4 style={{ fontSize: "15px", fontWeight: "bold" }}>
+                    Obbers © 2019 <br /> All Rights Reserved.
+                </h4>
                 <br />
                 <br />
-                <div style={{ height: "50px" }} />
             </MyContainer>
         </MyContainer>
     );

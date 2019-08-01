@@ -41,7 +41,8 @@ const subtitleStyle = {
     color: "white", // #ff7b4f
 };
 const thirdTextStyle = {
-    fontSize: "15px",
+    fontSize: "16px",
+    fontWeight: "bold",
     color: "white", // #ff7b4f
 };
 const rightsReservedStyle = {
@@ -62,11 +63,11 @@ class SignIn extends Component {
 
         // this.props.history.push(`/someroute/${someparam}`);
         // this.props.history.goBack;
-        this.props.history.push(`/employee`);
+        // this.props.history.push(`/employee`);
 
         // CALL ACTION FUNCTION
         // this.props.someActionFunctionHere(args);
-        // this.props.firebaseSignIn(credentials);
+        this.props.firebaseSignIn(credentials);
 
         // DO SOMETHING WITH THE LOCAL STATE
         // this.setState(prevState => {
@@ -126,7 +127,7 @@ class SignIn extends Component {
                                 href="/accounts/password/reset/"
                                 style={thirdTextStyle}
                             >
-                                <strong>Damn! forgot my password</strong>
+                                <strong>Forgot my password</strong>
                             </a>
                         </MyContainer>
                     </MyContainer>

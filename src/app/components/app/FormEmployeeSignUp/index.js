@@ -1,5 +1,9 @@
 // @flow
 
+// THIS FORM
+// This form has the DateInput developed with more functionalty as well as
+// this form,
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
@@ -158,6 +162,17 @@ class FormEmployeeSignUp extends Component {
                 { key: "category4", text: "Category 4", value: "category4" },
                 { key: "category5", text: "Category 5", value: "category5" },
                 { key: "category6", text: "Category 6", value: "category6" },
+            ],
+            skills: [
+                { key: "category1", text: "Welder", value: "welder" },
+                { key: "category2", text: "Electrician", value: "electrician" },
+                { key: "category3", text: "Plumber", value: "plumber" },
+                { key: "category4", text: "Carpenter", value: "carpenter" },
+                {
+                    key: "category5",
+                    text: "Air Conditioning",
+                    value: "aircondition",
+                },
             ],
         };
     }
@@ -394,6 +409,27 @@ class FormEmployeeSignUp extends Component {
                                     type="tel"
                                     component={TextInput}
                                     placeholder="Phone"
+                                />
+                            </MyColumn>
+                        </MyRow>
+                        <MyRow>
+                            <MyColumn columnWidth={8}>
+                                <Field
+                                    name="skill"
+                                    type="text"
+                                    component={SelectInput}
+                                    options={this.state.skills}
+                                    placeholder="Select Your Main Skill"
+                                />
+                            </MyColumn>
+                            <MyColumn columnWidth={8}>
+                                <Field
+                                    name="skills"
+                                    type="text"
+                                    component={SelectInput}
+                                    options={this.state.skills}
+                                    multiple
+                                    placeholder="Add Other Skills"
                                 />
                             </MyColumn>
                         </MyRow>

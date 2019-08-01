@@ -40,10 +40,57 @@ const SelectInput = props => {
 
     const containerStyle = {
         backgroundColor: backgroundColor,
+        //
+        // width: "200%",
+        borderStyle: "none",
+        // border: "20px",
+        justifyContent: "center",
     };
     const inputStyle = {
         backgroundColor: backgroundColor,
-        borderColor: "white",
+        //
+        color: "#3A4040",
+        placeholderTextColor: "red",
+        borderColor: "rgba(255, 255, 255, 0.750)",
+        // borderTopColor: "rgba(255, 255, 255, 0.0)",
+        // borderRightColor: "rgba(255, 255, 255, 0.0)",
+        // borderBottomColor: "rgba(255, 255, 255, 0.0)",
+        // borderLeftColor: "rgba(255, 255, 255, 0.0)",
+        borderWidth: "2px",
+        borderStyle: "solid",
+        borderRadius: "0px",
+        // borderTopRadius
+        // borderTopLeftRadius
+        borderTop: "0px",
+        borderRight: "0px",
+        borderLeft: "0px",
+        height: "20px !important",
+        width: "250px",
+        fontSize: "20px",
+        fontWeight: "bold",
+    };
+    const labelStyle = {
+        marginTop: "3px",
+        width: "100%",
+        height: "25px",
+        // borderBottomLeftRadius: "50px",
+        borderBottomRightRadius: "50px",
+        // borderTopLeftRadius: "50px",
+        // borderTopRightRadius: "50px",
+        backgroundColor: "#e74c3c", // #1 red opaque
+        // backgroundColor: "#F44336", // #1 red bright minimal
+        // backgroundColor: "#FF5722", // #2
+        // backgroundColor: "#B71C1C", // #1 red dark strong
+        // backgroundColor: "#F57F17",
+        // backgroundColor: "#BF360C",
+        // backgroundColor: "#EF5350",
+        // backgroundColor: "#FF7043",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: "12px",
     };
 
     return (
@@ -77,7 +124,7 @@ const SelectInput = props => {
                 {children}
             </Select>
             {touched && error && (
-                <Label basic color="red">
+                <Label style={labelStyle} color="red">
                     {error}
                 </Label>
             )}

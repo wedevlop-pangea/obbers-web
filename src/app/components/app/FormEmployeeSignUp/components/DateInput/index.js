@@ -60,7 +60,7 @@ const DateInput = props => {
     const containerStyle = {
         backgroundColor: backgroundColor,
         //
-        // width: "200%",
+        width: "200%",
         borderStyle: "none",
         // border: "20px",
         justifyContent: "center",

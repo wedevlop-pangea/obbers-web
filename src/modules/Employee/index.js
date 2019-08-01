@@ -7,7 +7,8 @@
  * Proly, this module could be the scene or page (scene, page) who integrates sections/screens
  */
 
-import React from "react";
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 
 import {
     MyContainer,
@@ -48,19 +49,54 @@ const rightsReservedStyle = {
     padding: 0,
 };
 
-const Employee = () => {
-    return (
-        <MyContainer backgroundColor="#252525" size="mainContainer">
-            <MyContainer backgroundColor="#252525" size="fitScreen">
-                <h1>Employee Screen</h1>
+class Employee extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { testValue: 1 };
+    }
+
+    render() {
+        const { backgroundColor, addStyle, children } = this.props;
+        const { someValue } = this.state;
+
+        const containerStyle = {
+            backgroundColor: backgroundColor,
+        };
+
+        return (
+            <MyContainer backgroundColor="#252525" size="mainContainer">
+                <MyContainer backgroundColor="#252525" size="fitScreen">
+                    <h1>Employee Screen</h1>
+                    <h1>Hi! name_here {this.props.testData}</h1>
+                    <h1>Your data is saved!</h1>
+                    <h1>Come back soon to find the right job</h1>
+                </MyContainer>
             </MyContainer>
-        </MyContainer>
-    );
+        );
+    }
+}
+
+Employee.defaultProps = {
+    backgroundColor: "rgba(255, 255, 255, 1.0)",
+    addStyle: {},
 };
 
-/*
-<MyLink bold>{"Have an account?"}</MyLink>
-<MyLink italic>Sign In</MyLink>
-*/
+const mapStateToProps = state => {
+    return {
+        // testProp: state.testProp
+        testData: state.testReducer.data,
+    };
+};
 
-export default Employee;
+const mapDispatchToProps = dispatch => {
+    return {
+        // someAction: () => {
+        //   dispatch(actionsFile.someAction());
+        // },
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Employee);

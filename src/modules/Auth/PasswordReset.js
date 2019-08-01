@@ -118,7 +118,7 @@ class PasswordReset extends Component {
                             <br />
                             <h4 style={subtitleStyle}>You need vitamin B-12</h4>
                             <br />
-                            <MyContainer addStyle={{ width: "80%" }}>
+                            <MyContainer addStyle={{ width: "90%" }}>
                                 <FormForgotPassword
                                     onSubmit={this.handleOnSubmit}
                                 />

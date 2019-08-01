@@ -119,9 +119,11 @@ class SignUpEmployer extends Component {
                         backgroundColor="#2f3542"
                     >
                         <br />
-                        <h4 style={{ fontSize: "14px" }}>
+                        <br />
+                        <h4 style={{ fontSize: "15px", fontWeight: "bold" }}>
                             Obbers © 2019 <br /> All Rights Reserved.
                         </h4>
+                        <br />
                         <br />
                     </MyContainer>
                 </MyContainer>

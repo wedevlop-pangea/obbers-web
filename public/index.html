@@ -4,19 +4,175 @@
         <meta charset="utf-8" />
 
         <!--
-            <script type="text/javascript">
-                var userLang = navigator.language || navigator.userLanguage;
-                alert("The language is: " + userLang);
-            </script>
+            Set Browser's Address Bar Color --------------------------------
+        -->
+
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#ff7b4f" />
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="ff7b4f" />
+
+        <!-- Chrome, Firefox OS and Opera -->
+        <meta name="theme-color" content="#ff7b4f" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#ff7b4f" />
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#ff7b4f" />
+
+        <!--
+            Set Language on localStorage -----------------------------------
+        -->
+
+        <script type="text/javascript">
+            var userLang = navigator.language || navigator.userLanguage;
+
+            // alert("The language is: " + userLang);
+
+            localStorage.setItem("siteLanguage", userLang);
+
+            var languages = [
+                "af",
+                "sq",
+                "ar-SA",
+                "ar-IQ",
+                "ar-EG",
+                "ar-LY",
+                "ar-DZ",
+                "ar-MA",
+                "ar-TN",
+                "ar-OM",
+                "ar-YE",
+                "ar-SY",
+                "ar-JO",
+                "ar-LB",
+                "ar-KW",
+                "ar-AE",
+                "ar-BH",
+                "ar-QA",
+                "eu",
+                "bg",
+                "be",
+                "ca",
+                "zh-TW",
+                "zh-CN",
+                "zh-HK",
+                "zh-SG",
+                "hr",
+                "cs",
+                "da",
+                "nl",
+                "nl-BE",
+                "en",
+                "en-US",
+                "en-EG",
+                "en-AU",
+                "en-GB",
+                "en-CA",
+                "en-NZ",
+                "en-IE",
+                "en-ZA",
+                "en-JM",
+                "en-BZ",
+                "en-TT",
+                "et",
+                "fo",
+                "fa",
+                "fi",
+                "fr",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-LU",
+                "gd",
+                "gd-IE",
+                "de",
+                "de-CH",
+                "de-AT",
+                "de-LU",
+                "de-LI",
+                "el",
+                "he",
+                "hi",
+                "hu",
+                "is",
+                "id",
+                "it",
+                "it-CH",
+                "ja",
+                "ko",
+                "lv",
+                "lt",
+                "mk",
+                "mt",
+                "no",
+                "pl",
+                "pt-BR",
+                "pt",
+                "rm",
+                "ro",
+                "ro-MO",
+                "ru",
+                "ru-MI",
+                "sz",
+                "sr",
+                "sk",
+                "sl",
+                "sb",
+                "es",
+                "es-AR",
+                "es-GT",
+                "es-CR",
+                "es-PA",
+                "es-DO",
+                "es-MX",
+                "es-VE",
+                "es-CO",
+                "es-PE",
+                "es-EC",
+                "es-CL",
+                "es-UY",
+                "es-PY",
+                "es-BO",
+                "es-SV",
+                "es-HN",
+                "es-NI",
+                "es-PR",
+                "sx",
+                "sv",
+                "sv-FI",
+                "th",
+                "ts",
+                "tn",
+                "tr",
+                "uk",
+                "ur",
+                "ve",
+                "vi",
+                "xh",
+                "ji",
+                "zu",
+            ];
+        </script>
+
+        <!--
+            UI Frameworks CDNs ---------------------------------------------
         -->
 
         <link
             rel="stylesheet"
             href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
         />
-        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+
+        <!--
+            Browser's Address Bar Site Icon --------------------------------
+        -->
+
+        <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+        <link rel="shortcut icon" href="%PUBLIC_URL%/obbers.ico" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
+
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0"

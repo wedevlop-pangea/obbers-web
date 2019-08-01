@@ -1,3 +1,5 @@
+// @flow
+
 // ACTION CREATOR - CREATES ALL THE LOGIC
 
 import { SubmissionError } from "redux-form";
@@ -20,7 +22,7 @@ export const firebaseSignUpEmployer = credentials => {
     // };
 
     console.log("************************************************************");
-    console.log("SUCCESSFULLY CALLED firebaseSignUp");
+    console.log("SUCCESSFULLY CALLED firebaseSignUp - auth actions");
     console.log(credentials);
 };
 
@@ -30,7 +32,7 @@ export const firebaseSignUpEmployee = credentials => {
     // };
 
     console.log("************************************************************");
-    console.log("SUCCESSFULLY CALLED firebaseSignUp");
+    console.log("SUCCESSFULLY CALLED firebaseSignUp - auth actions");
     console.log(credentials);
 };
 
@@ -40,7 +42,7 @@ export const firebaseSignIn = credentials => {
     // };
 
     console.log("************************************************************");
-    console.log("SUCCESSFULLY CALLED firebaseSignIn");
+    console.log("SUCCESSFULLY CALLED firebaseSignIn - auth actions");
     console.log(credentials);
 
     return async (dispatch, getState, { getFirebase }) => {
@@ -67,7 +69,7 @@ export const firebaseSignOut = () => {
     // };
 
     console.log("************************************************************");
-    console.log("SUCCESSFULLY CALLED firebaseSignOut");
+    console.log("SUCCESSFULLY CALLED firebaseSignOut - auth actions");
 
     return {
         type: SIGN_OUT_USER,

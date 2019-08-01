@@ -112,10 +112,20 @@ class SignUpEmployee extends Component {
                         <FormEmployeeSignUp onSubmit={this.handleOnSubmit} />
                     </MyContainer>
                     <br />
-                    <a href="" style={thirdTextStyle}>
-                        <strong>Damn! forgot my password</strong>
-                    </a>
                     <br />
+                    <MyContainer
+                        size="fitContentFullWidth"
+                        width="100%"
+                        backgroundColor="#2f3542"
+                    >
+                        <br />
+                        <br />
+                        <h4 style={{ fontSize: "15px", fontWeight: "bold" }}>
+                            Obbers © 2019 <br /> All Rights Reserved.
+                        </h4>
+                        <br />
+                        <br />
+                    </MyContainer>
                 </MyContainer>
             </MyContainer>
         );

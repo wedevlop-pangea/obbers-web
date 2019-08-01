@@ -1,5 +1,22 @@
 // @flow
 
+// control + shift + D
+
+// THIS FORM
+// This form is connected to Redux Firebase and Has Error Label Set Up
+
+/**
+ * Form onSubmit
+ * onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
+ * this form here has a prop onSubmit
+ * to this form onSubmit function we do the next thing:
+ * we pass it the redux-form function this.props.handleSubmit
+ * and to this function we pass it our own function called handleOnSubmit()
+ * this handleOnSubmit() receives our form input values as an argument object
+ * handleOnSubmit(values)
+ * so we can acess our form input values from within that object as keys
+ */
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
@@ -23,7 +40,7 @@ import {
     hasErrorOnlyAt,
 } from "revalidate";
 
-import { Segment, Header, Form, Button } from "semantic-ui-react";
+import { Segment, Header, Form, Button, Label } from "semantic-ui-react";
 
 import MyGrid from "../../layout/MyGrid";
 import MyRow from "../../layout/MyRow";
@@ -145,16 +162,8 @@ class FormSignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            lastName: "",
-            testCategories: [
-                { key: "category1", text: "Category 1", value: "category1" },
-                { key: "category2", text: "Category 2", value: "category2" },
-                { key: "category3", text: "Category 3", value: "category3" },
-                { key: "category4", text: "Category 4", value: "category4" },
-                { key: "category5", text: "Category 5", value: "category5" },
-                { key: "category6", text: "Category 6", value: "category6" },
-            ],
+            email: "",
+            password: "",
         };
     }
 
@@ -163,9 +172,17 @@ class FormSignIn extends Component {
         // evt.preventDefault();
         // We can as well dispatch an action inside here or inside any condition
         // this.props.doSomeAction(actionArgument);
+        //
+
+        return this.props.onSubmit({
+            email: values.email,
+            password: values.password,
+        });
     };
 
     render() {
+        const { handleSubmit, error } = this.props;
+
         const {
             autoComplete,
             disabledColor,
@@ -262,6 +279,30 @@ class FormSignIn extends Component {
             // width: "300px",
         };
 
+        const labelStyle = {
+            marginTop: "3px",
+            width: "100%",
+            height: "50px",
+            // borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "50px",
+            // borderTopLeftRadius: "50px",
+            // borderTopRightRadius: "50px",
+            backgroundColor: "#e74c3c", // #1 red opaque
+            // backgroundColor: "#F44336", // #1 red bright minimal
+            // backgroundColor: "#FF5722", // #2
+            // backgroundColor: "#B71C1C", // #1 red dark strong
+            // backgroundColor: "#F57F17",
+            // backgroundColor: "#BF360C",
+            // backgroundColor: "#EF5350",
+            // backgroundColor: "#FF7043",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "12px",
+        };
+
         return (
             <Segment
                 // {...this.props}
@@ -276,13 +317,19 @@ class FormSignIn extends Component {
             >
                 <Form
                     style={{ ...formStyle, ...addFormStyle }}
-                    // onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
-                    onSubmit={this.props.onSubmit({
-                        email: this.props.email,
-                        password: this.props.password,
-                    })}
+                    // this.props.handleSubmit below is a redux-form prop function
+                    // this.props.handleSubmit is important cause it passes our redux form values
+                    // in the first argument to the function that we crate this case handleOnSubmit(values)
+                    // will receive our form input names and values
+                    // this.handleOnSubmit below is a function inside this class based component
+                    onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     autoComplete={autoComplete}
                 >
+                    {error && (
+                        <Label style={labelStyle} color="#e74c3c">
+                            {error}
+                        </Label>
+                    )}
                     <MyGrid>
                         <MyRow
                             justifyContent="space-between"
@@ -357,26 +404,7 @@ FormSignIn.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     return {
         // testProp: state.testProp
-        initialValues: {
-            name: "",
-            lastName: "",
-            email: "",
-            confirmEmail: "",
-            password: "",
-            confirmPassword: "",
-            companyName: "",
-            country: "",
-            city: "",
-            addressLine1: "",
-            addressLine2: "",
-            state: "",
-            zipCode: "",
-            phone: "",
-            notes: "",
-            category: "",
-            categories: "",
-            date: "",
-        },
+        initialValues: state.formSignIn,
     };
 };
 
