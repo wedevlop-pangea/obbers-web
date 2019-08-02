@@ -58,7 +58,7 @@ class SignIn extends Component {
     }
 
     handleOnSubmit = credentials => {
-        console.log("SignIn container handleOnSubmit called!");
+        console.log("SignIn container - handleOnSubmit");
         console.log(credentials);
 
         // this.props.history.push(`/someroute/${someparam}`);
@@ -68,6 +68,15 @@ class SignIn extends Component {
         // CALL ACTION FUNCTION
         // this.props.someActionFunctionHere(args);
         this.props.firebaseSignIn(credentials);
+
+        // const signIn = this.props.firebaseSignIn(credentials);
+        // console.log("----------------------");
+        // console.log("SignIn Container - signIn results");
+        // console.log(signIn);
+        // console.log("firebaseSignIn.code");
+        // console.log(firebaseSignIn.code);
+        // console.log("firebaseSignIn.message");
+        // console.log(firebaseSignIn.message);
 
         // DO SOMETHING WITH THE LOCAL STATE
         // this.setState(prevState => {
@@ -120,7 +129,10 @@ class SignIn extends Component {
                             <h4 style={subtitleStyle}>We've missed you.</h4>
                             <br />
                             <MyContainer addStyle={{ width: "80%" }}>
-                                <FormSignIn onSubmit={this.handleOnSubmit} />
+                                <FormSignIn
+                                    onSubmit={this.handleOnSubmit}
+                                    funcA={this.props.firebaseSignIn}
+                                />
                             </MyContainer>
                             <br />
                             <a

@@ -19,7 +19,7 @@
 
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, SubmissionError } from "redux-form";
 import {
     createValidator,
     composeValidators,
@@ -167,21 +167,102 @@ class FormSignIn extends Component {
         };
     }
 
-    handleOnSubmit = values => {
+    handleOnSubmit = async values => {
         console.log(values);
-        // evt.preventDefault();
+        // values.preventDefault();
         // We can as well dispatch an action inside here or inside any condition
         // this.props.doSomeAction(actionArgument);
-        //
 
+        console.log("---------------------");
+        console.log("FormSignIn - handleOnSubmit");
+
+        // const submission = this.props.onSubmit({
+        //     email: values.email,
+        //     password: values.password,
+        // });
+
+        // WORKAROUND #1
         return this.props.onSubmit({
             email: values.email,
             password: values.password,
         });
+
+        // // WORKAROUND #2
+        // const { onSubmit } = this.props;
+        // const submitPromise = await onSubmit(values);
+        // console.log("---------------------");
+        // console.log("submitPromise");
+        // console.log(await submitPromise);
+        //
+        // if (submitPromise && submitPromise.catch) {
+        //     submitPromise.catch(() => null);
+        // }
+
+        // // WORKAROUND #3
+        // const { onSubmit, funcA } = this.props;
+        // // const submitPromise = await onSubmit(values);
+        // const submitPromise = await funcA(values);
+        //
+        // console.log("---------------------");
+        // console.log("SignIn Form - handleOnSubmit");
+        //
+        // let promise = new Promise((resolve, reject) => {
+        //     // const submitPromise = onSubmit(values);
+        //     // onSubmit(values);
+        //     if (submitPromise instanceof Error) {
+        //         reject();
+        //     }
+        //     resolve();
+        // }).then(result => {
+        //     console.log("----------------------");
+        //     console.log("result");
+        //     console.log(result);
+        //     if (result instanceof Error) {
+        //         console.log("---------------------");
+        //         console.log("result instanceof Error");
+        //         console.log(result);
+        //         throw new SubmissionError({
+        //             // _error: error.message,
+        //             _error: result.message,
+        //         });
+        //     }
+        //     if (result instanceof Error && result.validationErrors) {
+        //         console.log("---------------------");
+        //         console.log(
+        //             "result instanceof Error && result.validationErrors"
+        //         );
+        //         console.log(result);
+        //         // throw new SubmissionError(result.validationErrors);
+        //         throw new SubmissionError({
+        //             // _error: error.message,
+        //             _error: result.message,
+        //         });
+        //     }
+        //     // if no errors, just push to route page
+        //     console.log("---------------------");
+        //     console.log("no errors found");
+        // });
+    };
+
+    renderError = () => {
+        console.log("SignInForm renderError");
+        console.log(this.props.reduxFormError);
+        // if (this.props.reduxFormError.length > 0) {
+        //     return (
+        //         <Label style={labelStyle} color="#e74c3c">
+        //             {this.props.reduxFormError}
+        //         </Label>
+        //     );
+        // }
+
+        // if (this.props.reduxFormError.length > 0 && valid === false) {
+        //     shouldRenderCustomError = true;
+        //     return true;
+        // }
     };
 
     render() {
-        const { handleSubmit, error } = this.props;
+        const { handleSubmit, error, shouldRenderCustomError } = this.props;
 
         const {
             autoComplete,
@@ -204,6 +285,11 @@ class FormSignIn extends Component {
         } = this.props;
 
         const { name, lastName, phone } = this.state;
+
+        if (this.props.reduxFormError.length > 0 && valid === false) {
+            shouldRenderCustomError = true;
+            // return true;
+        }
 
         let containerStyle = {
             backgroundColor: backgroundColor,
@@ -323,13 +409,9 @@ class FormSignIn extends Component {
                     // will receive our form input names and values
                     // this.handleOnSubmit below is a function inside this class based component
                     onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
+                    // onSubmit={this.handleOnSubmit}
                     autoComplete={autoComplete}
                 >
-                    {error && (
-                        <Label style={labelStyle} color="#e74c3c">
-                            {error}
-                        </Label>
-                    )}
                     <MyGrid>
                         <MyRow
                             justifyContent="space-between"
@@ -384,6 +466,30 @@ class FormSignIn extends Component {
                                 <br />
                             </MyColumn>
                         </MyRow>
+                        {error && (
+                            <Label style={labelStyle} color="#e74c3c">
+                                {error}
+                            </Label>
+                        )}
+                        //
+                        // {this.props.reduxFormError.length > 0 ? (
+                        //     <Label style={labelStyle} color="#e74c3c">
+                        //         {this.props.reduxFormError}
+                        //     </Label>
+                        // ) : null}
+                        // {this.renderError()}
+                        //
+                        // {this.renderError() ? (
+                        //     <Label style={labelStyle} color="#e74c3c">
+                        //         {this.props.reduxFormError}
+                        //     </Label>
+                        // ) : null}
+                        //
+                        {shouldRenderCustomError ? (
+                            <Label style={labelStyle} color="#e74c3c">
+                                {this.props.reduxFormError}
+                            </Label>
+                        ) : null}
                     </MyGrid>
                 </Form>
             </Segment>
@@ -392,6 +498,7 @@ class FormSignIn extends Component {
 }
 
 FormSignIn.defaultProps = {
+    shouldRenderCustomError: false,
     autoComplete: "off", // or use "on"
     disabledColor: "rgba(76, 76, 76, 1.0) !important",
     enabledColor: "rgba(6, 212, 64, 1.0)",
@@ -405,6 +512,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         // testProp: state.testProp
         initialValues: state.formSignIn,
+        reduxFormError: state.auth.reduxFormError,
     };
 };
 
