@@ -45,11 +45,11 @@ import testReducer from "./reducers/testReducer";
 import authReducer from "../../modules/Auth/store/reducers";
 
 const rootReducer = combineReducers({
-    form: FormReducer,
+    testReducer: testReducer,
     firebase: firebaseReducer,
     firestore: firestoreReducer,
-    testReducer: testReducer,
     auth: authReducer,
+    form: FormReducer,
 });
 
 export default rootReducer;

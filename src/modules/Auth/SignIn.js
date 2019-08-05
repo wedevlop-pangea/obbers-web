@@ -91,6 +91,10 @@ class SignIn extends Component {
     };
 
     render() {
+        if (this.props.auth.isAuthenticated === true) {
+            this.props.history.push(`/employee`);
+        }
+
         return (
             <MyContainer size="mainContainer">
                 <MyContainer
@@ -151,7 +155,8 @@ class SignIn extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        // testProp: state.testProp
+        auth: state.auth,
+        isAuthenticated: state.auth.isAuthenticated,
     };
 };
 

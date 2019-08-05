@@ -3,65 +3,51 @@
 // ACTION CREATOR - CREATES ALL THE LOGIC
 
 import { SubmissionError } from "redux-form";
-// SubmissionError from redux-form allows us to throw error feedback in our forms
-// by just doing the next in our catch function:
-// try {
-// } catch (error) {
-//     console.log(error);
-//     throw new SubmissionError({
-//         _error: error.message,
-//     });
-// }
-// NOTE: SubmissionError object must include the key _error which has the message
 
 import {
-    REDUX_FORM_ERROR,
+    IS_AUTHENTICATED,
     SIGN_UP_USER,
     SIGN_IN_USER,
     SIGN_OUT_USER,
+    REDUX_FORM_ERROR,
 } from "../constants";
 
-// export const reduxFormCustomError = errorMessage => {
-//     console.log("************************************************************");
-//     console.log("SUCCESSFULLY CALLED reduxFormError - auth actions");
-//     console.log(errorMessage);
-//
-//     // throw new SubmissionError({
-//     //     _error: "errorMessage culo2",
-//     // });
-//     //
-//     // return dispatch => {
-//     //     dispatch({ type: REDUX_FORM_ERROR, payload: { errorMessage } });
-//     // };
-//
-//     try {
-//         if (errorMessage.length === 0) {
-//             console.log("reduxFormCustomError errorMessage.length 0");
-//         } else {
-//             console.log(
-//                 "reduxFormCustomError errorMessage.length " +
-//                     errorMessage.length
-//             );
-//             throw new SubmissionError({
-//                 // _error: errorMessage,
-//                 _error: "errorMessag culoe",
-//             });
-//         }
-//     } catch (error) {
-//         console.log("reduxFormCustomError catch(error)");
-//         console.log(error);
-//         // throw new SubmissionError({
-//         //     _error: errorMessage,
-//         // });
-//     }
-//
-//     // var throwSubmissionError = errorMessage => {
-//     //     throw new SubmissionError({
-//     //         _error: errorMessage,
-//     //     });
-//     // };
-//     // throwSubmissionError(errorMessage);
-// };
+export const isAuthenticated = () => {
+    // return dispatch => {
+    //     dispatch({ type: IS_AUTHENTICATED, payload: { credentials } });
+    // };
+
+    return async (dispatch, getState, { getFirebase }) => {
+        const firebase = getFirebase();
+        try {
+            const user = await firebase.auth().currentUser();
+
+            console.log("auth reducer action isAuthenticated");
+            console.log("user");
+            console.log(user);
+
+            let isAuthenticated = false;
+
+            if (user !== undefined || user !== null || user !== "") {
+                isAuthenticated = true;
+            }
+
+            dispatch({
+                type: IS_AUTHENTICATED,
+                payload: {
+                    isAuthenticated: isAuthenticated,
+                    uid: "",
+                },
+            });
+        } catch (error) {
+            // FIREBASE_ERROR_SIGNOUT
+            // dispatch({
+            //     type: REDUX_FORM_ERROR,
+            //     payload: error.message,
+            // });
+        }
+    };
+};
 
 export const firebaseSignUpEmployer = credentials => {
     // return dispatch => {
@@ -88,34 +74,12 @@ export const firebaseSignIn = credentials => {
     //     dispatch({ type: SIGN_IN_USER, payload: { credentials } });
     // };
 
-    let foundError;
-
     console.log("************************************************************");
     console.log("SUCCESSFULLY CALLED firebaseSignIn - auth actions");
     console.log(credentials);
 
-    // var throwSubmissionError = errorMessage => {
-    //     throw new SubmissionError({
-    //         _error: errorMessage,
-    //     });
-    // };
-    // throwSubmissionError("test error message");
-
-    // var throwFuckError = errorMessage => {
-    //     throw new SubmissionError({
-    //         _error: errorMessage,
-    //     });
-    // };
-
-    const funcOutOfGetFirebase = () => console.log("outside function!!1");
-
     return async (dispatch, getState, { getFirebase }) => {
-        // const aFunc = async (dispatch, getState, { getFirebase }) => {
-        // async (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
-
-        console.log("inside signFuck");
-        // funcOutOfGetFirebase();
 
         // return await firebase
         //     .auth()
@@ -123,10 +87,6 @@ export const firebaseSignIn = credentials => {
         //         credentials.email,
         //         credentials.password
         //     );
-
-        // throw new SubmissionError({
-        //     _error: "firebaseSignInWithEmailAndPassword.message",
-        // });
 
         // return new Promise((resolve, reject) => {
         //     firebase
@@ -136,114 +96,80 @@ export const firebaseSignIn = credentials => {
         //             credentials.password
         //         )
         //         .then(response => {
-        //             console.log("response:");
-        //             console.log(response);
         //             resolve();
         //         })
         //         .catch(error => {
-        //             console.log("error:");
-        //             console.log(error);
-        //             console.log("error.message:");
-        //             console.log(error.message);
-        //
-        //             // const reduxFormError = new SubmissionError({
-        //             //     _error: error.message,
-        //             // });
-        //             // reject(reduxFormError);
-        //
-        //             var errObj = new SubmissionError({
-        //                 _error:
-        //                     "User registration failed, email already exists.",
-        //             }); //need to add store dispatch for failed user registration (for form feedback)
-        //             reject(errObj);
-        //
-        //             // if (error instanceof SubmissionError) {
-        //             //     console.log("reject error and SubmissionError");
-        //             //     throw new SubmissionError({
-        //             //         _error: error.message,
-        //             //     });
-        //             //     reject(error);
-        //             // }
+        //             reject(err);
         //         });
         // });
 
-        // const throwFuckError2 = msg => throwFuckError(msg);
-        // throwFuckError2("fuck3");
-
         try {
-            // throwSubmissionError("test error message INSIDE TRY");
+            // SIGN_IN
+            //
+            let uid;
 
             await firebase
                 .auth()
                 .signInWithEmailAndPassword(
                     credentials.email,
                     credentials.password
-                );
-            // const firebaseSignInWithEmailAndPassword = await firebase
+                )
+                .then(result => {
+                    uid = result.user.uid;
+                });
+
+            dispatch({
+                type: SIGN_IN_USER,
+                payload: {
+                    isAuthenticated: true,
+                    uid: uid,
+                },
+            });
+
+            // return;
+            // let data = (async function() {
+            //     return await firebase
+            //         .auth()
+            //         .signInWithEmailAndPassword(
+            //             credentials.email,
+            //             credentials.password
+            //         );
+            // })();
+            // const authData = async () => {
+            //     return await firebase
+            //         .auth()
+            //         .signInWithEmailAndPassword(
+            //             credentials.email,
+            //             credentials.password
+            //         );
+            // };
+            // await authData();
+            // const data = await firebase
+            // // await firebase
             //     .auth()
             //     .signInWithEmailAndPassword(
             //         credentials.email,
             //         credentials.password
             //     );
-            // return firebaseSignInWithEmailAndPassword;
+
+            // SIGN_OUT
             //
-            // throwFuckError2("fuck");
+            // await firebase.auth().signOut();
+            //
+            // dispatch({
+            //     type: SIGN_OUT_USER,
+            //     payload: {
+            //         isAuthenticated: false,
+            //         uid: "",
+            //     },
+            // });
         } catch (error) {
-            console.log("inside catch error");
-            // funcOutOfGetFirebase();
-
-            // this.reduxFormCustomError(error.message);
-
             dispatch({
                 type: REDUX_FORM_ERROR,
                 payload: error.message,
             });
-
-            // throwSubmissionError(error.message);
-            // throwFuckError2("fuck");
-            // console.log("XXXXXXXXXXXXXXXXXXX");
-            // console.log(
-            //     "firebaseSignIn - Redux - Reducer: Auth - Action: Auth"
-            // );
-            console.log("catch error");
-            console.log(error);
-            let foundError = error;
-            // return error;
-            // throw new SubmissionError({
-            //     _error: error.message,
-            // });
-            // throw new SubmissionError(error.validationErrors); //
-            // throw new SubmissionError({
-            //     _error: error.message,
-            // });
-            // Promise.reject(new Error()) })
-            // return Promise.reject(new Error()) })
-            // return Promise.reject(
-            //     new SubmissionError({
-            //         _error: error.message,
-            //     })
-            // );
         }
-
-        // throwFuckError("fuck");
-
-        // console.log("Lets check foundError");
-        // console.log(foundError);
-        // if (foundError !== null || foundError !== undefined) {
-        //     throw new SubmissionError({
-        //         _error: foundError.message,
-        //     });
-        // }
     };
-
-    // aFunc();
-
-    // if (foundError instanceof Error) {
-    //     console.log("foundError instanceof Error");
-    //     throwSubmissionError(foundError.message);
-    // }
-
-    // return null;
 };
 
 export const firebaseSignOut = () => {
@@ -254,8 +180,29 @@ export const firebaseSignOut = () => {
     console.log("************************************************************");
     console.log("SUCCESSFULLY CALLED firebaseSignOut - auth actions");
 
-    return {
-        type: SIGN_OUT_USER,
+    // return {
+    //     type: SIGN_OUT_USER,
+    // };
+
+    return async (dispatch, getState, { getFirebase }) => {
+        const firebase = getFirebase();
+        try {
+            await firebase.auth().signOut();
+
+            dispatch({
+                type: SIGN_OUT_USER,
+                payload: {
+                    isAuthenticated: false,
+                    uid: "",
+                },
+            });
+        } catch (error) {
+            // FIREBASE_ERROR_SIGNOUT
+            // dispatch({
+            //     type: REDUX_FORM_ERROR,
+            //     payload: error.message,
+            // });
+        }
     };
 };
 

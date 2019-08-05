@@ -4,6 +4,8 @@
 
 // THIS FORM
 // This form is connected to Redux Firebase and Has Error Label Set Up
+// Error Label is custom, works based on a custom error prop as opposed to use
+// default redux-form SubmissionError approach to display errors :/
 
 /**
  * Form onSubmit
@@ -58,6 +60,30 @@ import scssStyles from "./styles/scss/default.scss";
 import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
+
+const labelStyle = {
+    marginTop: "3px",
+    width: "100%",
+    height: "50px",
+    // borderBottomLeftRadius: "50px",
+    borderBottomRightRadius: "50px",
+    // borderTopLeftRadius: "50px",
+    // borderTopRightRadius: "50px",
+    backgroundColor: "#e74c3c", // #1 red opaque
+    // backgroundColor: "#F44336", // #1 red bright minimal
+    // backgroundColor: "#FF5722", // #2
+    // backgroundColor: "#B71C1C", // #1 red dark strong
+    // backgroundColor: "#F57F17",
+    // backgroundColor: "#BF360C",
+    // backgroundColor: "#EF5350",
+    // backgroundColor: "#FF7043",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "12px",
+};
 
 const isValidEmail = createValidator(
     message => value => {
@@ -244,9 +270,10 @@ class FormSignIn extends Component {
         // });
     };
 
-    renderError = () => {
+    renderError = isFormValid => {
         console.log("SignInForm renderError");
         console.log(this.props.reduxFormError);
+
         // if (this.props.reduxFormError.length > 0) {
         //     return (
         //         <Label style={labelStyle} color="#e74c3c">
@@ -259,6 +286,18 @@ class FormSignIn extends Component {
         //     shouldRenderCustomError = true;
         //     return true;
         // }
+
+        if (
+            this.props.reduxFormError.length > 0
+            // isFormValid !== true
+            // isFormSubmitting !== true
+        ) {
+            return (
+                <Label style={labelStyle} color="#e74c3c">
+                    {this.props.reduxFormError}
+                </Label>
+            );
+        }
     };
 
     render() {
@@ -286,10 +325,10 @@ class FormSignIn extends Component {
 
         const { name, lastName, phone } = this.state;
 
-        if (this.props.reduxFormError.length > 0 && valid === false) {
-            shouldRenderCustomError = true;
-            // return true;
-        }
+        // if (this.props.reduxFormError.length > 0 && valid === false) {
+        //     shouldRenderCustomError = true;
+        //     // return true;
+        // }
 
         let containerStyle = {
             backgroundColor: backgroundColor,
@@ -466,36 +505,40 @@ class FormSignIn extends Component {
                                 <br />
                             </MyColumn>
                         </MyRow>
-                        {error && (
-                            <Label style={labelStyle} color="#e74c3c">
-                                {error}
-                            </Label>
-                        )}
-                        //
-                        // {this.props.reduxFormError.length > 0 ? (
-                        //     <Label style={labelStyle} color="#e74c3c">
-                        //         {this.props.reduxFormError}
-                        //     </Label>
-                        // ) : null}
-                        // {this.renderError()}
-                        //
-                        // {this.renderError() ? (
-                        //     <Label style={labelStyle} color="#e74c3c">
-                        //         {this.props.reduxFormError}
-                        //     </Label>
-                        // ) : null}
-                        //
-                        {shouldRenderCustomError ? (
-                            <Label style={labelStyle} color="#e74c3c">
-                                {this.props.reduxFormError}
-                            </Label>
-                        ) : null}
+                        {this.renderError(valid)}
                     </MyGrid>
                 </Form>
             </Segment>
         );
     }
 }
+
+/*
+{error && (
+    <Label style={labelStyle} color="#e74c3c">
+        {error}
+    </Label>
+)}
+//
+// {this.props.reduxFormError.length > 0 ? (
+//     <Label style={labelStyle} color="#e74c3c">
+//         {this.props.reduxFormError}
+//     </Label>
+// ) : null}
+// {this.renderError()}
+//
+// {this.renderError() ? (
+//     <Label style={labelStyle} color="#e74c3c">
+//         {this.props.reduxFormError}
+//     </Label>
+// ) : null}
+//
+// {shouldRenderCustomError ? (
+//     <Label style={labelStyle} color="#e74c3c">
+//         {this.props.reduxFormError}
+//     </Label>
+// ) : null}
+*/
 
 FormSignIn.defaultProps = {
     shouldRenderCustomError: false,

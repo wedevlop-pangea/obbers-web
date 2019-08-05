@@ -42,12 +42,16 @@ const rrfConfig = {
     useFirestoreForProfile: true,
 };
 
+// let store;
+// let composedEnhancer;
+
 export const configureStore = () => {
     const middlewares = [
         thunk.withExtraArgument({ getFirebase, getFirestore }),
     ];
 
     const composedEnhancer = composeWithDevTools(
+        // composedEnhancer = composeWithDevTools(
         applyMiddleware(...middlewares),
         reactReduxFirebase(firebase, rrfConfig),
         reduxFirestore(firebase)
@@ -57,3 +61,6 @@ export const configureStore = () => {
 
     return store;
 };
+
+// export const exportedStore = store;
+// export const exportedComposedEnhancer = composedEnhancer;
