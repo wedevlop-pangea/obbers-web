@@ -84,7 +84,7 @@ const HomePage = () => {
                             <Icon name="world" size="big" />
                             <h1 style={siteLanguageStyle}>{siteLanguage}</h1>
                         </MyContainer>
-                        <MyContainer>
+                        <MyContainer backgroundColor="">
                             <CompanyLogo
                                 theme="white"
                                 size="large"
