@@ -59,14 +59,68 @@ export const firebaseSignUpEmployer = credentials => {
     console.log(credentials);
 };
 
-export const firebaseSignUpEmployee = credentials => {
+export const firebaseSignUpEmployee = employee => {
     // return dispatch => {
     //     dispatch({ type: SIGN_UP_USER, payload: { credentials } });
     // };
 
     console.log("************************************************************");
-    console.log("SUCCESSFULLY CALLED firebaseSignUp - auth actions");
-    console.log(credentials);
+    console.log("SUCCESSFULLY CALLED REDUX ACTION firebaseSignUp - EMPLOYEE");
+    console.log(employee);
+
+    const { email, password } = employee;
+    let displayName = employee.name;
+
+    return async (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+
+        try {
+            let createdUser = await firebase
+                .auth()
+                .createUserWithEmailAndPassword(email, password);
+            console.log(createdUser);
+
+            await createdUser.user.updateProfile({
+                displayName: displayName,
+            });
+
+            // This is the object saved to the Collection at the Firestore Database
+            let newUser = {
+                displayName: displayName,
+                createdAt: firestore.FieldValue.serverTimestamp(),
+
+                name: employee.name ? employee.name : "",
+                lastName: employee.lastName ? employee.lastName : "",
+                email: employee.email ? employee.email : "",
+                password: employee.password ? employee.password : "",
+                birthdate: employee.birthdate ? employee.birthdate : "",
+                country: employee.country ? employee.country : "",
+                zipcode: employee.zipCode ? employee.zipCode : "",
+                city: employee.city ? employee.city : "",
+                state: employee.state ? employee.state : "",
+                addressLine1: employee.addressLine1
+                    ? employee.addressLine1
+                    : "",
+                addressLine2: employee.addressLine2
+                    ? employee.addressLine2
+                    : "",
+                phone: employee.phone ? employee.phone : "",
+                position: employee.skill ? employee.skill : "",
+                positions: employee.skills ? employee.skills : "",
+            };
+
+            const uid = createdUser.user.uid;
+
+            // use firestore.set when you have a uid, use firestore.add when not
+            await firestore.set(`employees/${uid}`, { ...newUser });
+        } catch (error) {
+            dispatch({
+                type: REDUX_FORM_ERROR,
+                payload: error.message,
+            });
+        }
+    };
 };
 
 export const firebaseSignIn = credentials => {

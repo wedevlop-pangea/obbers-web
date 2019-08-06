@@ -70,6 +70,20 @@ const HomePage = () => {
                     coverOpacity="0.9"
                 >
                     <MyContainer position="absolute">
+                        <br />
+                        <MyContainer
+                            size="fitContentFullWidth"
+                            flexDirection="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                            addStyle={{
+                                marginLeft: "30px",
+                                backgroundColor: "clear",
+                            }}
+                        >
+                            <Icon name="world" size="big" />
+                            <h1 style={siteLanguageStyle}>{siteLanguage}</h1>
+                        </MyContainer>
                         <MyContainer>
                             <CompanyLogo
                                 theme="white"
@@ -101,15 +115,11 @@ const HomePage = () => {
                             <MyContainer size="fitContent">
                                 <a href="/signin" style={thirdTextStyle}>
                                     <strong>
-                                        Have an account? <u>Sign in</u>
+                                        Have an account?
+                                        <br />
+                                        <u>Sign in</u>
                                     </strong>
                                 </a>
-                                <br />
-                                <br />
-                                <Icon name="world" size="big" />
-                                <h1 style={siteLanguageStyle}>
-                                    {siteLanguage}
-                                </h1>
                             </MyContainer>
                         </MyContainer>
                     </MyContainer>

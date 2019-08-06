@@ -55,6 +55,12 @@ class Employee extends Component {
         this.state = { testValue: 1 };
     }
 
+    componentDidMount() {
+        if (this.props.isAuthenticated !== true) {
+            this.props.history.push(`/`);
+        }
+    }
+
     render() {
         const { backgroundColor, addStyle, children } = this.props;
         const { someValue } = this.state;
@@ -66,10 +72,12 @@ class Employee extends Component {
         return (
             <MyContainer backgroundColor="#252525" size="mainContainer">
                 <MyContainer backgroundColor="#252525" size="fitScreen">
-                    <h1>Employee Screen</h1>
-                    <h1>Hi! name_here {this.props.testData}</h1>
-                    <h1>Your data is saved!</h1>
-                    <h1>Come back soon to find the right job</h1>
+                    <h1>Welcome {this.props.displayName}!</h1>
+                    <h1>Welcome to Obbers</h1>
+                    <h1>Find the right job!</h1>
+                    <br />
+                    <h1>Thanks for joining us!</h1>
+                    <h1>Obbers Group</h1>
                 </MyContainer>
             </MyContainer>
         );
@@ -83,8 +91,31 @@ Employee.defaultProps = {
 
 const mapStateToProps = state => {
     return {
-        // testProp: state.testProp
-        testData: state.testReducer.data,
+        auth: state.auth,
+        isAuthenticated: (function() {
+            if (
+                state &&
+                state.firebase &&
+                state.firebase.auth &&
+                state.firebase.auth.uid
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        })(),
+        displayName: (function() {
+            if (
+                state &&
+                state.firebase &&
+                state.firebase.auth &&
+                state.firebase.auth.displayName
+            ) {
+                return state.firebase.auth.displayName;
+            } else {
+                return "Guest";
+            }
+        })(),
     };
 };
 

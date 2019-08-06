@@ -56,13 +56,21 @@ class SignUpEmployee extends Component {
         this.state = {};
     }
 
-    handleOnSubmit = credentials => {
+    componentWillMount() {
+        if (this.props.isAuthenticated === true) {
+            this.props.history.push(`/employee`);
+        }
+    }
+
+    handleOnSubmit = employee => {
         console.log("SignUpEmployee container handleOnSubmit called!");
-        console.log(credentials);
+        console.log(employee);
+
+        this.props.firebaseSignUpEmployee(this.props.formEmployeeSignUp.values);
 
         // this.props.history.push(`/someroute/${someparam}`);
         // this.props.history.goBack;
-        this.props.history.push(`/employee`);
+        // this.props.history.push(`/employee`);
 
         // CALL ACTION FUNCTION
         // this.props.someActionFunctionHere(args);
@@ -135,6 +143,20 @@ class SignUpEmployee extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         // testProp: state.testProp
+        formEmployeeSignUp: state.form.formEmployeeSignUp,
+        auth: state.auth,
+        isAuthenticated: (function() {
+            if (
+                state &&
+                state.firebase &&
+                state.firebase.auth &&
+                state.firebase.auth.uid
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        })(),
     };
 };
 
@@ -143,8 +165,8 @@ const mapDispatchToProps = dispatch => {
         // someAction: () => {
         //   dispatch(actionsFile.someAction());
         // },
-        firebaseSignUpEmployee: credentials => {
-            dispatch(firebaseSignUpEmployee(credentials));
+        firebaseSignUpEmployee: employee => {
+            dispatch(firebaseSignUpEmployee(employee));
         },
     };
 };

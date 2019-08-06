@@ -27,7 +27,7 @@ import {
     hasErrorOnlyAt,
 } from "revalidate";
 
-import { Segment, Header, Form, Button } from "semantic-ui-react";
+import { Segment, Header, Form, Button, Label } from "semantic-ui-react";
 
 import MyGrid from "../../layout/MyGrid";
 import MyRow from "../../layout/MyRow";
@@ -45,6 +45,30 @@ import scssStyles from "./styles/scss/default.scss";
 import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
+
+const labelStyle = {
+    marginTop: "3px",
+    width: "100%",
+    height: "50px",
+    // borderBottomLeftRadius: "50px",
+    borderBottomRightRadius: "50px",
+    // borderTopLeftRadius: "50px",
+    // borderTopRightRadius: "50px",
+    backgroundColor: "#e74c3c", // #1 red opaque
+    // backgroundColor: "#F44336", // #1 red bright minimal
+    // backgroundColor: "#FF5722", // #2
+    // backgroundColor: "#B71C1C", // #1 red dark strong
+    // backgroundColor: "#F57F17",
+    // backgroundColor: "#BF360C",
+    // backgroundColor: "#EF5350",
+    // backgroundColor: "#FF7043",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "12px",
+};
 
 const isValidEmail = createValidator(
     message => value => {
@@ -184,6 +208,23 @@ class FormEmployeeSignUp extends Component {
         // this.props.doSomeAction(actionArgument);
     };
 
+    renderError = isFormValid => {
+        console.log("SignInForm renderError");
+        console.log(this.props.reduxFormError);
+
+        if (
+            this.props.reduxFormError.length > 0
+            // isFormValid !== true
+            // isFormSubmitting !== true
+        ) {
+            return (
+                <Label style={labelStyle} color="#e74c3c">
+                    {this.props.reduxFormError}
+                </Label>
+            );
+        }
+    };
+
     render() {
         const {
             autoComplete,
@@ -229,10 +270,34 @@ class FormEmployeeSignUp extends Component {
             // outline: "thick solid #33d9b2"
         };
 
+        const labelStyle = {
+            marginTop: "3px",
+            width: "100%",
+            height: "50px",
+            // borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "50px",
+            // borderTopLeftRadius: "50px",
+            // borderTopRightRadius: "50px",
+            backgroundColor: "#e74c3c", // #1 red opaque
+            // backgroundColor: "#F44336", // #1 red bright minimal
+            // backgroundColor: "#FF5722", // #2
+            // backgroundColor: "#B71C1C", // #1 red dark strong
+            // backgroundColor: "#F57F17",
+            // backgroundColor: "#BF360C",
+            // backgroundColor: "#EF5350",
+            // backgroundColor: "#FF7043",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "12px",
+        };
+
         console.log("form");
         console.log(this.props);
 
-        // Add different styles or actions based on form validation stastus
+        // Add different styles or actions based on form validation status
         // Form has not been touched at all
         if (anyTouched === false && pristine) {
             // let addStyle = { borderColor: "white" };
@@ -457,6 +522,7 @@ class FormEmployeeSignUp extends Component {
                                 <br />
                             </MyColumn>
                         </MyRow>
+                        {this.renderError(valid)}
                     </MyGrid>
                 </Form>
             </Segment>
@@ -476,7 +542,6 @@ FormEmployeeSignUp.defaultProps = {
 // const mapStateToProps = state => {
 const mapStateToProps = (state, ownProps) => {
     return {
-        // testProp: state.testProp
         initialValues: {
             name: "",
             lastName: "",
@@ -497,6 +562,7 @@ const mapStateToProps = (state, ownProps) => {
             categories: "",
             date: "",
         },
+        reduxFormError: state.auth.reduxFormError,
     };
 };
 

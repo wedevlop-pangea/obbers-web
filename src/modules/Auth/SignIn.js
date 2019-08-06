@@ -57,6 +57,12 @@ class SignIn extends Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        if (this.props.isAuthenticated === true) {
+            this.props.history.push(`/employee`);
+        }
+    }
+
     handleOnSubmit = credentials => {
         console.log("SignIn container - handleOnSubmit");
         console.log(credentials);
@@ -92,9 +98,9 @@ class SignIn extends Component {
 
     render() {
         // if (this.props.auth.isAuthenticated === true) {
-        if (this.props.isAuthenticated === true) {
-            this.props.history.push(`/employee`);
-        }
+        // if (this.props.isAuthenticated === true) {
+        //     this.props.history.push(`/employee`);
+        // }
 
         return (
             <MyContainer size="mainContainer">
