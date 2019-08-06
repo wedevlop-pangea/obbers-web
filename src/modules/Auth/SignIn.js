@@ -91,7 +91,8 @@ class SignIn extends Component {
     };
 
     render() {
-        if (this.props.auth.isAuthenticated === true) {
+        // if (this.props.auth.isAuthenticated === true) {
+        if (this.props.isAuthenticated === true) {
             this.props.history.push(`/employee`);
         }
 
@@ -156,7 +157,18 @@ class SignIn extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         auth: state.auth,
-        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticated: (function() {
+            if (
+                state &&
+                state.firebase &&
+                state.firebase.auth &&
+                state.firebase.auth.uid
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        })(),
     };
 };
 

@@ -21,6 +21,7 @@ import EmployeeModule from "./modules/Employee";
 import EmployerModule from "./modules/Employer";
 
 import SignIn from "./modules/Auth/SignIn";
+import SignOut from "./modules/Auth/SignOut";
 import SignUpEmployer from "./modules/Auth/SignUpEmployer";
 import SignUpEmployee from "./modules/Auth/SignUpEmployee";
 import PasswordReset from "./modules/Auth/PasswordReset";
@@ -41,6 +42,7 @@ class App extends Component {
                                 component={PasswordReset}
                             />
                             <Route path="/signin" component={SignIn} />
+                            <Route path="/signout" component={SignOut} />
                             <Route
                                 exact
                                 path="/employer"

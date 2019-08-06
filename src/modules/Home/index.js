@@ -8,6 +8,7 @@
  */
 
 import React from "react";
+import { Icon } from "semantic-ui-react";
 
 import {
     MyContainer,
@@ -28,6 +29,8 @@ import mp4VideoSrc from "./assets/video/Under-construction.mp4";
 import webmVideoSrc from "./assets/video/Under-construction.webm";
 import bgImgSrc from "./assets/image/Under-construction.jpg";
 
+const siteLanguage = localStorage.getItem("siteLanguage");
+
 const titleStyle = {
     fontSize: "80px",
     margin: 0,
@@ -47,6 +50,12 @@ const rightsReservedStyle = {
     // fontSize: "15px",
     margin: 0,
     padding: 0,
+};
+const siteLanguageStyle = {
+    fontSize: "12px",
+    margin: 0,
+    padding: 0,
+    fontWeight: "bold",
 };
 
 const HomePage = () => {
@@ -92,11 +101,15 @@ const HomePage = () => {
                             <MyContainer size="fitContent">
                                 <a href="/signin" style={thirdTextStyle}>
                                     <strong>
-                                        Have an account?
-                                        <br />
-                                        <u>Sign in</u>
+                                        Have an account? <u>Sign in</u>
                                     </strong>
                                 </a>
+                                <br />
+                                <br />
+                                <Icon name="world" size="big" />
+                                <h1 style={siteLanguageStyle}>
+                                    {siteLanguage}
+                                </h1>
                             </MyContainer>
                         </MyContainer>
                     </MyContainer>
