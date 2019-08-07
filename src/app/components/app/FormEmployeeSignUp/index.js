@@ -425,7 +425,7 @@ class FormEmployeeSignUp extends Component {
                                     // showTimeSelect
                                     // timeFormat="HH:mm"
                                     component={DateInput}
-                                    placeholder="Birthdate"
+                                    placeholder="Month / Day / Year"
                                 />
                             </MyColumn>
                             <MyColumn
@@ -484,7 +484,7 @@ class FormEmployeeSignUp extends Component {
                                     type="text"
                                     component={SelectInput}
                                     options={this.state.skills}
-                                    placeholder="Select Your Main Skill"
+                                    placeholder="Position"
                                 />
                             </MyColumn>
                             <MyColumn columnWidth={8}>
@@ -494,7 +494,7 @@ class FormEmployeeSignUp extends Component {
                                     component={SelectInput}
                                     options={this.state.skills}
                                     multiple
-                                    placeholder="Add Other Skills"
+                                    placeholder="Other"
                                 />
                             </MyColumn>
                         </MyRow>

@@ -103,7 +103,8 @@ const MyBackgroundVideo = props => {
                 </video>
                 <div
                     className="background-video-component-items background-video-color-cover"
-                    style={styles}
+                    // style={styles}
+                    style={{ ...styles, ...addStyle }}
                 />
                 <div style={childDivStyle}>{children}</div>
             </div>
