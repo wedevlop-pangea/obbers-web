@@ -40,12 +40,14 @@ const SelectInput = props => {
 
     const containerStyle = {
         backgroundColor: backgroundColor,
+        // backgroundColor: "green",
         //
         // width: "200%",
         borderStyle: "none",
         // border: "20px",
-        justifyContent: "center",
+        // justifyContent: "center",
     };
+
     const inputStyle = {
         backgroundColor: backgroundColor,
         //
@@ -65,10 +67,11 @@ const SelectInput = props => {
         borderRight: "0px",
         borderLeft: "0px",
         height: "20px !important",
-        width: "250px",
-        fontSize: "20px",
+        width: "250px !important",
+        fontSize: "18px",
         fontWeight: "bold",
     };
+
     const labelStyle = {
         marginTop: "3px",
         width: "100%",

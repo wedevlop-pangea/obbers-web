@@ -37,6 +37,11 @@ import TextInput from "./components/TextInput";
 import TextArea from "./components/TextArea";
 import SelectInput from "./components/SelectInput";
 import DateInput from "./components/DateInput";
+import DateInput3 from "./components/DateInput3";
+
+import BirthMonth from "./components/BirthMonth";
+import BirthDay from "./components/BirthDay";
+import BirthYear from "./components/BirthYear";
 
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
@@ -246,6 +251,8 @@ class FormEmployeeSignUp extends Component {
             pristine, // we wont be able to submit, if we dont touch the inputs or update their initial values ...,
         } = this.props;
 
+        const { dirt, visited } = this.props;
+
         const { name, lastName, phone } = this.state;
 
         let containerStyle = {
@@ -346,6 +353,33 @@ class FormEmployeeSignUp extends Component {
             // width: "300px",
         };
 
+        const labelTitleStyle = {
+            marginTop: "3px",
+            width: "100%",
+            height: "25px",
+            // borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "50px",
+            // borderTopLeftRadius: "50px",
+            // borderTopRightRadius: "50px",
+            backgroundColor: "gray", // #1 red opaque
+            // backgroundColor: "#F44336", // #1 red bright minimal
+            // backgroundColor: "#FF5722", // #2
+            // backgroundColor: "#B71C1C", // #1 red dark strong
+            // backgroundColor: "#F57F17",
+            // backgroundColor: "#BF360C",
+            // backgroundColor: "#EF5350",
+            // backgroundColor: "#FF7043",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+        };
+
+        console.log("Employee Form Values");
+        console.log(this.props.values);
+
         return (
             <Segment
                 // {...this.props}
@@ -363,6 +397,7 @@ class FormEmployeeSignUp extends Component {
                     // onSubmit={this.props.handleSubmit(this.handleOnSubmit)}
                     onSubmit={this.props.onSubmit}
                     autoComplete={autoComplete}
+                    initialValues={this.props.initialValues}
                 >
                     <MyGrid>
                         <MyRow
@@ -371,9 +406,14 @@ class FormEmployeeSignUp extends Component {
                         >
                             <MyColumn
                                 columnWidth={8}
+                                // addStyle={{ maxWidth: "100px" }}
                                 // justifyContent="flex-start"
                                 // alignItems="flex-start"
                             >
+                                <Label style={labelTitleStyle}>
+                                    {"About You"}
+                                </Label>
+                                <br />
                                 <Field
                                     style={{
                                         backgroundColor:
@@ -383,6 +423,7 @@ class FormEmployeeSignUp extends Component {
                                     type="text"
                                     component={TextInput}
                                     placeholder="Name"
+                                    title="Name"
                                 />
                                 <Field
                                     style={{
@@ -393,40 +434,88 @@ class FormEmployeeSignUp extends Component {
                                     type="text"
                                     component={TextInput}
                                     placeholder="Last Name"
+                                    title="Last Name"
                                 />
                                 <Field
                                     name="email"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Email"
+                                    title="Email"
                                 />
                                 <Field
                                     name="confirmEmail"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Confirm Email"
+                                    title="Confirm Email"
                                 />
                                 <Field
                                     name="password"
                                     type="password"
                                     component={TextInput}
                                     placeholder="Password"
+                                    title="Password"
                                 />
                                 <Field
                                     name="confirmPassword"
                                     type="password"
                                     component={TextInput}
                                     placeholder="Confirm Password"
+                                    title="Confirm Password"
                                 />
-                                <Field
-                                    name="birthdate"
-                                    // type="text"
-                                    // dateFormat="dd LLL yyyy h:m a"
-                                    // showTimeSelect
-                                    // timeFormat="HH:mm"
-                                    component={DateInput}
-                                    placeholder="Month / Day / Year"
-                                />
+                                <br />
+                                <Label style={labelTitleStyle}>
+                                    {"Date of Birth"}
+                                </Label>
+                                <br />
+                                <MyRow
+                                    style={
+                                        {
+                                            // width: "20px",
+                                            // borderColor: "red",
+                                            // borderStyle: "solid",
+                                            // borderWidth: "20px",
+                                        }
+                                    }
+                                    justifyContent="space-between"
+                                    alignItems="flex-start"
+                                >
+                                    <Field
+                                        name="birthmonth"
+                                        component={BirthMonth}
+                                        placeholder="Month"
+                                        title="Month"
+                                        // addContainerStyle={{ width: "60%" }}
+                                    />
+                                </MyRow>
+                                <MyRow
+                                    style={
+                                        {
+                                            // width: "20px",
+                                            // borderColor: "red",
+                                            // borderStyle: "solid",
+                                            // borderWidth: "20px",
+                                        }
+                                    }
+                                    justifyContent="space-between"
+                                    alignItems="flex-start"
+                                >
+                                    <Field
+                                        name="birthday"
+                                        component={BirthDay}
+                                        placeholder="Day"
+                                        title="Day"
+                                        // addContainerStyle={{ width: "15%" }}
+                                    />
+                                    <Field
+                                        name="birthyear"
+                                        component={BirthYear}
+                                        placeholder="Year"
+                                        title="Year"
+                                        // addContainerStyle={{ width: "25%" }}
+                                    />
+                                </MyRow>
                             </MyColumn>
                             <MyColumn
                                 columnWidth={8}
@@ -507,6 +596,7 @@ class FormEmployeeSignUp extends Component {
                                     type="submit"
                                     style={{
                                         width: "100%",
+                                        maxWidth: "400px",
                                         height: "60px",
                                         borderRadius: "50px",
                                         // backgroundColor: "red",
@@ -530,6 +620,42 @@ class FormEmployeeSignUp extends Component {
     }
 }
 
+/*
+<MyRow
+    justifyContent="space-between"
+    alignItems="flex-start"
+>
+    <Field
+        name="birthdate_month"
+        component={SelectInput}
+        placeholder="Month"
+        addContainerStyle={{ width: "60%" }}
+    />
+    <Field
+        name="birthdate_day"
+        component={TextInput}
+        placeholder="Day"
+        addContainerStyle={{ width: "15%" }}
+    />
+    <Field
+        name="birthdate_year"
+        component={TextInput}
+        placeholder="Year"
+        addContainerStyle={{ width: "25%" }}
+    />
+</MyRow>
+
+<Field
+    name="birthdate"
+    type="text"
+    component={DateInput3}
+    // monthPlaceholder=""
+    // dayPlaceholder=""
+    // yearPlaceholder=""
+/>
+
+*/
+
 FormEmployeeSignUp.defaultProps = {
     autoComplete: "off", // or use "on"
     disabledColor: "rgba(76, 76, 76, 1.0) !important",
@@ -549,7 +675,7 @@ const mapStateToProps = (state, ownProps) => {
             confirmEmail: "",
             password: "",
             confirmPassword: "",
-            birthdate: "",
+            birthdate: "ss",
             country: "",
             city: "",
             addressLine1: "",
@@ -561,8 +687,15 @@ const mapStateToProps = (state, ownProps) => {
             category: "",
             categories: "",
             date: "",
+            fuckingInitialValueTest: "uranus",
         },
+        values:
+            state.form && state.form.formEmployeeSignUp
+                ? state.form.formEmployeeSignUp.values
+                : null,
         reduxFormError: state.auth.reduxFormError,
+        state: state,
+        fuckingStateToPropsTest: "uranus",
     };
 };
 

@@ -26,25 +26,30 @@ import styledComponents from "./styles/styled_components/index.js";
 
 const TextInput = props => {
     const {
+        title,
         input,
         width,
         type,
         placeholder,
-        meta: { touched, error },
+        meta: { touched, error, valid },
         backgroundColor,
         addContainerStyle,
         addInputStyle,
         children,
     } = props;
 
+    let fieldTitle = props.title ? props.title : "VALID";
+
     const containerStyle = {
         backgroundColor: backgroundColor,
+        // backgroundColor: "red",
         //
         // width: "200%",
         borderStyle: "none",
         // border: "20px",
         justifyContent: "center",
     };
+
     const inputStyle = {
         backgroundColor: backgroundColor,
         //
@@ -68,7 +73,8 @@ const TextInput = props => {
         fontSize: "20px",
         fontWeight: "bold",
     };
-    const labelStyle = {
+
+    const labelErrorStyle = {
         marginTop: "3px",
         width: "100%",
         height: "25px",
@@ -92,6 +98,36 @@ const TextInput = props => {
         fontSize: "12px",
     };
 
+    const labelSuccessStyle = {
+        marginTop: "3px",
+        width: "100%",
+        height: "25px",
+        // borderBottomLeftRadius: "50px",
+        // borderBottomRightRadius: "50px",
+        // borderTopLeftRadius: "50px",
+
+        // borderTopRightRadius: "50px",
+        backgroundColor: "rgba(255, 255, 255, 0.0)",
+
+        // backgroundColor: "#F44336", // #1 red bright minimal
+        // backgroundColor: "#FF5722", // #2
+        // backgroundColor: "#B71C1C", // #1 red dark strong
+        // backgroundColor: "#F57F17",
+        // backgroundColor: "#BF360C",
+        // backgroundColor: "#EF5350",
+        // backgroundColor: "#FF7043",
+
+        // color: "white",
+        color: "gray",
+        fontWeight: "bold",
+        fontSize: "12px",
+
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    };
+
     return (
         <Form.Field
             {...props}
@@ -105,6 +141,10 @@ const TextInput = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
+            {valid && (
+                // <Label style={labelSuccessStyle} color="green">
+                <Label style={labelSuccessStyle}>{fieldTitle}</Label>
+            )}
             <input
                 {...input}
                 style={{ ...inputStyle, ...addInputStyle }}
@@ -121,7 +161,7 @@ const TextInput = props => {
                 {children}
             </input>
             {touched && error && (
-                <Label style={labelStyle} color="#e74c3c">
+                <Label style={labelErrorStyle} color="#e74c3c">
                     {error}
                 </Label>
             )}
@@ -130,6 +170,7 @@ const TextInput = props => {
 };
 
 TextInput.defaultProps = {
+    // title: "Valid",
     placeholder: "Enter Text",
     backgroundColor: "rgba(255, 255, 255, 0.0)",
     addContainerStyle: {},
