@@ -24,6 +24,26 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
+const labelSuccessStyle = {
+    marginTop: "5px",
+    width: "100%",
+    height: "15px",
+    // borderBottomLeftRadius: "50px",
+    // borderBottomRightRadius: "50px",
+    // borderTopLeftRadius: "50px",
+    // borderTopRightRadius: "50px",
+    backgroundColor: "rgba(255, 255, 255, 0.10)",
+    // color: "white",
+    color: "gray",
+    fontWeight: "bold",
+    fontSize: "12px",
+
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+};
+
 const months = [
     { key: "january", text: "January", value: "01" },
     { key: "february", text: "February", value: "02" },
@@ -106,6 +126,24 @@ class BirthMonth extends Component {
         });
     };
 
+    renderTitle = isFieldValid => {
+        const {
+            meta: { touched },
+        } = this.props;
+        if (this.props && this.props.title) {
+            if (this.props.title === false) return;
+
+            // let fieldTitle = this.props.title ? this.props.title : "Valid";
+
+            // if (showTitleOnFormValid === true && isFieldValid) return;
+
+            let fieldTitle = "";
+            if (touched && isFieldValid) fieldTitle = this.props.title;
+
+            return <Label style={labelSuccessStyle}>{fieldTitle}</Label>;
+        }
+    };
+
     render() {
         console.log("this.state.date");
         console.log(`${this.state.month}/${this.state.day}/${this.state.year}`);
@@ -119,12 +157,14 @@ class BirthMonth extends Component {
             multiple,
             dayPlaceholder,
             yearPlaceholder,
-            meta: { touched, error },
+            meta: { touched, error, valid },
             backgroundColor,
             addContainerStyle,
             addInputStyle,
             children,
         } = this.props;
+
+        const { title, showTitleOnFormValid } = this.props;
 
         const containerStyle = {
             // backgroundColor: backgroundColor,
@@ -179,27 +219,27 @@ class BirthMonth extends Component {
         };
 
         const labelStyle = {
-            // marginTop: "3px",
-            // width: "100%",
-            // height: "25px",
-            // // borderBottomLeftRadius: "50px",
-            // borderBottomRightRadius: "50px",
-            // // borderTopLeftRadius: "50px",
-            // // borderTopRightRadius: "50px",
-            // backgroundColor: "#e74c3c", // #1 red opaque
-            // // backgroundColor: "#F44336", // #1 red bright minimal
-            // // backgroundColor: "#FF5722", // #2
-            // // backgroundColor: "#B71C1C", // #1 red dark strong
-            // // backgroundColor: "#F57F17",
-            // // backgroundColor: "#BF360C",
-            // // backgroundColor: "#EF5350",
-            // // backgroundColor: "#FF7043",
-            // color: "white",
-            // display: "flex",
-            // flexDirection: "column",
-            // justifyContent: "center",
-            // alignItems: "center",
-            // fontSize: "12px",
+            marginTop: "3px",
+            width: "100%",
+            height: "25px",
+            // borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "50px",
+            // borderTopLeftRadius: "50px",
+            // borderTopRightRadius: "50px",
+            backgroundColor: "#e74c3c", // #1 red opaque
+            // backgroundColor: "#F44336", // #1 red bright minimal
+            // backgroundColor: "#FF5722", // #2
+            // backgroundColor: "#B71C1C", // #1 red dark strong
+            // backgroundColor: "#F57F17",
+            // backgroundColor: "#BF360C",
+            // backgroundColor: "#EF5350",
+            // backgroundColor: "#FF7043",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "12px",
         };
 
         return (
@@ -215,6 +255,7 @@ class BirthMonth extends Component {
                 // Vanilla CSS, join 2 classes
                 // className="container classA classB"
             >
+                {this.renderTitle()};
                 <div
                     style={{
                         display: "flex",
@@ -228,10 +269,10 @@ class BirthMonth extends Component {
                         style={{ ...inputStyle, ...addInputStyle }}
                         // value={input.value || null}
                         value={this.state.month}
-                        // onChange={(e, data) => input.onChange(data.value)}
+                        onChange={(e, data) => input.onChange(data.value)}
                         // onChange={(e, data) => console.log(data)}
                         // onChange={(e, data) => this.setState({ [data.name]: data.value }) }
-                        onChange={(e, data) => this.handleOnSelectChange(data)}
+                        // onChange={(e, data) => this.handleOnSelectChange(data)}
                         placeholder={monthPlaceholder}
                         options={options}
                         multiple={multiple}

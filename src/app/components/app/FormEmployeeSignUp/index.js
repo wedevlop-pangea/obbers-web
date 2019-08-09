@@ -43,6 +43,8 @@ import BirthMonth from "./components/BirthMonth";
 import BirthDay from "./components/BirthDay";
 import BirthYear from "./components/BirthYear";
 
+import PhoneCountryCode from "./components/PhoneCountryCode";
+
 import cssStyles from "./styles/css/default.css";
 import cssModules from "./styles/css_modules/default.css";
 import sassStyles from "./styles/sass/default.sass";
@@ -51,10 +53,83 @@ import stylable from "./styles/stylable/default.st.css";
 import styleObjects from "./styles/style_objects/index.js";
 import styledComponents from "./styles/styled_components/index.js";
 
+const months = [
+    { key: "january", text: "January", value: "1" },
+    { key: "february", text: "February", value: "2" },
+    { key: "march", text: "March", value: "3" },
+    { key: "april", text: "April", value: "4" },
+    { key: "may", text: "May", value: "5" },
+    { key: "june", text: "June", value: "6" },
+    { key: "july", text: "July", value: "7" },
+    { key: "august", text: "August", value: "8" },
+    { key: "september", text: "September", value: "9" },
+    { key: "october", text: "October", value: "10" },
+    { key: "november", text: "November", value: "11" },
+    { key: "december", text: "December", value: "12" },
+];
+
+const phoneCountryCodes = [
+    { key: "us", text: "United States +1", value: 1 },
+    { key: "mexico", text: "Mexico +52", value: 52 },
+];
+
+const industries = [
+    {
+        key: "industry1",
+        text: "Construction and Extractions",
+        value: "1",
+    },
+    {
+        key: "industry2",
+        text: "Farming, Fishing and Forestry",
+        value: "2",
+    },
+    {
+        key: "industry3",
+        text: "Food Preparation and Serving",
+        value: "3",
+    },
+    {
+        key: "industry4",
+        text: "Installation, Maintenance and Repair",
+        value: "4",
+    },
+    { key: "industry5", text: "Production", value: "5" },
+    {
+        key: "industry6",
+        text: "Transportation and Material Moving",
+        value: "6",
+    },
+];
+
 const labelStyle = {
     marginTop: "3px",
     width: "100%",
     height: "50px",
+    // borderBottomLeftRadius: "50px",
+    borderBottomRightRadius: "50px",
+    // borderTopLeftRadius: "50px",
+    // borderTopRightRadius: "50px",
+    // backgroundColor: "#e74c3c", // #1 red opaque
+    // backgroundColor: "#F44336", // #1 red bright minimal
+    // backgroundColor: "#FF5722", // #2
+    // backgroundColor: "#B71C1C", // #1 red dark strong
+    // backgroundColor: "#F57F17",
+    // backgroundColor: "#BF360C",
+    // backgroundColor: "#EF5350",
+    // backgroundColor: "#FF7043",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "16px",
+};
+
+const reduxFormErrorStyle = {
+    marginTop: "3px",
+    width: "100%",
+    height: "60px",
     // borderBottomLeftRadius: "50px",
     borderBottomRightRadius: "50px",
     // borderTopLeftRadius: "50px",
@@ -72,7 +147,7 @@ const labelStyle = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "12px",
+    fontSize: "16px",
 };
 
 const isValidEmail = createValidator(
@@ -91,7 +166,6 @@ const validate = combineValidators({
         isRequired({ message: "Name is required" }),
         isAlphabetic({ message: "Must not contain numeric values" })
     )(),
-
     lastName: composeValidators(
         isRequired({ message: "Last Name is required" }),
         isAlphabetic({ message: "Must not contain numeric values" })
@@ -118,20 +192,35 @@ const validate = combineValidators({
             message: "Passwords do not match",
         })
     )(),
-    birthdate: composeValidators(
-        isRequired({ message: "Birthdate is required" }),
-        // isAlphaNumeric({ message: "Must only contain numeric values" }),
-        hasLengthLessThan(11)({
-            message: "Date must contain 10 or less characters",
-        })
-    )(),
+    // birthdate: composeValidators(
+    //     isRequired({ message: "Birthdate is required" }),
+    //     // isAlphaNumeric({ message: "Must only contain numeric values" }),
+    //     hasLengthLessThan(11)({
+    //         message: "Date must contain 10 or less characters",
+    //     })
+    // )(),
+    // birthmonth: composeValidators(
+    //     isRequired({ message: "Month is required" })
+    //     // isOneOf(months)
+    // )(),
+    birthday: composeValidators(isRequired({ message: "Day is required" }))(),
+    birthyear: composeValidators(isRequired({ message: "Year is required" }))(),
     country: composeValidators(
         isRequired({ message: "Country is required" })
         // isOneOf(['foo', 'bar'])('My Field')('baz');
         // // 'My Field must be one of ["foo","bar"]'
     )(),
+    zipCode: composeValidators(
+        isRequired({ message: "Zip Code is required" })
+        // isNumeric({ message: "Must only contain numeric values" }),
+    )(),
     city: composeValidators(
         isRequired({ message: "City is required" })
+        // isOneOf(['foo', 'bar'])('My Field')('baz');
+        // // 'My Field must be one of ["foo","bar"]'
+    )(),
+    state: composeValidators(
+        isRequired({ message: "State is required" })
         // isOneOf(['foo', 'bar'])('My Field')('baz');
         // // 'My Field must be one of ["foo","bar"]'
     )(),
@@ -141,28 +230,43 @@ const validate = combineValidators({
     // addressLine2: composeValidators(
     //     isRequired({ message: "Address Line 2 is required" }),
     // )(),
-    state: composeValidators(
-        isRequired({ message: "State is required" })
-        // isOneOf(['foo', 'bar'])('My Field')('baz');
-        // // 'My Field must be one of ["foo","bar"]'
-    )(),
-    zipCode: composeValidators(
-        isRequired({ message: "Zip Code is required" })
-        // isNumeric({ message: "Must only contain numeric values" }),
-    )(),
     // phone: isRequired("phone"),
-    phone: composeValidators(
+    // phone: composeValidators(
+    //     isRequired({ message: "Phone is required" }),
+    //     isNumeric({ message: "Must only contain numeric values" }),
+    //     hasLengthGreaterThan(10)({
+    //         message: "Phone must contain more than 10 numbers",
+    //     })
+    // )(),
+    // phoneCountryCode: composeValidators(
+    //     isRequired({ message: "Country Code is required" })
+    //     // isOneOf(phoneCountryCodes)
+    // )(),
+    // phoneArea: composeValidators(
+    //     isRequired({ message: "Area is required" }),
+    // )(),
+    phoneNumber: composeValidators(
         isRequired({ message: "Phone is required" }),
         isNumeric({ message: "Must only contain numeric values" }),
-        hasLengthGreaterThan(10)({
-            message: "Phone must contain more than 10 numbers",
+        hasLengthGreaterThan(4)({
+            message: "Phone must contain at least 5 numbers",
+        }),
+        hasLengthLessThan(11)({
+            message: "Phone must contain less than 12 numbers",
         })
     )(),
-    notes: composeValidators(
-        hasLengthLessThan(150)({
-            message: "Note must contain less than 150 characters",
-        })
-    )(),
+    // industry: composeValidators(
+    //     isRequired({ message: "Industry is required" }),
+    //     // isOneOf(industries)
+    //     // hasLengthGreaterThan(0)({
+    //     //     message: "Select an Industry",
+    //     // })
+    // )(),
+    // notes: composeValidators(
+    //     hasLengthLessThan(150)({
+    //         message: "Note must contain less than 150 characters",
+    //     })
+    // )(),
     // category: composeValidators(
     //     isRequired({ message: "Category is required" }),
     // )(),
@@ -184,6 +288,52 @@ class FormEmployeeSignUp extends Component {
         this.state = {
             name: "",
             lastName: "",
+            months: [
+                { key: "january", text: "January", value: "1" },
+                { key: "february", text: "February", value: "2" },
+                { key: "march", text: "March", value: "3" },
+                { key: "april", text: "April", value: "4" },
+                { key: "may", text: "May", value: "5" },
+                { key: "june", text: "June", value: "6" },
+                { key: "july", text: "July", value: "7" },
+                { key: "august", text: "August", value: "8" },
+                { key: "september", text: "September", value: "9" },
+                { key: "october", text: "October", value: "10" },
+                { key: "november", text: "November", value: "11" },
+                { key: "december", text: "December", value: "12" },
+            ],
+            phoneCountryCodes: [
+                { key: "us", text: "United States +1", value: 1 },
+                { key: "mexico", text: "Mexico +52", value: 52 },
+            ],
+            industries: [
+                {
+                    key: "industry1",
+                    text: "Construction and Extractions",
+                    value: "1",
+                },
+                {
+                    key: "industry2",
+                    text: "Farming, Fishing and Forestry",
+                    value: "2",
+                },
+                {
+                    key: "industry3",
+                    text: "Food Preparation and Serving",
+                    value: "3",
+                },
+                {
+                    key: "industry4",
+                    text: "Installation, Maintenance and Repair",
+                    value: "4",
+                },
+                { key: "industry5", text: "Production", value: "5" },
+                {
+                    key: "industry6",
+                    text: "Transportation and Material Moving",
+                    value: "6",
+                },
+            ],
             testCategories: [
                 { key: "category1", text: "Category 1", value: "category1" },
                 { key: "category2", text: "Category 2", value: "category2" },
@@ -223,7 +373,7 @@ class FormEmployeeSignUp extends Component {
             // isFormSubmitting !== true
         ) {
             return (
-                <Label style={labelStyle} color="#e74c3c">
+                <Label style={reduxFormErrorStyle} color="#e74c3c">
                     {this.props.reduxFormError}
                 </Label>
             );
@@ -277,31 +427,7 @@ class FormEmployeeSignUp extends Component {
             // outline: "thick solid #33d9b2"
         };
 
-        const labelStyle = {
-            marginTop: "3px",
-            width: "100%",
-            height: "50px",
-            // borderBottomLeftRadius: "50px",
-            borderBottomRightRadius: "50px",
-            // borderTopLeftRadius: "50px",
-            // borderTopRightRadius: "50px",
-            backgroundColor: "#e74c3c", // #1 red opaque
-            // backgroundColor: "#F44336", // #1 red bright minimal
-            // backgroundColor: "#FF5722", // #2
-            // backgroundColor: "#B71C1C", // #1 red dark strong
-            // backgroundColor: "#F57F17",
-            // backgroundColor: "#BF360C",
-            // backgroundColor: "#EF5350",
-            // backgroundColor: "#FF7043",
-            color: "white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "12px",
-        };
-
-        console.log("form");
+        console.log("REDUX-FORM: EMPLOYEE SIGNUP");
         console.log(this.props);
 
         // Add different styles or actions based on form validation status
@@ -358,9 +484,9 @@ class FormEmployeeSignUp extends Component {
             width: "100%",
             height: "25px",
             // borderBottomLeftRadius: "50px",
-            borderBottomRightRadius: "50px",
+            // borderBottomRightRadius: "50px",
             // borderTopLeftRadius: "50px",
-            // borderTopRightRadius: "50px",
+            borderTopRightRadius: "50px",
             backgroundColor: "gray", // #1 red opaque
             // backgroundColor: "#F44336", // #1 red bright minimal
             // backgroundColor: "#FF5722", // #2
@@ -377,8 +503,8 @@ class FormEmployeeSignUp extends Component {
             fontSize: "14px",
         };
 
-        console.log("Employee Form Values");
-        console.log(this.props.values);
+        // console.log("Employee Form Values");
+        // console.log(this.props.state.form.formEmployeeSignUp.values);
 
         return (
             <Segment
@@ -400,6 +526,7 @@ class FormEmployeeSignUp extends Component {
                     initialValues={this.props.initialValues}
                 >
                     <MyGrid>
+                        <br />
                         <MyRow
                             justifyContent="space-between"
                             alignItems="flex-start"
@@ -411,9 +538,8 @@ class FormEmployeeSignUp extends Component {
                                 // alignItems="flex-start"
                             >
                                 <Label style={labelTitleStyle}>
-                                    {"About You"}
+                                    {"Account"}
                                 </Label>
-                                <br />
                                 <Field
                                     style={{
                                         backgroundColor:
@@ -468,7 +594,6 @@ class FormEmployeeSignUp extends Component {
                                 <Label style={labelTitleStyle}>
                                     {"Date of Birth"}
                                 </Label>
-                                <br />
                                 <MyRow
                                     style={
                                         {
@@ -486,7 +611,7 @@ class FormEmployeeSignUp extends Component {
                                         component={BirthMonth}
                                         placeholder="Month"
                                         title="Month"
-                                        // addContainerStyle={{ width: "60%" }}
+                                        options={this.state.months}
                                     />
                                 </MyRow>
                                 <MyRow
@@ -506,14 +631,12 @@ class FormEmployeeSignUp extends Component {
                                         component={BirthDay}
                                         placeholder="Day"
                                         title="Day"
-                                        // addContainerStyle={{ width: "15%" }}
                                     />
                                     <Field
                                         name="birthyear"
                                         component={BirthYear}
                                         placeholder="Year"
                                         title="Year"
-                                        // addContainerStyle={{ width: "25%" }}
                                     />
                                 </MyRow>
                             </MyColumn>
@@ -522,70 +645,90 @@ class FormEmployeeSignUp extends Component {
                                 // justifyContent="flex-start"
                                 // alignItems="flex-start"
                             >
+                                <Label style={labelTitleStyle}>
+                                    {"Address"}
+                                </Label>
                                 <Field
                                     name="country"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Country"
+                                    title="Country"
                                 />
                                 <Field
                                     name="zipCode"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Zip Code"
+                                    title="Zip Code"
                                 />
                                 <Field
                                     name="city"
                                     type="text"
                                     component={TextInput}
                                     placeholder="City"
+                                    title="City"
                                 />
                                 <Field
                                     name="state"
                                     type="text"
                                     component={TextInput}
                                     placeholder="State"
+                                    title="State"
                                 />
                                 <Field
                                     name="addressLine1"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Address Line 1"
+                                    title="Address Line 1"
                                 />
                                 <Field
                                     name="addressLine2"
                                     type="text"
                                     component={TextInput}
                                     placeholder="Address Line 2"
+                                    title="Address Line 2"
+                                />
+                                <br />
+                                <Label style={labelTitleStyle}>
+                                    {"Phone Number"}
+                                </Label>
+
+                                <Field
+                                    name="phoneCountryCode"
+                                    component={PhoneCountryCode}
+                                    options={this.state.phoneCountryCodes}
+                                    placeholder="Country Code"
+                                    title="Country Code"
                                 />
                                 <Field
-                                    name="phone"
-                                    type="tel"
+                                    name="phoneNumber"
+                                    type="number"
                                     component={TextInput}
-                                    placeholder="Phone"
+                                    placeholder="Phone Number"
+                                    title="Phone"
                                 />
                             </MyColumn>
                         </MyRow>
+
                         <MyRow>
-                            <MyColumn columnWidth={8}>
+                            <MyColumn columnWidth={3} />
+                            <MyColumn columnWidth={10}>
+                                <Label style={labelTitleStyle}>
+                                    {"Industry"}
+                                </Label>
+                                <br />
                                 <Field
-                                    name="skill"
+                                    name="industry"
                                     type="text"
                                     component={SelectInput}
-                                    options={this.state.skills}
-                                    placeholder="Position"
+                                    options={this.state.industries}
+                                    placeholder="Industry"
+                                    title="Industry"
                                 />
                             </MyColumn>
-                            <MyColumn columnWidth={8}>
-                                <Field
-                                    name="skills"
-                                    type="text"
-                                    component={SelectInput}
-                                    options={this.state.skills}
-                                    multiple
-                                    placeholder="Other"
-                                />
-                            </MyColumn>
+                            <MyColumn columnWidth={3} />
                         </MyRow>
                         <MyRow>
                             <MyColumn columnWidth={16}>
@@ -672,22 +815,19 @@ const mapStateToProps = (state, ownProps) => {
             name: "",
             lastName: "",
             email: "",
-            confirmEmail: "",
             password: "",
-            confirmPassword: "",
-            birthdate: "ss",
+            passwordConfirm: "",
+            birthdate: "",
             country: "",
+            zipCode: "",
             city: "",
+            state: "",
             addressLine1: "",
             addressLine2: "",
-            state: "",
-            zipCode: "",
-            phone: "",
-            notes: "",
-            category: "",
-            categories: "",
-            date: "",
-            fuckingInitialValueTest: "uranus",
+            phoneCountryCode: "",
+            phoneNumber: "",
+            industry: "",
+            // isRegistrationComplete: false,
         },
         values:
             state.form && state.form.formEmployeeSignUp

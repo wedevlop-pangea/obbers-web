@@ -26,7 +26,6 @@ import styledComponents from "./styles/styled_components/index.js";
 
 const TextInput = props => {
     const {
-        title,
         input,
         width,
         type,
@@ -38,7 +37,7 @@ const TextInput = props => {
         children,
     } = props;
 
-    let fieldTitle = props.title ? props.title : "VALID";
+    const { title, showTitleOnFormValid } = props;
 
     const containerStyle = {
         backgroundColor: backgroundColor,
@@ -68,7 +67,7 @@ const TextInput = props => {
         borderTop: "0px",
         borderRight: "0px",
         borderLeft: "0px",
-        height: "20px !important",
+        height: "10px !important",
         width: "250px",
         fontSize: "20px",
         fontWeight: "bold",
@@ -99,24 +98,14 @@ const TextInput = props => {
     };
 
     const labelSuccessStyle = {
-        marginTop: "3px",
+        marginTop: "5px",
         width: "100%",
-        height: "25px",
+        height: "15px",
         // borderBottomLeftRadius: "50px",
         // borderBottomRightRadius: "50px",
         // borderTopLeftRadius: "50px",
-
         // borderTopRightRadius: "50px",
-        backgroundColor: "rgba(255, 255, 255, 0.0)",
-
-        // backgroundColor: "#F44336", // #1 red bright minimal
-        // backgroundColor: "#FF5722", // #2
-        // backgroundColor: "#B71C1C", // #1 red dark strong
-        // backgroundColor: "#F57F17",
-        // backgroundColor: "#BF360C",
-        // backgroundColor: "#EF5350",
-        // backgroundColor: "#FF7043",
-
+        backgroundColor: "rgba(255, 255, 255, 0.10)",
         // color: "white",
         color: "gray",
         fontWeight: "bold",
@@ -126,6 +115,21 @@ const TextInput = props => {
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
+    };
+
+    const renderTitle = isFieldValid => {
+        if (props && props.title) {
+            if (props.title === false) return;
+
+            // let fieldTitle = props.title ? props.title : "Valid";
+
+            // if (showTitleOnFormValid === true && isFieldValid) return;
+
+            let fieldTitle = "";
+            if (touched && isFieldValid) fieldTitle = props.title;
+
+            return <Label style={labelSuccessStyle}>{fieldTitle}</Label>;
+        }
     };
 
     return (
@@ -141,10 +145,7 @@ const TextInput = props => {
             // Vanilla CSS, join 2 classes
             // className="container classA classB"
         >
-            {valid && (
-                // <Label style={labelSuccessStyle} color="green">
-                <Label style={labelSuccessStyle}>{fieldTitle}</Label>
-            )}
+            {renderTitle(valid)};
             <input
                 {...input}
                 style={{ ...inputStyle, ...addInputStyle }}
@@ -168,6 +169,13 @@ const TextInput = props => {
         </Form.Field>
     );
 };
+
+/*
+{valid && (
+    // <Label style={labelSuccessStyle} color="green">
+    <Label style={labelSuccessStyle}>{fieldTitle}</Label>
+)}
+*/
 
 TextInput.defaultProps = {
     // title: "Valid",

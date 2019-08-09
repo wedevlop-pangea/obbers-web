@@ -2,7 +2,7 @@
 
 /**
  * Documentation
- * BirthYear
+ * PhoneCountryCode
  *
  * Render Label ? BOOL
  * Label Position, top, right, bottom, left
@@ -45,22 +45,12 @@ const labelSuccessStyle = {
 };
 
 const months = [
-    { key: "january", text: "January", value: "01" },
-    { key: "february", text: "February", value: "02" },
-    { key: "march", text: "March", value: "03" },
-    { key: "april", text: "April", value: "04" },
-    { key: "may", text: "May", value: "05" },
-    { key: "june", text: "June", value: "06" },
-    { key: "july", text: "July", value: "07" },
-    { key: "august", text: "August", value: "08" },
-    { key: "september", text: "September", value: "09" },
-    { key: "october", text: "October", value: "10" },
-    { key: "november", text: "November", value: "11" },
-    { key: "december", text: "December", value: "12" },
+    { key: "us", text: "United States +1", value: 1 },
+    { key: "mexico", text: "Mexico +52", value: 52 },
 ];
 
-// const BirthYear = props => {
-class BirthYear extends Component {
+// const PhoneCountryCode = props => {
+class PhoneCountryCode extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,26 +60,23 @@ class BirthYear extends Component {
         };
     }
 
-    getDate = () => {
-        if (
-            this.state.month !== "" &&
-            this.state.day !== "" &&
-            this.state.year !== ""
-        ) {
-            return `${this.state.month}/${this.state.day}/${this.state.year}`;
-        } else {
-            return "";
-        }
-    };
+    // getDate = () => {
+    //     if (
+    //         this.state.month !== "" &&
+    //         this.state.day !== "" &&
+    //         this.state.year !== ""
+    //     ) {
+    //         return `${this.state.month}/${this.state.day}/${this.state.year}`;
+    //     } else {
+    //         return "";
+    //     }
+    // };
 
     handleOnSelectChange = data => {
         let selectName = data.name;
         let selectValue = data.value;
 
-        console.log("handleOnSelectChange");
-        console.log("selectName");
-        console.log(selectName);
-        console.log("selectValue");
+        console.log("handleOnSelectChange - phoneCountryCode");
         console.log(selectValue);
 
         this.setState({ month: selectValue });
@@ -111,32 +98,19 @@ class BirthYear extends Component {
         // if (inputName === "year" && inputValue < 1900) return;
         // if (inputName === "year" && inputValue > 2010) return;
 
-        // if (inputName === "day") {
-        //     console.log("DAY changed");
-        //     this.setState({ day: inputValue });
-        // }
-        //
-        // if (inputName === "year") {
-        //     console.log("YEAR changed");
-        //     this.setState({ year: inputValue });
-        // }
-
-        if (
-            isNaN(inputValue) !== true &&
-            inputValue.toString() !== "0" &&
-            inputValue.toString() !== "e" &&
-            inputValue.toString() !== "-" &&
-            inputValue.toString().length < 5 &&
-            inputValue < 2010
-        ) {
-            if (inputValue.toString().length === 1 && inputValue > 2) return;
-            if (inputValue.toString().length === 2 && inputValue < 19) return;
-            if (inputValue.toString().length === 2 && inputValue > 20) return;
-            if (inputValue.toString().length === 3 && inputValue > 201) return;
-            this.setState({
-                [e.target.name]: e.target.value,
-            });
+        if (inputName === "day") {
+            console.log("DAY changed");
+            this.setState({ day: inputValue });
         }
+
+        if (inputName === "year") {
+            console.log("YEAR changed");
+            this.setState({ year: inputValue });
+        }
+
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
     };
 
     renderTitle = isFieldValid => {
@@ -159,13 +133,14 @@ class BirthYear extends Component {
 
     render() {
         console.log("this.state.date");
-        console.log(`${this.state.month}/${this.state.day}/${this.state.year}`);
+        console.log(this.state.date);
+        // console.log(`${this.state.month}/${this.state.day}/${this.state.year}`);
 
         const {
             input,
             width,
             type,
-            monthPlaceholder,
+            placeholder,
             options,
             multiple,
             dayPlaceholder,
@@ -180,61 +155,55 @@ class BirthYear extends Component {
         const { title, showTitleOnFormValid } = this.props;
 
         const containerStyle = {
-            backgroundColor: backgroundColor,
-            //
-            // width: "100px",
-            borderStyle: "none",
-            // border: "20px",
-            // display: "flex",
-            // flexDirection: "row",
-            // justifyContent: "center",
-            //
+            // backgroundColor: backgroundColor,
+            // //
+            // // width: "100px",
+            // borderStyle: "none",
+            // // border: "20px",
+            // // display: "flex",
+            // // flexDirection: "row",
+            // // justifyContent: "center",
+            // //
             // borderColor: "green",
             // borderWidth: "2px",
             // borderStyle: "solid",
             // borderRadius: "0px",
-
+            //
             // boxSizing: "borderBox",
         };
 
         const inputStyle = {
             backgroundColor: backgroundColor,
+            // backgroundColor: "green",
 
-            color: "#3A4040",
-            placeholderTextColor: "red",
-            borderColor: "rgba(255, 255, 255, 0.750)",
-            // borderTopColor: "rgba(255, 255, 255, 0.0)",
-            // borderRightColor: "rgba(255, 255, 255, 0.0)",
-            // borderBottomColor: "rgba(255, 255, 255, 0.0)",
-            // borderLeftColor: "rgba(255, 255, 255, 0.0)",
-            // borderWidth: "2px",
-            // borderStyle: "solid",
-            // borderRadius: "0px",
-            // borderTopRadius
-            // borderTopLeftRadius
-
-            // borderTop: "0px",
-            // borderRight: "0px",
-            // borderLeft: "0px",
-
-            // height: "20px !important",
-            width: "125px",
-            fontSize: "20px",
-            fontWeight: "bold",
-
-            // borderColor: "orange",
-            // borderWidth: "2px",
-            // borderStyle: "solid",
-            // borderRadius: "0px",
-
-            // maxWidth: "30px",
-            //
+            // color: "#3A4040",
+            // placeholderTextColor: "red",
+            // borderColor: "rgba(255, 255, 255, 0.750)",
             borderTopColor: "rgba(255, 255, 255, 0.0)",
             borderRightColor: "rgba(255, 255, 255, 0.0)",
+            // // borderBottomColor: "rgba(255, 255, 255, 0.0)",
             borderLeftColor: "rgba(255, 255, 255, 0.0)",
+            // borderWidth: "2px",
+            // borderStyle: "solid",
+            // borderRadius: "0px",
+            // // borderTopRadius
+            // // borderTopLeftRadius
+            //
+            // // borderTop: "0px",
+            // // borderRight: "0px",
+            // // borderLeft: "0px",
+            //
+            // height: "20px !important",
+            // width: "100px !important",
+            fontSize: "18px",
+            fontWeight: "bold",
+            //
             borderBottomColor: "rgba(255, 255, 255, 0.750)",
             borderWidth: "2px",
             borderStyle: "solid",
+            // borderRadius: "0px",
+            //
+            // maxWidth: "10px !important",
         };
 
         const labelStyle = {
@@ -283,20 +252,18 @@ class BirthYear extends Component {
                         width: "100%",
                     }}
                 >
-                    <input
-                        {...input}
+                    <Select
+                        name="phoneCountryCode"
                         style={{ ...inputStyle, ...addInputStyle }}
-                        placeholder={yearPlaceholder}
-                        name="year"
-                        type="number"
                         // value={input.value || null}
-                        value={this.state.year}
-                        // minLength="4"
-                        // maxLength={4}
-                        // min="1900"
-                        // max="2010"
+                        value={this.state.month}
                         // onChange={(e, data) => input.onChange(data.value)}
-                        onChange={this.handleOnInputChange}
+                        // onChange={(e, data) => console.log(data)}
+                        // onChange={(e, data) => this.setState({ [data.name]: data.value }) }
+                        onChange={(e, data) => this.handleOnSelectChange(data)}
+                        placeholder={placeholder}
+                        options={options}
+                        multiple={multiple}
                         // className={[cssModules.container]}
                         // CSS Modules, join 2 classes
                         // className={[cssModules.classA, cssModules.classB].join(" ")}
@@ -306,7 +273,7 @@ class BirthYear extends Component {
                         // className="container classA classB"
                     >
                         {children}
-                    </input>
+                    </Select>
                 </div>
                 {touched && error && (
                     <Label style={labelStyle} color="#e74c3c">
@@ -318,8 +285,8 @@ class BirthYear extends Component {
     }
 }
 
-BirthYear.defaultProps = {
-    monthPlaceholder: "Month",
+PhoneCountryCode.defaultProps = {
+    placeholder: "Country Code",
     options: months,
     multiple: false,
     dayPlaceholder: "Day",
@@ -329,4 +296,4 @@ BirthYear.defaultProps = {
     addInputStyle: {},
 };
 
-export default BirthYear;
+export default PhoneCountryCode;

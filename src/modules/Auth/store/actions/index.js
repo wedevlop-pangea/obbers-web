@@ -85,6 +85,12 @@ export const firebaseSignUpEmployee = employee => {
                 displayName: displayName,
             });
 
+            /*
+                isPhoneConfirmed
+                isEmailConfirmed
+                isRegistrationComplete
+            */
+
             // This is the object saved to the Collection at the Firestore Database
             let newUser = {
                 displayName: displayName,
